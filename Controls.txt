@@ -1,0 +1,8 @@
+Joysticks - make the drive go
+Right Bumber - Coral intake - Move elevator to preset position rotate the angler to preset angle and start take
+Left Bumber - Algae intake - Move elevator to preset position rotate the angler to preset angle and start take
+Right Trigger - Coral outtake - spin motor to shoot out the coral (checkmark)
+Left Trigger - Algae outtake - spin motor to shoot out algae (checkmark)
+Triangle Button - Depending on the mode it can either Set height to get algae or set height to score coral (half check mark)
+Circle Button - Change the mode Algae to Coral and Coral to Algae (half checkmark)
+If on L2 or L3 on coral when mode switched to Algae mode go to Top Algae i guesssssssssss
