@@ -15,13 +15,23 @@ import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.sysid.SysIdRoutine.Direction;
 
+import frc.robot.commands.AlgaeIntakeCommand;
+import frc.robot.commands.CoralIntakeCommand;
+import frc.robot.commands.ChangeElevatorCommand;
+
 import frc.robot.generated.TunerConstants;
 import frc.robot.subsystems.CommandSwerveDrivetrain;
+import frc.robot.subsystems.ElevatorSubsystem;
+import frc.robot.subsystems.IntakeSubsystem;
 
 public class RobotContainer {
     private static Mode curMode = Mode.CORALMODE;
+    private static IntakeSubsystem m_IntakeSubsystem = new IntakeSubsystem();
+    private static ElevatorSubsystem m_ElevatorSubsystem = new ElevatorSubsystem();
+    
     private double MaxSpeed = TunerConstants.kSpeedAt12Volts.in(MetersPerSecond); // kSpeedAt12Volts desired top speed
-    private double MaxAngularRate = RotationsPerSecond.of(0.75).in(RadiansPerSecond); // 3/4 of a rotation per second max angular velocity
+    private double MaxAngularRate = RotationsPerSecond.of(0.75).in(RadiansPerSecond); // 3/4 of a rotation per second
+                                                                                      // max angular velocity
 
     /* Setting up bindings for necessary control of the swerve drive platform */
     private final SwerveRequest.FieldCentric drive = new SwerveRequest.FieldCentric()
@@ -44,18 +54,18 @@ public class RobotContainer {
         // Note that X is defined as forward according to WPILib convention,
         // and Y is defined as to the left according to WPILib convention.
         drivetrain.setDefaultCommand(
-            // Drivetrain will execute this command periodically
-            drivetrain.applyRequest(() ->
-                drive.withVelocityX(-joystick.getLeftY() * MaxSpeed) // Drive forward with negative Y (forward)
-                    .withVelocityY(-joystick.getLeftX() * MaxSpeed) // Drive left with negative X (left)
-                    .withRotationalRate(-joystick.getRightX() * MaxAngularRate) // Drive counterclockwise with negative X (left)
-            )
-        );
+                // Drivetrain will execute this command periodically
+                drivetrain.applyRequest(() -> drive.withVelocityX(-joystick.getLeftY() * MaxSpeed) // Drive forward with
+                                                                                                   // negative Y
+                                                                                                   // (forward)
+                        .withVelocityY(-joystick.getLeftX() * MaxSpeed) // Drive left with negative X (left)
+                        .withRotationalRate(-joystick.getRightX() * MaxAngularRate) // Drive counterclockwise with
+                                                                                    // negative X (left)
+                ));
 
         joystick.a().whileTrue(drivetrain.applyRequest(() -> brake));
-        joystick.b().whileTrue(drivetrain.applyRequest(() ->
-            point.withModuleDirection(new Rotation2d(-joystick.getLeftY(), -joystick.getLeftX()))
-        ));
+        joystick.b().whileTrue(drivetrain.applyRequest(
+                () -> point.withModuleDirection(new Rotation2d(-joystick.getLeftY(), -joystick.getLeftX()))));
 
         // Run SysId routines when holding back/start and X/Y.
         // Note that each routine should be run exactly once in a single log.
@@ -70,14 +80,27 @@ public class RobotContainer {
         drivetrain.registerTelemetry(logger::telemeterize);
     }
 
+    public void configureButtons() {
+        joystick.leftBumper().whileTrue(new AlgaeIntakeCommand(m_IntakeSubsystem));
+        joystick.b().onFalse(m_ElevatorSubsystem.switchModeCommand());
+        joystick.leftTrigger().whileTrue(m_IntakeSubsystem.algeaOutakeCommand());
+        joystick.rightTrigger().whileTrue(m_IntakeSubsystem.coralOutakeCommand());
+        joystick.y().onFalse(new ChangeElevatorCommand(m_IntakeSubsystem, m_ElevatorSubsystem)); // this could
+                                                                                                           // potentially
+                                                                                                           // maybe be a
+                                                                                                           // problem
+        joystick.rightBumper().whileTrue(new CoralIntakeCommand(m_IntakeSubsystem));
+    }
+
     public Command getAutonomousCommand() {
         return Commands.print("No autonomous command configured");
     }
 
-      public static Mode getMode(){
+    public static Mode getMode() {
         return curMode;
-      }
-      public static void setMode(Mode mode){
+    }
+
+    public static void setMode(Mode mode) {
         curMode = mode;
-      }
+    }
 }
