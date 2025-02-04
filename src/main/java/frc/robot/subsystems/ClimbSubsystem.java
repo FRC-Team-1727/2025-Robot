@@ -7,7 +7,7 @@ import com.revrobotics.spark.config.SparkBaseConfig.IdleMode;
 import com.revrobotics.spark.config.SparkFlexConfig;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import frc.robot.Constants.ElevatorConstants;
+import frc.robot.constants.OtherConstants.ElevatorConstants;
 
 public class ClimbSubsystem extends SubsystemBase{
         // private SparkFlex elevator = new SparkFlex(ElevatorConstants.kElevatorID, MotorType.kBrushless);

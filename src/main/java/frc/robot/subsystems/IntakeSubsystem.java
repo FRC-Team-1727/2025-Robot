@@ -3,6 +3,8 @@ package frc.robot.subsystems;
 import com.revrobotics.spark.SparkBase.ControlType;
 import com.revrobotics.spark.SparkBase.PersistMode;
 import com.revrobotics.spark.SparkLowLevel.MotorType;
+import com.ctre.phoenix6.configs.Slot0Configs;
+import com.ctre.phoenix6.hardware.TalonFX;
 import com.revrobotics.spark.SparkFlex;
 import com.revrobotics.spark.config.SparkFlexConfig;
 import com.revrobotics.spark.config.ClosedLoopConfig.FeedbackSensor;
@@ -10,41 +12,35 @@ import com.revrobotics.spark.config.SparkBaseConfig.IdleMode;
 
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import frc.robot.Constants.IntakeConstants;
+import frc.robot.constants.OtherConstants.ElevatorConstants;
+import frc.robot.constants.OtherConstants.IntakeConstants;
 
 public class IntakeSubsystem extends SubsystemBase {
-    private SparkFlex intake = new SparkFlex(IntakeConstants.kIntakeID, MotorType.kBrushless);
-    private SparkFlex pivot = new SparkFlex(IntakeConstants.kPivotID, MotorType.kBrushless);
+    private TalonFX intake = new TalonFX(IntakeConstants.kIntakeID);
+    private TalonFX pivot = new TalonFX(IntakeConstants.kIntakeID);
 
     public IntakeSubsystem() {
-        SparkFlexConfig config = new SparkFlexConfig();
-        config
-                .inverted(false)
-                .idleMode(IdleMode.kBrake);
-        config.closedLoop
-                .feedbackSensor(FeedbackSensor.kPrimaryEncoder)
-                .pid(IntakeConstants.kPivotP, IntakeConstants.kPivotI,
-                        IntakeConstants.kPivotD);
+        Slot0Configs configs = new Slot0Configs();
+        
+        configs.kP = IntakeConstants.kIntakeP;
+        configs.kI = IntakeConstants.kIntakeI;
+        configs.kD = IntakeConstants.kIntakeD;
 
-        pivot.configure(config, com.revrobotics.spark.SparkBase.ResetMode.kResetSafeParameters,
-                PersistMode.kPersistParameters);
+        intake.getConfigurator().apply(configs);
 
-        config
-                .inverted(false)
-                .idleMode(IdleMode.kBrake);
-        config.closedLoop
-                .feedbackSensor(FeedbackSensor.kPrimaryEncoder)
-                .pid(IntakeConstants.kIntakeP, IntakeConstants.kIntakeI, IntakeConstants.kIntakeD);
-        intake.configure(config, com.revrobotics.spark.SparkBase.ResetMode.kResetSafeParameters,
-                PersistMode.kPersistParameters);
+        configs.kP = IntakeConstants.kPivotP;
+        configs.kI = IntakeConstants.kPivotI;
+        configs.kD = IntakeConstants.kPivotD;  
+    
+        pivot.getConfigurator().apply(configs);
     }
 
     public void setSpeed(double speed) {
-        intake.set(speed); // test set reference with control type velocity
+        intake.set(speed); 
     }
 
     public void setPivot(double angle) {
-        pivot.getClosedLoopController().setReference(angle, ControlType.kPosition);
+        pivot.setPosition(angle);
     }
 
     public Command coralOutakeCommand(){

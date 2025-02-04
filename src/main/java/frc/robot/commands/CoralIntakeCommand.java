@@ -4,8 +4,7 @@
 
 package frc.robot.commands;
 
-import frc.robot.Constants.IntakeConstants;
-import frc.robot.Constants.OperatorConstants;
+import frc.robot.constants.OtherConstants.IntakeConstants;
 import frc.robot.subsystems.ExampleSubsystem;
 import frc.robot.subsystems.IntakeSubsystem;
 import edu.wpi.first.wpilibj2.command.Command;

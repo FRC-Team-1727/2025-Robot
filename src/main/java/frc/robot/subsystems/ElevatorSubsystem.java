@@ -2,6 +2,8 @@ package frc.robot.subsystems;
 
 import com.revrobotics.spark.SparkBase.ControlType;
 import com.revrobotics.spark.SparkLowLevel.MotorType;
+import com.ctre.phoenix6.configs.Slot0Configs;
+import com.ctre.phoenix6.hardware.TalonFX;
 import com.revrobotics.spark.SparkFlex;
 import com.revrobotics.spark.config.ClosedLoopConfig.FeedbackSensor;
 import com.revrobotics.spark.config.SparkBaseConfig.IdleMode;
@@ -10,28 +12,30 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Mode;
 import frc.robot.RobotContainer;
-import frc.robot.Constants.ElevatorConstants;
+import frc.robot.constants.OtherConstants.ElevatorConstants;
 
 public class ElevatorSubsystem extends SubsystemBase {
-    public static SparkFlex elevator = new SparkFlex(ElevatorConstants.kElevatorID, MotorType.kBrushless);
+    public static TalonFX elevator = new TalonFX(ElevatorConstants.kElevatorID);
     private int curCoralLevel;
     private int curAlgaeLevel;
 
     public ElevatorSubsystem() {
         curCoralLevel = 1;
         curAlgaeLevel = 1;
-        SparkFlexConfig config = new SparkFlexConfig();
+        
+        Slot0Configs configs = new Slot0Configs();
+        
+        configs.kP = ElevatorConstants.kElevatorP;
+        configs.kI = ElevatorConstants.kElevatorI;
+        configs.kD = ElevatorConstants.kElevatorD;
 
-        config
-                .inverted(false)
-                .idleMode(IdleMode.kBrake);
-        config.closedLoop
-                .feedbackSensor(FeedbackSensor.kPrimaryEncoder)
-                .pid(ElevatorConstants.kElevatorP, ElevatorConstants.kElevatorP, ElevatorConstants.kElevatorP);
+        elevator.getConfigurator().apply(configs);
+
+
     }
 
     public void setHeight(double height) {
-        elevator.getClosedLoopController().setReference(height, ControlType.kPosition);
+        elevator.setPosition(height);
     }
 
     public void incrementCoralLevel() {
@@ -75,6 +79,7 @@ public class ElevatorSubsystem extends SubsystemBase {
     public void setCoralL3() {
         setHeight(ElevatorConstants.kCoralL3Height);
     }
+    
 
     /// change the height of the elevator to the designated heights each Coral
     /// levels on the reef
@@ -92,11 +97,13 @@ public class ElevatorSubsystem extends SubsystemBase {
     public Command switchModeCommand() {
         return this.runOnce(() -> switchMode());
     }
-
     public void switchMode() {
         if (RobotContainer.getMode() == Mode.ALGAEMODE)
             RobotContainer.setMode(Mode.CORALMODE);
         else
             RobotContainer.setMode(Mode.ALGAEMODE);
+    }
+    public void periodic(){
+        System.out.println(elevator.getPosition());
     }
 }
