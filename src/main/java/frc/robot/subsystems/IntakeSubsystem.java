@@ -30,9 +30,11 @@ public class IntakeSubsystem extends SubsystemBase {
 
         configs.kP = IntakeConstants.kPivotP;
         configs.kI = IntakeConstants.kPivotI;
-        configs.kD = IntakeConstants.kPivotD;  
-    
+        configs.kD = IntakeConstants.kPivotD;
+         
+
         pivot.getConfigurator().apply(configs);
+   
     }
 
     public void setSpeed(double speed) {

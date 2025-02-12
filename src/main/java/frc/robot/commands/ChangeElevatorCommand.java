@@ -16,42 +16,77 @@ public class ChangeElevatorCommand extends Command{
     }
 
     public void initialize() {
-        if(RobotContainer.getMode() == Mode.CORALMODE){
-            switch (m_ElevatorSubsystem.getCoralLevel()) {
-                case 1:
-                    m_ElevatorSubsystem.setCoralL1();
-                    break;
-                case 2:
-                    m_ElevatorSubsystem.setCoralL2();
-                    break;
-                case 3:
-                    m_ElevatorSubsystem.setCoralL3();
-                    break;
-                default:
-                    m_ElevatorSubsystem.setdefaultHeight();;
-                    break;
-            }
+        // if(RobotContainer.getMode() == Mode.CORALMODE){
+        //     switch (m_ElevatorSubsystem.getCoralLevel()) {
+        //         case 1:
+        //             m_ElevatorSubsystem.setCoralL1();
+        //             break;
+        //         case 2:
+        //             m_ElevatorSubsystem.setCoralL2();
+        //             break;
+        //         case 3:
+        //             m_ElevatorSubsystem.setCoralL3();
+        //             break;
+        //         default:
+        //             m_ElevatorSubsystem.setDefaultHeight();
+        //             break;
+        //     }}
             m_ElevatorSubsystem.incrementCoralLevel();
-        }else if(RobotContainer.getMode() == Mode.ALGAEMODE){
-            switch (m_ElevatorSubsystem.getAlgaeLevel()) {
-                case 1:
-                    m_ElevatorSubsystem.setAlgaeBottom();
-                    break;
-                case 2:
-                    m_ElevatorSubsystem.setAlgaeTop();
-                    break;
-                default:
-                    m_ElevatorSubsystem.setdefaultHeight();
-                    break;
-            }
-            m_ElevatorSubsystem.incrementCoralLevel();
-        }else{
-            m_ElevatorSubsystem.setdefaultHeight();
-        }
+        // }else if(RobotContainer.getMode() == Mode.ALGAEMODE){
+        //     switch (m_ElevatorSubsystem.getAlgaeLevel()) {
+        //         case 1:
+        //             m_ElevatorSubsystem.setAlgaeBottom();
+        //             break;
+        //         case 2:
+        //             m_ElevatorSubsystem.setAlgaeTop();
+        //             break;
+        //         default:
+        //             m_ElevatorSubsystem.setDefaultHeight();
+        //             break;
+        //     }
+        //     m_ElevatorSubsystem.incrementCoralLevel();
+        // }else{
+        //     m_ElevatorSubsystem.setDefaultHeight();
+        // }
     }
 
     @Override
     public void execute() {
+        if(RobotContainer.getMode() == Mode.CORALMODE){
+            switch (m_ElevatorSubsystem.getCoralLevel()) {
+                case 1:
+                    m_ElevatorSubsystem.moveZeroPosition();
+                    break;
+                case 2:
+                    m_ElevatorSubsystem.setCoralL1();
+                    break;
+                case 3:
+                    m_ElevatorSubsystem.setCoralL2();
+                    break;
+                case 4:
+                    m_ElevatorSubsystem.setCoralL3();
+                    break;
+                default:
+                    m_ElevatorSubsystem.setDefaultHeight();
+                    break;
+            }}
+        // }else if(RobotContainer.getMode() == Mode.ALGAEMODE){
+        //     switch (m_ElevatorSubsystem.getAlgaeLevel()) {
+        //         case 1:
+        //             m_ElevatorSubsystem.setAlgaeBottom();
+        //             break;
+        //         case 2:
+        //             m_ElevatorSubsystem.setAlgaeTop();
+        //             break;
+        //         default:
+        //             m_ElevatorSubsystem.setDefaultHeight();
+        //             break;
+        //     }
+        // }
+        else{
+            m_ElevatorSubsystem.setDefaultHeight();
+        }
+        
     }
 
     @Override

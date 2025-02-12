@@ -24,21 +24,31 @@ public final class OtherConstants {
   }
 
   public static class ElevatorConstants{
-    public static final int kElevatorID = 3;
-    public static final double kElevatorP = 0.1;
+    public static final int kElevatorID = 9;
+    public static final double kElevatorP = 0.05;
     public static final double kElevatorI = 0;
     public static final double kElevatorD = 0;
     public static final double kElevatorSpeed = 0;
     
-    public static final double kDefaultHeight = 1;
+    public static final double kDefaultHeight = 0;
 
     //each of the coral levels on the reef
-    public static final double kCoral1Height = 1;
-    public static final double kCoralL2Height = 2;
-    public static final double kCoralL3Height = 3;
+    public static final double kCoral1Height = -20;
+    public static final double kCoralL2Height = -30;
+    public static final double kCoralL3Height = -40;
 
     //each of the algae levels on reef
-    public static final double kTopAlgae = 2.5;
-    public static final double kBottomAlgae = 1.5;
+    public static final double kTopAlgae = -35;
+    public static final double kBottomAlgae = -25;
+    public static double kElevatorMinimumLength;
+  }
+
+  public static class ClimbConstants{
+    public static final int kClimbID = 0;
+    public static final double kClimbP = 0.1;
+    public static final double kClimbI = 0;
+    public static final double kClimbD = 0;
+    public static final double kClimbSpeed = 0;
+    public static final double kClimbAngle = 0;
   }
 }
