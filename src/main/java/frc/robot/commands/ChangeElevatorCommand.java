@@ -3,6 +3,7 @@ package frc.robot.commands;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.Mode;
 import frc.robot.RobotContainer;
+import frc.robot.constants.OtherConstants.IntakeConstants;
 import frc.robot.subsystems.ElevatorSubsystem;
 import frc.robot.subsystems.IntakeSubsystem;
 
@@ -59,12 +60,11 @@ public class ChangeElevatorCommand extends Command{
                     break;
                 case 2:
                     m_ElevatorSubsystem.setCoralL1();
+                    m_IntakeSubsystem.setPivot(IntakeConstants.kDefaultAngle);
                     break;
                 case 3:
                     m_ElevatorSubsystem.setCoralL2();
-                    break;
-                case 4:
-                    m_ElevatorSubsystem.setCoralL3();
+                    m_IntakeSubsystem.setPivot(IntakeConstants.kDefaultAngle);
                     break;
                 default:
                     m_ElevatorSubsystem.setDefaultHeight();
@@ -91,6 +91,7 @@ public class ChangeElevatorCommand extends Command{
 
     @Override
     public void end(boolean interrupted) {
+        m_IntakeSubsystem.setPivot(0);
     }
 
     @Override

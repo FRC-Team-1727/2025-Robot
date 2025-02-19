@@ -9,11 +9,11 @@ import frc.robot.subsystems.ExampleSubsystem;
 import frc.robot.subsystems.IntakeSubsystem;
 import edu.wpi.first.wpilibj2.command.Command;
 
-public class CoralIntakeCommand extends Command {
+public class AlgaeOuttakeCommand extends Command {
 
   private final IntakeSubsystem m_IntakeSubsystem;
 
-  public CoralIntakeCommand(IntakeSubsystem intakeSubsystem) {
+  public AlgaeOuttakeCommand(IntakeSubsystem intakeSubsystem) {
     m_IntakeSubsystem = intakeSubsystem;
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(m_IntakeSubsystem);
@@ -28,8 +28,8 @@ public class CoralIntakeCommand extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    m_IntakeSubsystem.setSpeed(IntakeConstants.kIntakeSpeed);
-     m_IntakeSubsystem.setPivot(0);
+    m_IntakeSubsystem.setSpeed(IntakeConstants.kOutTakeSpeed);
+    // m_IntakeSubsystem.setPivot(IntakeConstants.kPivotAngle);
   }
 
   // Called once the command ends or is interrupted.
@@ -44,5 +44,4 @@ public class CoralIntakeCommand extends Command {
   public boolean isFinished() {
     return false;
   }
-
 }

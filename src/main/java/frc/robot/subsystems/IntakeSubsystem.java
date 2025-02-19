@@ -4,7 +4,12 @@ import com.revrobotics.spark.SparkBase.ControlType;
 import com.revrobotics.spark.SparkBase.PersistMode;
 import com.revrobotics.spark.SparkLowLevel.MotorType;
 import com.ctre.phoenix6.configs.Slot0Configs;
+import com.ctre.phoenix6.controls.DifferentialPositionDutyCycle;
+import com.ctre.phoenix6.controls.DifferentialVelocityDutyCycle;
+import com.ctre.phoenix6.controls.DifferentialVoltage;
+import com.ctre.phoenix6.controls.DutyCycleOut;
 import com.ctre.phoenix6.hardware.TalonFX;
+import com.ctre.phoenix6.signals.NeutralModeValue;
 import com.revrobotics.spark.SparkFlex;
 import com.revrobotics.spark.config.SparkFlexConfig;
 import com.revrobotics.spark.config.ClosedLoopConfig.FeedbackSensor;
@@ -17,7 +22,7 @@ import frc.robot.constants.OtherConstants.IntakeConstants;
 
 public class IntakeSubsystem extends SubsystemBase {
     private TalonFX intake = new TalonFX(IntakeConstants.kIntakeID);
-    private TalonFX pivot = new TalonFX(IntakeConstants.kIntakeID);
+    private TalonFX pivot = new TalonFX(IntakeConstants.kPivotID);
 
     public IntakeSubsystem() {
         Slot0Configs configs = new Slot0Configs();
@@ -28,21 +33,22 @@ public class IntakeSubsystem extends SubsystemBase {
 
         intake.getConfigurator().apply(configs);
 
+        intake.setNeutralMode(NeutralModeValue.Coast);
+
         configs.kP = IntakeConstants.kPivotP;
         configs.kI = IntakeConstants.kPivotI;
         configs.kD = IntakeConstants.kPivotD;
-         
 
         pivot.getConfigurator().apply(configs);
-   
+        pivot.setPosition(0);
     }
 
     public void setSpeed(double speed) {
-        intake.set(speed); 
+        intake.setControl(new DutyCycleOut(speed)); 
     }
 
     public void setPivot(double angle) {
-        pivot.setPosition(angle);
+        pivot.setControl(new DifferentialPositionDutyCycle(angle, 0));
     }
 
     public Command coralOutakeCommand(){
@@ -52,5 +58,18 @@ public class IntakeSubsystem extends SubsystemBase {
     public Command algeaOutakeCommand(){
         return this.runOnce(()-> setSpeed(-IntakeConstants.kOutTakeSpeed));
     }
+    public void periodic()
+    {
+        // System.out.println(pivot.getPosition());
+    }
+    public void intakeBrakeMode(){
+        intake.setNeutralMode(NeutralModeValue.Brake);
+    }
 
+    public void intakeCoastMode(){
+        intake.setNeutralMode(NeutralModeValue.Coast);
+    }
+    public TalonFX getPivot(){
+        return pivot;
+    }
 }

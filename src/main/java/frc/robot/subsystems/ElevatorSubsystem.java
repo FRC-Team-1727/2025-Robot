@@ -5,6 +5,7 @@ import com.revrobotics.spark.SparkLowLevel.MotorType;
 import com.ctre.phoenix6.configs.Slot0Configs;
 import com.ctre.phoenix6.controls.DifferentialPositionDutyCycle;
 import com.ctre.phoenix6.controls.MotionMagicDutyCycle;
+import com.ctre.phoenix6.controls.PositionDutyCycle;
 import com.ctre.phoenix6.hardware.TalonFX;
 import com.revrobotics.spark.SparkFlex;
 import com.revrobotics.spark.config.ClosedLoopConfig.FeedbackSensor;
@@ -51,7 +52,7 @@ public class ElevatorSubsystem extends SubsystemBase {
     }
 
     public void incrementCoralLevel() {
-        if (curCoralLevel < 4)
+        if (curCoralLevel < 3)
             curCoralLevel++;
         else
             curCoralLevel = 1;
@@ -62,6 +63,10 @@ public class ElevatorSubsystem extends SubsystemBase {
             curAlgaeLevel++;
         else
             curAlgaeLevel = 1;
+    }
+    public void resetLevels(){
+        curAlgaeLevel = 1;
+        curCoralLevel = 1;
     }
 
     /**
@@ -123,10 +128,10 @@ public class ElevatorSubsystem extends SubsystemBase {
             RobotContainer.setMode(Mode.ALGAEMODE);
     }
     public void periodic(){
-        System.out.println(elevator.getPosition().getValueAsDouble());
-        System.out.println(RobotContainer.getMode());
+         System.out.println(elevator.getPosition().getValueAsDouble());
+        // System.out.println(RobotContainer.getMode());
        
-        System.out.println(curCoralLevel);
+        // System.out.println(curCoralLevel);
      
     }
     public void setZeroPositon(){
