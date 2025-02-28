@@ -8,6 +8,7 @@ import static edu.wpi.first.units.Units.*;
 
 import com.ctre.phoenix6.swerve.SwerveModule.DriveRequestType;
 import com.pathplanner.lib.auto.AutoBuilder;
+import com.pathplanner.lib.auto.NamedCommands;
 import com.pathplanner.lib.commands.PathPlannerAuto;
 import com.ctre.phoenix6.swerve.SwerveRequest;
 
@@ -21,6 +22,7 @@ import edu.wpi.first.wpilibj.util.Color;
 import edu.wpi.first.wpilibj.util.Color8Bit;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
+import edu.wpi.first.wpilibj2.command.WaitCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.sysid.SysIdRoutine.Direction;
 
@@ -29,10 +31,12 @@ import frc.robot.commands.AlgaeOuttakeCommand;
 //import frc.robot.commands.ClimbCommand;
 import frc.robot.commands.CoralIntakeCommand;
 import frc.robot.commands.CoralOuttakeCommand;
+import frc.robot.commands.SwitchClimbCommand;
 import frc.robot.commands.ChangeElevatorCommand;
-
+import frc.robot.commands.ClimbResetCommand;
 import frc.robot.constants.TunerConstants;
 import frc.robot.constants.OtherConstants.ClimbConstants;
+import frc.robot.constants.OtherConstants.IntakeConstants;
 import frc.robot.subsystems.ClimbSubsystem;
 import frc.robot.subsystems.CommandSwerveDrivetrain;
 import frc.robot.subsystems.ElevatorSubsystem;
@@ -63,6 +67,8 @@ public class RobotContainer {
     public final CommandSwerveDrivetrain drivetrain = TunerConstants.createDrivetrain();
 
     public RobotContainer() {
+
+        configureNamedCommands();
 
         autoChooser = new SendableChooser<>();
         autoChooser.setDefaultOption("None", Commands.none());
@@ -98,25 +104,27 @@ public class RobotContainer {
         joystick.start().and(joystick.x()).whileTrue(drivetrain.sysIdQuasistatic(Direction.kReverse));
 
         // reset the field-centric heading on left bumper press
-        joystick.leftBumper().onTrue(drivetrain.runOnce(() -> drivetrain.seedFieldCentric()));
+        joystick.x().onTrue(drivetrain.runOnce(() -> drivetrain.seedFieldCentric()));
 
         drivetrain.registerTelemetry(logger::telemeterize);
         configureButtons();
+
     }
 
     public void configureButtons() {
-        // joystick.rightBumper().and(() -> curMode == Mode.ALGAEMODE).whileTrue(new AlgaeIntakeCommand(m_IntakeSubsystem));
-        joystick.rightBumper().and(() -> curMode == Mode.CORALMODE).whileTrue(new CoralIntakeCommand(m_IntakeSubsystem));
+        System.out.println(curMode);
+        joystick.rightBumper().and(() -> curMode == Mode.ALGAEMODE).whileTrue(new AlgaeIntakeCommand(m_IntakeSubsystem));
+        joystick.rightBumper().and(() -> curMode == Mode.CORALMODE).whileTrue(new CoralIntakeCommand(m_IntakeSubsystem, m_ElevatorSubsystem));
 
-        // joystick.rightTrigger().and(() -> curMode == Mode.ALGAEMODE).whileTrue(new AlgaeOuttakeCommand(m_IntakeSubsystem));
+        joystick.rightTrigger().and(() -> curMode == Mode.ALGAEMODE).whileTrue(new AlgaeOuttakeCommand(m_IntakeSubsystem));
         joystick.rightTrigger().and(() -> curMode == Mode.CORALMODE).whileTrue(new CoralOuttakeCommand(m_IntakeSubsystem, m_ElevatorSubsystem));
 
-        joystick.y().onFalse(m_ClimbSubsystem.climbUpCommand());
-        joystick.a().onFalse(m_ClimbSubsystem.climbDownCommand());
+        joystick.y().onTrue(new SwitchClimbCommand(m_ClimbSubsystem));
 
-        
+        joystick.b().onTrue(m_ElevatorSubsystem.switchModeCommand());
+        joystick.a().onTrue(new ClimbResetCommand(m_ClimbSubsystem));
         joystick.leftBumper().whileTrue(new ChangeElevatorCommand(m_IntakeSubsystem, m_ElevatorSubsystem));
-        joystick.leftTrigger().onFalse(m_ElevatorSubsystem.setZeroPositionCommand());
+//        joystick.leftTrigger().onFalse(m_ElevatorSubsystem.setZeroPositionCommand());
 
 
 
@@ -132,6 +140,17 @@ public class RobotContainer {
                                                                                                            // maybe be a
                                                                                                            // problem
       //  joystick.rightBumper().whileTrue(new ClimbCommand(m_IntakeSubsystem));
+    }
+    public void configureNamedCommands(){
+        NamedCommands.registerCommand("Score L2", 
+                m_ElevatorSubsystem.setCoralHeightCommand(2)
+                .alongWith(m_IntakeSubsystem.setPivotCommand())
+                .andThen(new WaitCommand(1))
+                .andThen(m_IntakeSubsystem.runOnce(() -> m_IntakeSubsystem.setSpeed(IntakeConstants.kCoralOutTakeSpeed
+                ))));
+        NamedCommands.registerCommand("Coral Intake", new CoralIntakeCommand(m_IntakeSubsystem, m_ElevatorSubsystem));
+
+        
     }
 
     public Command getAutonomousCommand() {

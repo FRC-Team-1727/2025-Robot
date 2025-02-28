@@ -27,8 +27,8 @@ private static TalonFX climb = new TalonFX(ClimbConstants.kClimbID);
         Slot0Configs configs = new Slot0Configs();
         
         configs.kP = ClimbConstants.kClimbP;
-        configs.kI = ClimbConstants.kClimbP;
-        configs.kD = ClimbConstants.kClimbP;
+        configs.kI = ClimbConstants.kClimbI;
+        configs.kD = ClimbConstants.kClimbD;
 
         climb.getConfigurator().apply(configs);
         climb.setNeutralMode(NeutralModeValue.Brake);
@@ -41,9 +41,6 @@ private static TalonFX climb = new TalonFX(ClimbConstants.kClimbID);
         curAngle = angle;
         climb.setNeutralMode(NeutralModeValue.Coast);
         climb.setControl(new DifferentialPositionDutyCycle(curAngle, 0));
-        if(climb.getPosition().getValueAsDouble() - angle < 0.5){
-            climb.setNeutralMode(NeutralModeValue.Brake);
-        }
     }
     public void climbUp(){
         double decreaseValue = 1;
@@ -73,7 +70,31 @@ private static TalonFX climb = new TalonFX(ClimbConstants.kClimbID);
         return this.runOnce(()-> setClimb(118.596));
     }
     public void periodic(){
-        // System.out.println(climb.getPosition().getValueAsDouble());
+        //  System.out.println(climb.getPosition().getValueAsDouble());
+    }
+    public void switchClimbStatus(){
+        deployed = !deployed; //changes the status of the climb from deployed and retracted
+    }
+   
+    public boolean getClimbStatus(){
+        return deployed;
+    }
+
+    // public void setClimbStatus(boolean b) {
+    //     deployed = b;
+    // }
+    public boolean atPosition()
+    {
+        if(deployed){
+            return Math.abs(climb.getPosition().getValueAsDouble() - ClimbConstants.kUpClimbAngle) < 1;
+        }else if(!deployed){
+            return Math.abs(climb.getPosition().getValueAsDouble() - ClimbConstants.kDownClimbAngle) < 1;
+        }
+        return false;
+    }
+    public void setBrakeMode(){
+        climb.setNeutralMode(NeutralModeValue.Brake);
+        System.out.println(climb.getPosition().getValueAsDouble() + " - BRAKED");
     }
     //118.596
 }

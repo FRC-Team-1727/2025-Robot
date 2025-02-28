@@ -32,21 +32,30 @@ public class CoralOuttakeCommand extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    m_IntakeSubsystem.setPivot(IntakeConstants.kScoringAngle);
-    if (m_IntakeSubsystem.getPivot().getPosition().getValueAsDouble() < -9.3) {
-      m_IntakeSubsystem.setSpeed(IntakeConstants.kOutTakeSpeed);
-    }
+    // if (m_ElevatorSubsystem.getCoralLevel() > 3) {
+    //   m_IntakeSubsystem.setPivot(IntakeConstants.kL3ScoringAngle);
+    //   if (m_IntakeSubsystem.getPivot().getPosition().getValueAsDouble() > -4) {
+    //     m_IntakeSubsystem.setSpeed(IntakeConstants.kCoralOutTakeSpeed);
+    //   }
+    // } else {
+      m_IntakeSubsystem.setSpeed(IntakeConstants.kCoralOutTakeSpeed);
+    //}
+
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
+
     m_IntakeSubsystem.setSpeed(0);
     m_IntakeSubsystem.intakeBrakeMode();
-    m_IntakeSubsystem.setPivot(0);
-    m_ElevatorSubsystem.moveZeroPosition();
-    m_ElevatorSubsystem.resetLevels();
     
+    m_ElevatorSubsystem.moveZeroPosition();
+    if(ElevatorSubsystem.getElevatorHeight() > -40) {
+      m_IntakeSubsystem.setPivot(0);
+    }
+    m_ElevatorSubsystem.resetLevels();
+
   }
 
   // Returns true when the command should end.

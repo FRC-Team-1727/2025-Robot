@@ -4,44 +4,47 @@
 
 package frc.robot.commands;
 
+import frc.robot.constants.OtherConstants.ClimbConstants;
 import frc.robot.constants.OtherConstants.IntakeConstants;
-import frc.robot.subsystems.ExampleSubsystem;
+import frc.robot.subsystems.ClimbSubsystem;
+import frc.robot.subsystems.ElevatorSubsystem;
 import frc.robot.subsystems.IntakeSubsystem;
 import edu.wpi.first.wpilibj2.command.Command;
 
-public class AlgaeOuttakeCommand extends Command {
+public class SwitchClimbCommand extends Command {
+  private final ClimbSubsystem m_climbSubsystem;
 
-  private final IntakeSubsystem m_IntakeSubsystem;
-
-  public AlgaeOuttakeCommand(IntakeSubsystem intakeSubsystem) {
-    m_IntakeSubsystem = intakeSubsystem;
-    // Use addRequirements() here to declare subsystem dependencies.
-    addRequirements(m_IntakeSubsystem);
+  public SwitchClimbCommand(ClimbSubsystem climbSubsystem) {
+    m_climbSubsystem = climbSubsystem;
+    addRequirements(m_climbSubsystem);
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    m_IntakeSubsystem.intakeCoastMode();
+    m_climbSubsystem.switchClimbStatus();
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    m_IntakeSubsystem.setSpeed(1);
-    // m_IntakeSubsystem.setPivot(IntakeConstants.kPivotAngle);
+    if(m_climbSubsystem.getClimbStatus() == false){
+      m_climbSubsystem.setClimb(ClimbConstants.kDownClimbAngle);
+    }else{
+      m_climbSubsystem.setClimb(ClimbConstants.kUpClimbAngle);
+    }
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    m_IntakeSubsystem.setSpeed(IntakeConstants.kPassiveIntakeSpeed);
-    m_IntakeSubsystem.intakeBrakeMode();
+    m_climbSubsystem.setBrakeMode();
+    System.out.println("ended RAAERE");
   }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return false;
+    return m_climbSubsystem.atPosition();
   }
 }

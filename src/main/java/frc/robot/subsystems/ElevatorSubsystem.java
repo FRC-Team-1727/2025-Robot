@@ -28,9 +28,8 @@ import frc.robot.constants.OtherConstants.ElevatorConstants;
 
 public class ElevatorSubsystem extends SubsystemBase {
     public static TalonFX elevator = new TalonFX(ElevatorConstants.kElevatorID);
-    private int curCoralLevel;
-    private int curAlgaeLevel;
-    private static double zeroPositon;
+    public static int curCoralLevel;
+    public static int curAlgaeLevel;
 
     public ElevatorSubsystem() {
         curCoralLevel = 0;
@@ -52,18 +51,20 @@ public class ElevatorSubsystem extends SubsystemBase {
     }
 
     public void incrementCoralLevel() {
-        if (curCoralLevel < 3)
+        if (curCoralLevel < 4)
             curCoralLevel++;
         else
             curCoralLevel = 1;
     }
 
     public void incrementAlgaeLevel() {
-        if (curAlgaeLevel < 2)
+        if (curAlgaeLevel < 3)
             curAlgaeLevel++;
         else
             curAlgaeLevel = 1;
     }
+
+   
     public void resetLevels(){
         curAlgaeLevel = 1;
         curCoralLevel = 1;
@@ -86,7 +87,7 @@ public class ElevatorSubsystem extends SubsystemBase {
     /// change the height of the elevator to the designated heights each Coral
     /// levels on the reef
     public void moveZeroPosition(){
-        setHeight(ElevatorSubsystem.zeroPositon);
+        setHeight(0);
     }
     public void setCoralL1() {
         setHeight(ElevatorConstants.kCoral1Height);
@@ -127,17 +128,35 @@ public class ElevatorSubsystem extends SubsystemBase {
         else
             RobotContainer.setMode(Mode.ALGAEMODE);
     }
+
     public void periodic(){
-         System.out.println(elevator.getPosition().getValueAsDouble());
+        System.out.println("Elevator height : " + elevator.getPosition().getValueAsDouble());
         // System.out.println(RobotContainer.getMode());
        
         // System.out.println(curCoralLevel);
      
+    }
+
+    public static double getElevatorHeight() {
+        return elevator.getPosition().getValueAsDouble();
     }
     public void setZeroPositon(){
         elevator.setPosition(0);
     }
     public Command setZeroPositionCommand(){
         return runOnce(() -> setZeroPositon()).onlyIf(() -> elevator.getPosition().getValueAsDouble() < 0.075);
+    }
+    public Command setCoralHeightCommand(int height){
+        if(height == 0){
+            return runOnce(() -> moveZeroPosition());
+        }else if(height == 1){
+            return runOnce(() -> setCoralL1());
+
+        }else if(height == 2){
+            return runOnce(() -> setCoralL2());
+        }else if(height == 3){
+            return runOnce(() -> setCoralL3());
+        }
+        return runOnce(() -> moveZeroPosition());
     }
 }

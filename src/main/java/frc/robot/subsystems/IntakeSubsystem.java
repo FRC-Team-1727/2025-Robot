@@ -50,17 +50,20 @@ public class IntakeSubsystem extends SubsystemBase {
     public void setPivot(double angle) {
         pivot.setControl(new DifferentialPositionDutyCycle(angle, 0));
     }
+    public Command setPivotCommand(){
+        return runOnce(() -> setPivot(IntakeConstants.kScoringAngle));
+    }
 
     public Command coralOutakeCommand(){
-        return this.runOnce(()-> setSpeed(IntakeConstants.kOutTakeSpeed));
+        return this.runOnce(()-> setSpeed(IntakeConstants.kCoralOutTakeSpeed));
     }
 
     public Command algeaOutakeCommand(){
-        return this.runOnce(()-> setSpeed(-IntakeConstants.kOutTakeSpeed));
+        return this.runOnce(()-> setSpeed(-IntakeConstants.kAlgaeOutTakeSpeed));
     }
     public void periodic()
     {
-        // System.out.println(pivot.getPosition());
+        System.out.println("Pivot angle : " + pivot.getPosition().getValueAsDouble());
     }
     public void intakeBrakeMode(){
         intake.setNeutralMode(NeutralModeValue.Brake);
@@ -71,5 +74,8 @@ public class IntakeSubsystem extends SubsystemBase {
     }
     public TalonFX getPivot(){
         return pivot;
+    }
+    public double getPivotVelocity(){
+        return pivot.getVelocity().getValueAsDouble();
     }
 }

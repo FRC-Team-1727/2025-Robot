@@ -12,17 +12,26 @@ public final class OtherConstants {
   public static class IntakeConstants{
     public static final int kPivotID = 11;
     public static final int kIntakeID = 12;
+    
     public static final double kPivotP = 0.1;
     public static final double kPivotI = 0;
     public static final double kPivotD = 0;
     public static final double kIntakeP = 0.2;
     public static final double kIntakeI = 0;
     public static final double kIntakeD = 0;
-    public static final double kScoringAngle = -9.879;
-    public static final double kDefaultAngle = -4.65;
-    public static final double kIntakeSpeed = -.2;
-    public static final double kOutTakeSpeed = .2;
+
+    public static final double kScoringAngle = -12;
+    public static final double kL3ScoringAngle = -5;
+    public static final double kAlgaeGroundIntakeAngle = -32;
+    public static final double kAlgaeHighIntakeAngle = -25;
+
+    public static final double kCoralIntakeSpeed = -.2;
+
+    public static final double kCoralOutTakeSpeed = .2;
     public static final double kPassiveIntakeSpeed = -0.1;
+
+    public static final double kAlgaeIntakeSpeed = -.2;
+    public static final double kAlgaeOutTakeSpeed = .5;
   }
 
   public static class ElevatorConstants{
@@ -37,20 +46,21 @@ public final class OtherConstants {
     //each of the coral levels on the reef
     public static final double kCoral1Height = -15;
     public static final double kCoralL2Height = -45;
-    public static final double kCoralL3Height = -45;
-// true value: -79.880859375
+    public static final double kCoralL3Height = -79.5;
+    // true value: -79.880859375
     //each of the algae levels on reef
-    public static final double kTopAlgae = -35;
-    public static final double kBottomAlgae = -25;
-    public static double kElevatorMinimumLength;
+    public static final double kTopAlgae = -55;
+    public static final double kBottomAlgae = -20.75;
   }
 
   public static class ClimbConstants{
     public static final int kClimbID = 10;
-    public static final double kClimbP = 0.05;
-    public static final double kClimbI = 0;
-    public static final double kClimbD = 0;
+    public static final double kClimbP = 0.175;
+    public static final double kClimbI = 0.00;
+    public static final double kClimbD = 0.00;
     public static final double kClimbSpeed = 0;
-    public static final double kClimbAngle = 0;
+    public static final double kUpClimbAngle = 118.596;
+    public static final double kDownClimbAngle = 37.5;
+
   }
 }
