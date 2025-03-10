@@ -5,6 +5,7 @@
 package frc.robot.commands;
 
 import frc.robot.constants.OtherConstants.IntakeConstants;
+import frc.robot.subsystems.ElevatorSubsystem;
 import frc.robot.subsystems.ExampleSubsystem;
 import frc.robot.subsystems.IntakeSubsystem;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -12,24 +13,35 @@ import edu.wpi.first.wpilibj2.command.Command;
 public class AlgaeOuttakeCommand extends Command {
 
   private final IntakeSubsystem m_IntakeSubsystem;
+  private final ElevatorSubsystem m_ElevatorSubsystem;
 
-  public AlgaeOuttakeCommand(IntakeSubsystem intakeSubsystem) {
+  public AlgaeOuttakeCommand(IntakeSubsystem intakeSubsystem, ElevatorSubsystem elevatorSubsystem) {
     m_IntakeSubsystem = intakeSubsystem;
-    // Use addRequirements() here to declare subsystem dependencies.
-    addRequirements(m_IntakeSubsystem);
+    m_ElevatorSubsystem = elevatorSubsystem;
+    addRequirements(m_IntakeSubsystem, m_ElevatorSubsystem);
   }
 
-  // Called when the command is initially scheduled.
   @Override
   public void initialize() {
     m_IntakeSubsystem.intakeCoastMode();
   }
 
-  // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    m_IntakeSubsystem.setSpeed(1);
-    // m_IntakeSubsystem.setPivot(IntakeConstants.kPivotAngle);
+    switch (m_ElevatorSubsystem.getAlgaeLevel()) {
+      case 1:
+        m_IntakeSubsystem.setSpeed(IntakeConstants.kAlgaeLowOutTakeSpeed);
+        break;
+      case 2:
+        m_IntakeSubsystem.setSpeed(IntakeConstants.kAlgaeDescoreSpeed);
+        break;
+      case 3:
+        m_IntakeSubsystem.setSpeed(IntakeConstants.kAlgaeOutTakeSpeed);
+        break;
+      default:
+        System.out.println("it didnt work");
+        break;
+    }
   }
 
   // Called once the command ends or is interrupted.

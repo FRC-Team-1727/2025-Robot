@@ -39,7 +39,6 @@ public class SwitchClimbCommand extends Command {
   @Override
   public void end(boolean interrupted) {
     m_climbSubsystem.setBrakeMode();
-    System.out.println("ended RAAERE");
   }
 
   // Returns true when the command should end.

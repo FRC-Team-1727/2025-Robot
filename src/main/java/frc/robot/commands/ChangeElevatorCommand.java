@@ -4,6 +4,7 @@ import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.Mode;
 import frc.robot.Robot;
 import frc.robot.RobotContainer;
+import frc.robot.constants.OtherConstants.ElevatorConstants;
 import frc.robot.constants.OtherConstants.IntakeConstants;
 import frc.robot.subsystems.ElevatorSubsystem;
 import frc.robot.subsystems.IntakeSubsystem;
@@ -15,6 +16,7 @@ public class ChangeElevatorCommand extends Command {
     public ChangeElevatorCommand(IntakeSubsystem intakeSubsystem, ElevatorSubsystem elevatorSubsystem) {
         m_IntakeSubsystem = intakeSubsystem;
         m_ElevatorSubsystem = elevatorSubsystem;
+        addRequirements(m_ElevatorSubsystem, m_IntakeSubsystem);
     }
 
     public void initialize() {
@@ -65,9 +67,8 @@ public class ChangeElevatorCommand extends Command {
                     m_ElevatorSubsystem.moveZeroPosition();
                     break;
                 case 2:
-                    m_IntakeSubsystem.setPivot(IntakeConstants.kScoringAngle);
+                    m_IntakeSubsystem.setPivot(IntakeConstants.kL1ScoringAngle);
                     m_ElevatorSubsystem.setCoralL1();
-                    m_IntakeSubsystem.setPivot(IntakeConstants.kScoringAngle);
                     break;
                 case 3:
                     m_IntakeSubsystem.setPivot(IntakeConstants.kScoringAngle);
@@ -84,14 +85,14 @@ public class ChangeElevatorCommand extends Command {
         } else if (RobotContainer.getMode() == Mode.ALGAEMODE) {
             switch (m_ElevatorSubsystem.getAlgaeLevel()) {
                 case 1:
-                m_ElevatorSubsystem.moveZeroPosition();
+                m_ElevatorSubsystem.setHeight(0);;
                     break;
                 case 2:
-              
+                m_IntakeSubsystem.setPivot(IntakeConstants.kAlgaeLowIntakeAngle);
                  m_ElevatorSubsystem.setAlgaeBottom();                    
                     break;
                 case 3:
-                m_IntakeSubsystem.setPivot(-30);
+                m_IntakeSubsystem.setPivot(IntakeConstants.kAlgaeHighIntakeAngle);
                 m_ElevatorSubsystem.setAlgaeTop();
                     break;
                 default:
@@ -101,7 +102,7 @@ public class ChangeElevatorCommand extends Command {
         } else {
             m_ElevatorSubsystem.setDefaultHeight();
         }
-
+        //System.out.println("command called");
     }
 
     @Override

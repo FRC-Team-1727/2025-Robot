@@ -20,18 +20,23 @@ public final class OtherConstants {
     public static final double kIntakeI = 0;
     public static final double kIntakeD = 0;
 
+    public static final double kL1ScoringAngle = -9.3;
     public static final double kScoringAngle = -12;
-    public static final double kL3ScoringAngle = -5;
-    public static final double kAlgaeGroundIntakeAngle = -32;
+    public static final double kL3ScoringAngle = -5.75;
+    public static final double kAlgaeGroundIntakeAngle = -35;
     public static final double kAlgaeHighIntakeAngle = -25;
-
+    public static final double kAlgaeLowIntakeAngle = -33;
+    public static final double kCoralIntakeAngle = -2.2;
     public static final double kCoralIntakeSpeed = -.2;
 
     public static final double kCoralOutTakeSpeed = .2;
     public static final double kPassiveIntakeSpeed = -0.1;
 
-    public static final double kAlgaeIntakeSpeed = -.2;
-    public static final double kAlgaeOutTakeSpeed = .5;
+
+    public static final double kAlgaeIntakeSpeed = -.8;
+    public static final double kAlgaeDescoreSpeed = -.45;
+    public static final double kAlgaeOutTakeSpeed = .85;
+    public static final double kAlgaeLowOutTakeSpeed = 0.45;
   }
 
   public static class ElevatorConstants{
@@ -44,13 +49,15 @@ public final class OtherConstants {
     public static final double kDefaultHeight = 0;
 
     //each of the coral levels on the reef
-    public static final double kCoral1Height = -15;
-    public static final double kCoralL2Height = -45;
-    public static final double kCoralL3Height = -79.5;
+    public static final double kCoral1Height = -10;
+    public static final double kCoralL2Height = -44;
+    public static final double kCoralL3Height = -79.7;
     // true value: -79.880859375
     //each of the algae levels on reef
-    public static final double kTopAlgae = -55;
-    public static final double kBottomAlgae = -20.75;
+    public static final double kTopAlgae = -75;
+    public static final double kBottomAlgae = -75;
+
+    public static final double kIntakeHeight = -53.1;
   }
 
   public static class ClimbConstants{
@@ -59,8 +66,12 @@ public final class OtherConstants {
     public static final double kClimbI = 0.00;
     public static final double kClimbD = 0.00;
     public static final double kClimbSpeed = 0;
-    public static final double kUpClimbAngle = 118.596;
-    public static final double kDownClimbAngle = 37.5;
+    public static final double kUpClimbAngle = 218.5;
+    public static final double kDownClimbAngle = 71;
+
+  }
+  public static class VisionConstants {
+    public static final String LIMELIGHT_NAME = "";
 
   }
 }

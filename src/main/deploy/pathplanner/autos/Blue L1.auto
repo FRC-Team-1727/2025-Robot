@@ -17,7 +17,7 @@
               {
                 "type": "path",
                 "data": {
-                  "pathName": "L2 P1"
+                  "pathName": "L1 P1"
                 }
               },
               {
@@ -33,7 +33,7 @@
                     {
                       "type": "named",
                       "data": {
-                        "name": "L2 height"
+                        "name": "L1 height"
                       }
                     }
                   ]
@@ -55,7 +55,7 @@
               {
                 "type": "path",
                 "data": {
-                  "pathName": "L2 P2"
+                  "pathName": "L1 P2"
                 }
               },
               {
@@ -65,7 +65,7 @@
                     {
                       "type": "wait",
                       "data": {
-                        "waitTime": 1.5
+                        "waitTime": 2.0
                       }
                     },
                     {
@@ -109,7 +109,7 @@
                     {
                       "type": "wait",
                       "data": {
-                        "waitTime": 1.1
+                        "waitTime": 1.35
                       }
                     },
                     {
@@ -147,7 +147,7 @@
                     {
                       "type": "wait",
                       "data": {
-                        "waitTime": 2.6
+                        "waitTime": 1.6
                       }
                     },
                     {

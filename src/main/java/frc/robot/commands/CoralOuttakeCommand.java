@@ -9,6 +9,8 @@ import frc.robot.subsystems.ElevatorSubsystem;
 import frc.robot.subsystems.ExampleSubsystem;
 
 import frc.robot.subsystems.IntakeSubsystem;
+import frc.robot.subsystems.LEDMode;
+import frc.robot.subsystems.LEDSubsystem;
 import edu.wpi.first.wpilibj2.command.Command;
 
 public class CoralOuttakeCommand extends Command {

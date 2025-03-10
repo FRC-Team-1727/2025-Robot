@@ -2,11 +2,13 @@ package frc.robot.subsystems;
 
 import com.revrobotics.spark.SparkBase.ControlType;
 import com.revrobotics.spark.SparkLowLevel.MotorType;
+import com.ctre.phoenix6.configs.CurrentLimitsConfigs;
 import com.ctre.phoenix6.configs.Slot0Configs;
 import com.ctre.phoenix6.controls.DifferentialPositionDutyCycle;
 import com.ctre.phoenix6.controls.MotionMagicDutyCycle;
 import com.ctre.phoenix6.controls.PositionDutyCycle;
 import com.ctre.phoenix6.hardware.TalonFX;
+import com.ctre.phoenix6.signals.NeutralModeValue;
 import com.revrobotics.spark.SparkFlex;
 import com.revrobotics.spark.config.ClosedLoopConfig.FeedbackSensor;
 import com.revrobotics.spark.config.SparkBaseConfig.IdleMode;
@@ -36,13 +38,20 @@ public class ElevatorSubsystem extends SubsystemBase {
         curAlgaeLevel = 0;
         
         Slot0Configs configs = new Slot0Configs();
-        
+        CurrentLimitsConfigs configLimit = new CurrentLimitsConfigs();
+
+        configLimit.StatorCurrentLimit = 80;
+        configLimit.SupplyCurrentLimit = 60;
+
         configs.kP = ElevatorConstants.kElevatorP;
         configs.kI = ElevatorConstants.kElevatorI;
         configs.kD = ElevatorConstants.kElevatorD;
 
         elevator.getConfigurator().apply(configs);
         elevator.setPosition(0);
+        elevator.setNeutralMode(NeutralModeValue.Brake);
+
+        elevator.getConfigurator().apply(configLimit);
     }
 
     public void setHeight(double height) {
@@ -106,6 +115,7 @@ public class ElevatorSubsystem extends SubsystemBase {
     /// levels on the reef
     public void setAlgaeBottom(){
         setHeight(ElevatorConstants.kBottomAlgae);
+        
     }
     public void setAlgaeTop(){
         setHeight(ElevatorConstants.kTopAlgae);
@@ -123,16 +133,20 @@ public class ElevatorSubsystem extends SubsystemBase {
         return this.runOnce(() -> switchMode());
     }
     public void switchMode() {
-        if (RobotContainer.getMode() == Mode.ALGAEMODE)
+        if (RobotContainer.getMode() == Mode.ALGAEMODE){
             RobotContainer.setMode(Mode.CORALMODE);
-        else
+            curCoralLevel = 0;
+        }
+        else{
             RobotContainer.setMode(Mode.ALGAEMODE);
+            curAlgaeLevel = 0;
+        }
     }
 
     public void periodic(){
-        System.out.println("Elevator height : " + elevator.getPosition().getValueAsDouble());
+        SmartDashboard.putNumber("Elevator Height", elevator.getPosition().getValueAsDouble());
+        // System.out.println("Elevator height : " + elevator.getPosition().getValueAsDouble());
         // System.out.println(RobotContainer.getMode());
-       
         // System.out.println(curCoralLevel);
      
     }
@@ -140,23 +154,26 @@ public class ElevatorSubsystem extends SubsystemBase {
     public static double getElevatorHeight() {
         return elevator.getPosition().getValueAsDouble();
     }
-    public void setZeroPositon(){
+    public void setZeroPosition(){
         elevator.setPosition(0);
     }
     public Command setZeroPositionCommand(){
-        return runOnce(() -> setZeroPositon()).onlyIf(() -> elevator.getPosition().getValueAsDouble() < 0.075);
+        return runOnce(() -> setZeroPosition()).onlyIf(() -> elevator.getPosition().getValueAsDouble() < 0.075);
     }
     public Command setCoralHeightCommand(int height){
         if(height == 0){
             return runOnce(() -> moveZeroPosition());
         }else if(height == 1){
             return runOnce(() -> setCoralL1());
-
         }else if(height == 2){
             return runOnce(() -> setCoralL2());
         }else if(height == 3){
             return runOnce(() -> setCoralL3());
         }
         return runOnce(() -> moveZeroPosition());
+    }
+    public Command setIntakeHeightCommand()
+    {
+        return runOnce(() -> setHeight(ElevatorConstants.kIntakeHeight));
     }
 }
