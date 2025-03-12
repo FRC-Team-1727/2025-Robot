@@ -20,6 +20,7 @@ public class Robot extends TimedRobot {
 
   public Robot() {
     m_robotContainer = new RobotContainer();
+    FieldConstants.configureReefPositions(DriverStation.getAlliance().getOrDefault(DriverStation.Alliance.Blue));
   }
 
   @Override
