@@ -246,7 +246,9 @@ public class CommandSwerveDrivetrain extends TunerSwerveDrivetrain implements Su
                 m_hasAppliedOperatorPerspective = true;
             });
         }
-        SmartDashboard.putNumber("Gyro", getState().Pose.getRotation().getRotations());
+        SmartDashboard.putNumber("Gyro", getState().Pose.getRotation().getRadians());
+        SmartDashboard.putNumber("Pose X", getState().Pose.getX());
+        SmartDashboard.putNumber("Pose Y", getState().Pose.getY());
     }
 
     private void startSimThread() {

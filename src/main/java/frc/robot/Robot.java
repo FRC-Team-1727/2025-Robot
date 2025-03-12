@@ -8,10 +8,13 @@ import java.util.logging.Logger;
 
 import edu.wpi.first.util.sendable.Sendable;
 import edu.wpi.first.util.sendable.SendableBuilder;
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.TimedRobot;
+import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
+import frc.robot.constants.FieldConstants;
 
 public class Robot extends TimedRobot {
   private Command m_autonomousCommand;
@@ -20,7 +23,7 @@ public class Robot extends TimedRobot {
 
   public Robot() {
     m_robotContainer = new RobotContainer();
-    FieldConstants.configureReefPositions(DriverStation.getAlliance().getOrDefault(DriverStation.Alliance.Blue));
+    FieldConstants.configureReefPositions(DriverStation.getAlliance().orElse(DriverStation.Alliance.Blue));
   }
 
   @Override
