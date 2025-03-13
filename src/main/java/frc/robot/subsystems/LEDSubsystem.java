@@ -21,6 +21,7 @@ public class LEDSubsystem extends SubsystemBase{
     private final AddressableLEDSim sim;
     private LEDPattern pattern;
     private LEDMode mode;
+    private int animStart;
 
     public LEDSubsystem(){
         mode = LEDMode.kDefault;
@@ -31,12 +32,14 @@ public class LEDSubsystem extends SubsystemBase{
         led.setData(buffer);
         led.start();
 
+        animStart = 0;
         sim = AddressableLEDSim.createForChannel(0);
     }
     public void setMode(LEDMode mode){
         if(!(this.mode == mode)){
             this.mode = mode;
         }
+        animStart = 0;
     }
     public void periodic(){
         if(RobotContainer.getMode() == Mode.CORALMODE){
@@ -47,11 +50,12 @@ public class LEDSubsystem extends SubsystemBase{
         if(mode == LEDMode.kEmpty){
             setColor(Color.kRed);
         }else if(mode == LEDMode.kPartyTime){
-            PARTYMODE();
+            oldPartyMode();
         }else if(mode == LEDMode.kCoralMode){
-            setColor(Color.kCoral);
+            breatheColor(Color.kCoral);
         }else if(mode == LEDMode.kAlgaeMode){
-            setColor(Color.kAquamarine);
+            oldPartyMode();
+            // setColor(Color.kAquamarine);
         }
         led.setData(buffer);
     }
@@ -73,5 +77,13 @@ public class LEDSubsystem extends SubsystemBase{
         pattern = LEDPattern.rainbow(255, 128);
         pattern.scrollAtAbsoluteSpeed(InchesPerSecond.of(1), Meters.of(1/60));
         pattern.applyTo(buffer);
+    }
+    public void oldPartyMode(){
+        for(int i = 0; i < buffer.getLength(); i++){
+            int hue = animStart + (i * 180 / buffer.getLength()) % 180;
+            buffer.setHSV(i, hue, 255,255);
+        }
+        animStart += 3;
+        animStart %= 180;
     }
 }
