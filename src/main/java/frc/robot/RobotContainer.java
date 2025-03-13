@@ -6,6 +6,7 @@ package frc.robot;
 
 import static edu.wpi.first.units.Units.*;
 
+import java.util.Optional;
 import java.util.logging.Logger;
 
 import com.ctre.phoenix6.swerve.SwerveModule.DriveRequestType;
@@ -34,11 +35,13 @@ import frc.robot.commands.AlgaeOuttakeCommand;
 import frc.robot.commands.AutoAlignCommand;
 import frc.robot.commands.AutoCoralIntakeCommand;
 import frc.robot.commands.AutoPassiveIntakeCommand;
+import frc.robot.commands.BasicAutoAlign;
 import frc.robot.commands.CoralIntakeCommand;
 import frc.robot.commands.CoralOuttakeCommand;
 import frc.robot.commands.SwitchClimbCommand;
 import frc.robot.commands.ChangeElevatorCommand;
 import frc.robot.commands.ClimbResetCommand;
+import frc.robot.constants.LeftOrRight;
 import frc.robot.constants.TunerConstants;
 import frc.robot.constants.OtherConstants.ClimbConstants;
 import frc.robot.constants.OtherConstants.IntakeConstants;
@@ -143,7 +146,9 @@ public class RobotContainer {
         joystick.povCenter().onFalse(new SwitchClimbCommand(m_ClimbSubsystem));
 
         joystick2.a().onTrue(new ClimbResetCommand(m_ClimbSubsystem));
-        joystick2.x().onTrue(new SwitchClimbCommand(m_ClimbSubsystem));
+        joystick2.x().onTrue(new BasicAutoAlign(drivetrain, Optional.of(LeftOrRight.LEFT)).withTimeout(1.5));
+        joystick2.b().onTrue(new BasicAutoAlign(drivetrain, Optional.of(LeftOrRight.RIGHT)).withTimeout(1.5));
+
         // joystick2.y().whileTrue(m_ClimbSubsystem.manualClimbCommand(true));
         // joystick2.b().whileTrue(m_ClimbSubsystem.manualClimbCommand(false));
 
@@ -182,6 +187,8 @@ public class RobotContainer {
         // NamedCommands.registerCommand("Intake Position", m_ElevatorSubsystem.setIntakeHeightCommand().alongWith(m_IntakeSubsystem.setPivotCommand(IntakeConstants.kCoralIntakeAngle)));
         NamedCommands.registerCommand("Zero Elevator", m_ElevatorSubsystem.setCoralHeightCommand(0));
         NamedCommands.registerCommand("Passive Intake", new AutoPassiveIntakeCommand(m_IntakeSubsystem).withTimeout(0.01));
+        NamedCommands.registerCommand("Auto Align Left", new BasicAutoAlign(drivetrain, Optional.of(LeftOrRight.LEFT)).withTimeout(2.2));
+        NamedCommands.registerCommand("Auto Align Right", new BasicAutoAlign(drivetrain, Optional.of(LeftOrRight.RIGHT)).withTimeout(2.2));
         // NamedCommands.registerCommand("Intake", m_IntakeSubsystem.coralIntakeCommand().withTimeout(1));
         // NamedCommands.registerCommand("Outtake", m_IntakeSubsystem.coralOutakeCommand().withTimeout(.5));
     }

@@ -33,6 +33,15 @@ public class FieldConstants {
         Pose2d REEF_L = findPose(3.732, 5.062, -Math.PI/3, isRed);
 
         REEF_LOCATIONS.addAll(List.of(REEF_A, REEF_B, REEF_C, REEF_D, REEF_E, REEF_F, REEF_G, REEF_H, REEF_I, REEF_J, REEF_K, REEF_L));
+        
+        Pose2d REEF_1 = findPose(3.225, 4.013, 0, isRed); 
+        Pose2d REEF_2 = findPose(3.893, 2.928, Math.PI/3, isRed);
+        Pose2d REEF_3 = findPose(5.151, 2.934, 2 * Math.PI / 3, isRed);
+        Pose2d REEF_4 = findPose(5.753, 4.003, Math.PI, isRed);
+        Pose2d REEF_5 = findPose(5.127, 5.164, -2 * Math.PI / 3, isRed);
+        Pose2d REEF_6 = findPose(3.851, 5.062, -Math.PI / 3, isRed);
+
+        REEF_CENTER_LOCATIONS.addAll(List.of(REEF_1, REEF_2, REEF_3, REEF_4, REEF_5, REEF_6));
     }
     public static Pose2d findPose(double x, double y, double rotation, boolean isRed){
         if(isRed){
