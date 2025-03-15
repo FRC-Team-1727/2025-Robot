@@ -17,7 +17,9 @@ import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.math.trajectory.TrapezoidProfile;
 import edu.wpi.first.math.trajectory.ExponentialProfile.Constraints;
 import edu.wpi.first.math.util.Units;
+import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import frc.robot.constants.FieldConstants;
 import frc.robot.constants.LeftOrRight;
 import frc.robot.constants.TunerConstants;
@@ -40,10 +42,12 @@ public class BasicAutoAlign extends Command {
     private final double speedTolRot = Math.PI / 16;
     private final double ffMinRadius = 0.2;
     private final double ffMaxRadius = 0.6;
+    private final CommandXboxController joystick;
 
-    public BasicAutoAlign(CommandSwerveDrivetrain drivetrain, Optional<LeftOrRight> leftOrRight) {
+    public BasicAutoAlign(CommandSwerveDrivetrain drivetrain, Optional<LeftOrRight> leftOrRight, CommandXboxController joystick) {
         m_DriveTrain = drivetrain;
         this.leftOrRight = leftOrRight;
+        this.joystick = joystick;
         addRequirements(m_DriveTrain);
     }
 
@@ -131,7 +135,7 @@ public class BasicAutoAlign extends Command {
     }
 
     public boolean isFinished() {
-        return rotationalPID.atGoal() && translationalPID.atGoal();
+        return (rotationalPID.atGoal() && translationalPID.atGoal()) || joystick.leftTrigger().getAsBoolean();
     }
 
 }

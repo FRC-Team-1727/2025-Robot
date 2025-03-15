@@ -40,7 +40,12 @@ public class CoralOuttakeCommand extends Command {
     //     m_IntakeSubsystem.setSpeed(IntakeConstants.kCoralOutTakeSpeed);
     //   }
     // } else {
-      m_IntakeSubsystem.setSpeed(IntakeConstants.kCoralOutTakeSpeed);
+      if(m_ElevatorSubsystem.getCoralLevel() == 2){
+        m_IntakeSubsystem.setSpeed(IntakeConstants.kLowCoralOuttakeSpeed);
+      }else{
+        m_IntakeSubsystem.setSpeed(IntakeConstants.kCoralOutTakeSpeed);
+
+      }
     //}
 
   }

@@ -34,12 +34,12 @@ import edu.wpi.first.wpilibj2.command.sysid.SysIdRoutine.Direction;
 import frc.robot.commands.AlgaeIntakeCommand;
 import frc.robot.commands.AlgaeOuttakeCommand;
 import frc.robot.commands.AutoAlignCommand;
-import frc.robot.commands.AutoCoralIntakeCommand;
-import frc.robot.commands.AutoPassiveIntakeCommand;
 import frc.robot.commands.BasicAutoAlign;
 import frc.robot.commands.CoralIntakeCommand;
 import frc.robot.commands.CoralOuttakeCommand;
 import frc.robot.commands.SwitchClimbCommand;
+import frc.robot.commands.auto.AutoCoralIntakeCommand;
+import frc.robot.commands.auto.AutoPassiveIntakeCommand;
 import frc.robot.commands.ChangeElevatorCommand;
 import frc.robot.commands.ClimbResetCommand;
 import frc.robot.constants.LeftOrRight;
@@ -63,7 +63,7 @@ public class RobotContainer {
     private final LEDSubsystem m_LedSubsystem = new LEDSubsystem();
     private final SendableChooser<Command> autoChooser;
     
-    private double MaxSpeed = TunerConstants.kSpeedAt12Volts.in(MetersPerSecond); // kSpeedAt12Volts desired top speed
+    private double MaxSpeed = TunerConstants.kSpeedAt12Volts.in(MetersPerSecond) * .7; // kSpeedAt12Volts desired top speed
     private double MaxAngularRate = RotationsPerSecond.of(0.75).in(RadiansPerSecond); // 3/4 of a rotation per second
                                                                                       // max angular velocity
 
@@ -114,7 +114,7 @@ public class RobotContainer {
                                                                                                    // negative Y
                                                                                                    // (forward)
                         .withVelocityY(-joystick.getLeftX() * MaxSpeed * (joystick.leftTrigger().getAsBoolean() ? .2 : 1)) // Drive left with negative X (left)
-                        .withRotationalRate(-joystick.getRightX() * MaxAngularRate) // Drive counterclockwise with
+                        .withRotationalRate(-joystick.getRightX() * MaxAngularRate * (joystick.leftTrigger().getAsBoolean() ? .2 : 1)) // Drive counterclockwise with
                                                                                     // negative X (left)
                 ));
 
@@ -150,8 +150,8 @@ public class RobotContainer {
         joystick.povCenter().onFalse(new SwitchClimbCommand(m_ClimbSubsystem));
 
         joystick2.a().onTrue(new ClimbResetCommand(m_ClimbSubsystem));
-        joystick2.x().whileTrue(new BasicAutoAlign(drivetrain, Optional.of(LeftOrRight.LEFT)).onlyIf(() -> Math.abs(joystick.getLeftX()) < .1 || Math.abs(joystick.getLeftY()) < .1));
-        joystick2.b().whileTrue(new BasicAutoAlign(drivetrain, Optional.of(LeftOrRight.RIGHT)).onlyIf(() -> Math.abs(joystick.getLeftX()) < .1 || Math.abs(joystick.getLeftY()) < .1));
+        joystick2.leftBumper().whileTrue(new BasicAutoAlign(drivetrain, Optional.of(LeftOrRight.LEFT), joystick));
+        joystick2.rightBumper().whileTrue(new BasicAutoAlign(drivetrain, Optional.of(LeftOrRight.RIGHT), joystick));
         // joystick2.y().whileTrue(m_ClimbSubsystem.manualClimbCommand(true));
         // joystick2.b().whileTrue(m_ClimbSubsystem.manualClimbCommand(false));
 
@@ -185,13 +185,15 @@ public class RobotContainer {
         NamedCommands.registerCommand("L2 height", m_ElevatorSubsystem.setCoralHeightCommand(2).alongWith(m_IntakeSubsystem.setPivotCommand()));
         NamedCommands.registerCommand("L1 height", m_ElevatorSubsystem.setCoralHeightCommand(1).alongWith(m_IntakeSubsystem.setPivotCommand(IntakeConstants.kL1ScoringAngle)));
 
-        NamedCommands.registerCommand("Coral Outtake", new CoralOuttakeCommand(m_IntakeSubsystem, m_ElevatorSubsystem).withTimeout(.5));
+        NamedCommands.registerCommand("Coral Outtake", new CoralOuttakeCommand(m_IntakeSubsystem, m_ElevatorSubsystem).withTimeout(2));
         NamedCommands.registerCommand("Coral Intake", new AutoCoralIntakeCommand(m_ElevatorSubsystem, m_IntakeSubsystem).withTimeout(1.6));
         // NamedCommands.registerCommand("Intake Position", m_ElevatorSubsystem.setIntakeHeightCommand().alongWith(m_IntakeSubsystem.setPivotCommand(IntakeConstants.kCoralIntakeAngle)));
         NamedCommands.registerCommand("Zero Elevator", m_ElevatorSubsystem.setCoralHeightCommand(0));
         NamedCommands.registerCommand("Passive Intake", new AutoPassiveIntakeCommand(m_IntakeSubsystem).withTimeout(0.01));
-        NamedCommands.registerCommand("Auto Align Left", new BasicAutoAlign(drivetrain, Optional.of(LeftOrRight.LEFT)).withTimeout(2.2));
-        NamedCommands.registerCommand("Auto Align Right", new BasicAutoAlign(drivetrain, Optional.of(LeftOrRight.RIGHT)).withTimeout(2.2));
+        NamedCommands.registerCommand("Auto Align Left", new BasicAutoAlign(drivetrain, Optional.of(LeftOrRight.LEFT), joystick).withTimeout(1.5));
+        NamedCommands.registerCommand("Auto Align Right", new BasicAutoAlign(drivetrain, Optional.of(LeftOrRight.RIGHT), joystick).withTimeout(1.5));
+        // NamedCommands.registerCommand("Descore Algae Height", m_ElevatorSubsystem.setDescoreHeightCommand().alongWith(m_IntakeSubsystem.setPivotCommand(IntakeConstants.kAlgaeHighIntakeAngle)));
+        // NamedCommands.registerCommand("Descore Algae", m_IntakeSubsystem.algeaOutakeCommand().withTimeout(1.2));
         // NamedCommands.registerCommand("Intake", m_IntakeSubsystem.coralIntakeCommand().withTimeout(1));
         // NamedCommands.registerCommand("Outtake", m_IntakeSubsystem.coralOutakeCommand().withTimeout(.5));
     }

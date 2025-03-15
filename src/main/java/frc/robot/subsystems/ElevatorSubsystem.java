@@ -176,4 +176,7 @@ public class ElevatorSubsystem extends SubsystemBase {
     {
         return runOnce(() -> setHeight(ElevatorConstants.kIntakeHeight));
     }
+    public Command setDescoreHeightCommand(){
+        return runOnce(() -> setHeight(ElevatorConstants.kTopAlgae));
+    }
 }

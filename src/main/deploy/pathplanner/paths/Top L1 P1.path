@@ -16,12 +16,12 @@
     },
     {
       "anchor": {
-        "x": 5.598,
-        "y": 4.489979619565217
+        "x": 5.577000000000001,
+        "y": 4.50275
       },
       "prevControl": {
-        "x": 5.98143556032147,
-        "y": 4.287724642503342
+        "x": 5.960435560321471,
+        "y": 4.300495022938125
       },
       "nextControl": null,
       "isLocked": false,
@@ -48,7 +48,7 @@
   "folder": "Blue Alliance",
   "idealStartingState": {
     "velocity": 0,
-    "rotation": -179.5659493678606
+    "rotation": -179.56594936786064
   },
   "useDefaultConstraints": true
 }

@@ -18,7 +18,7 @@ public class FieldConstants {
 
     public static void configureReefPositions(Alliance alliance) {
         boolean isRed = (alliance == Alliance.Red);
-
+        System.out.println(isRed);
         // Pose2d REEF_A = findPose(3.201, 4.186, 0, isRed);
         // Pose2d REEF_B = findPose(3.219, 3.876, 0, isRed);
         // Pose2d REEF_C = findPose(3.684, 2.988, Math.PI / 3, isRed);
@@ -40,9 +40,9 @@ public class FieldConstants {
                 : findPose(13.026179117, 4.930651885, -2 * Math.PI / 3);
         Pose2d REEF_D = !isRed ? findPose(3.635719579, 3.139646389, Math.PI / 3)
                 : findPose(13.040941042, 4.604011991, -2 * Math.PI / 3);
-        Pose2d REEF_E = !isRed ? findPose(4.477106374, 3.446158331, 2 * Math.PI / 3)
+        Pose2d REEF_E = !isRed ? findPose(4.415836137, 3.487810176, 2 * Math.PI / 3)
                 : findPose(12.206028265, 4.914124590, -Math.PI / 3);
-        Pose2d REEF_F = !isRed ? findPose(4.468108697, 3.153649888, 2 * Math.PI / 3)
+        Pose2d REEF_F = !isRed ? findPose(4.431206506, 3.156545677, 2 * Math.PI / 3)
                 : findPose(12.206151527, 4.583430626, -Math.PI / 3);
         Pose2d REEF_G = !isRed ? findPose(4.891986650, 4.192000225, Math.PI) 
                 : findPose(11.795546335, 4.199969054, 0);
@@ -80,7 +80,7 @@ public class FieldConstants {
 
     public static Pose2d findPose(double x, double y, double rotation) {
 
-        return new Pose2d(fieldLength - x, fieldWidth - y, new Rotation2d(rotation + Math.PI));
+        return new Pose2d(fieldLength, fieldWidth, new Rotation2d(rotation));
 
     }
 }
