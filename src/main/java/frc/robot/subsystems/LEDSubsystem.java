@@ -52,10 +52,9 @@ public class LEDSubsystem extends SubsystemBase{
         }else if(mode == LEDMode.kPartyTime){
             oldPartyMode();
         }else if(mode == LEDMode.kCoralMode){
-            breatheColor(Color.kCoral);
+            setColor(Color.kCoral);
         }else if(mode == LEDMode.kAlgaeMode){
-            oldPartyMode();
-            // setColor(Color.kAquamarine);
+            setColor(Color.kAquamarine);
         }
         led.setData(buffer);
     }

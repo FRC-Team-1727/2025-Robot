@@ -6,6 +6,7 @@ package frc.robot;
 
 import static edu.wpi.first.units.Units.*;
 
+import java.lang.ModuleLayer.Controller;
 import java.util.Optional;
 import java.util.logging.Logger;
 
@@ -51,6 +52,7 @@ import frc.robot.subsystems.ElevatorSubsystem;
 import frc.robot.subsystems.IntakeSubsystem;
 import frc.robot.subsystems.LEDSubsystem;
 import frc.robot.subsystems.VisionSubsystem;
+import pabeles.concurrency.IntOperatorTask.Max;
 
 public class RobotContainer {
     private static Mode curMode = Mode.CORALMODE;
@@ -79,7 +81,7 @@ public class RobotContainer {
 
 
     public final CommandSwerveDrivetrain drivetrain = TunerConstants.createDrivetrain();
-    private final RobotStateEstimator m_RobotStateEstimator = new RobotStateEstimator(drivetrain);
+    // private final RobotStateEstimator m_RobotStateEstimator = new RobotStateEstimator(drivetrain);
 
 
     public RobotContainer() {
@@ -93,6 +95,7 @@ public class RobotContainer {
         autoChooser.addOption("Testing", new PathPlannerAuto("Testing"));        
         autoChooser.addOption("L1", new PathPlannerAuto("Blue L1"));
         autoChooser.addOption("Move up L1", new PathPlannerAuto("Blue L3"));
+        autoChooser.addOption("Field Clai", new PathPlannerAuto("HI"));
 
         // autoChooser.addOption("TestMove", new PathPlannerAuto("TestMove"));
 
@@ -104,12 +107,13 @@ public class RobotContainer {
     private void configureBindings() {
         // Note that X is defined as forward according to WPILib convention,
         // and Y is defined as to the left according to WPILib convention.
+
         drivetrain.setDefaultCommand(
                 // Drivetrain will execute this command periodically
-                drivetrain.applyRequest(() -> drive.withVelocityX(-joystick.getLeftY() * MaxSpeed) // Drive forward with
+                drivetrain.applyRequest(() -> drive.withVelocityX(-joystick.getLeftY() * MaxSpeed * (joystick.leftTrigger().getAsBoolean() ? .2 : 1)) // Drive forward with
                                                                                                    // negative Y
                                                                                                    // (forward)
-                        .withVelocityY(-joystick.getLeftX() * MaxSpeed) // Drive left with negative X (left)
+                        .withVelocityY(-joystick.getLeftX() * MaxSpeed * (joystick.leftTrigger().getAsBoolean() ? .2 : 1)) // Drive left with negative X (left)
                         .withRotationalRate(-joystick.getRightX() * MaxAngularRate) // Drive counterclockwise with
                                                                                     // negative X (left)
                 ));
@@ -146,9 +150,8 @@ public class RobotContainer {
         joystick.povCenter().onFalse(new SwitchClimbCommand(m_ClimbSubsystem));
 
         joystick2.a().onTrue(new ClimbResetCommand(m_ClimbSubsystem));
-        joystick2.x().onTrue(new BasicAutoAlign(drivetrain, Optional.of(LeftOrRight.LEFT)).withTimeout(1.5));
-        joystick2.b().onTrue(new BasicAutoAlign(drivetrain, Optional.of(LeftOrRight.RIGHT)).withTimeout(1.5));
-
+        joystick2.x().whileTrue(new BasicAutoAlign(drivetrain, Optional.of(LeftOrRight.LEFT)).onlyIf(() -> Math.abs(joystick.getLeftX()) < .1 || Math.abs(joystick.getLeftY()) < .1));
+        joystick2.b().whileTrue(new BasicAutoAlign(drivetrain, Optional.of(LeftOrRight.RIGHT)).onlyIf(() -> Math.abs(joystick.getLeftX()) < .1 || Math.abs(joystick.getLeftY()) < .1));
         // joystick2.y().whileTrue(m_ClimbSubsystem.manualClimbCommand(true));
         // joystick2.b().whileTrue(m_ClimbSubsystem.manualClimbCommand(false));
 

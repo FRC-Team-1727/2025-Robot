@@ -66,7 +66,7 @@ public final class OtherConstants {
     public static final double kClimbI = 0.00;
     public static final double kClimbD = 0.00;
     public static final double kClimbSpeed = 0;
-    public static final double kUpClimbAngle = 218.5;
+    public static final double kUpClimbAngle = 205.5;
     public static final double kDownClimbAngle = 71;
 
   }
