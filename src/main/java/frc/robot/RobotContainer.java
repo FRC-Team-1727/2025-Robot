@@ -59,11 +59,11 @@ public class RobotContainer {
     private final IntakeSubsystem m_IntakeSubsystem = new IntakeSubsystem();
     private final ElevatorSubsystem m_ElevatorSubsystem = new ElevatorSubsystem();
     private final ClimbSubsystem m_ClimbSubsystem = new ClimbSubsystem();
-    // private final VisionSubsystem m_VisionSubsystem = new VisionSubsystem();
+    private final VisionSubsystem m_VisionSubsystem = new VisionSubsystem();
     private final LEDSubsystem m_LedSubsystem = new LEDSubsystem();
     private final SendableChooser<Command> autoChooser;
     
-    private double MaxSpeed = TunerConstants.kSpeedAt12Volts.in(MetersPerSecond) * .7; // kSpeedAt12Volts desired top speed
+    private double MaxSpeed = TunerConstants.kSpeedAt12Volts.in(MetersPerSecond); // kSpeedAt12Volts desired top speed
     private double MaxAngularRate = RotationsPerSecond.of(0.75).in(RadiansPerSecond); // 3/4 of a rotation per second
                                                                                       // max angular velocity
 
@@ -94,7 +94,8 @@ public class RobotContainer {
         autoChooser.addOption("L2", new PathPlannerAuto("Test"));        
         autoChooser.addOption("Testing", new PathPlannerAuto("Testing"));        
         autoChooser.addOption("L1", new PathPlannerAuto("Blue L1"));
-        autoChooser.addOption("Move up L1", new PathPlannerAuto("Blue L3"));
+        autoChooser.addOption("Move up L1 Red", new PathPlannerAuto("Red L3"));
+        autoChooser.addOption("Move up L1 Blue", new PathPlannerAuto("Blue L3"));
         autoChooser.addOption("Field Clai", new PathPlannerAuto("HI"));
 
         // autoChooser.addOption("TestMove", new PathPlannerAuto("TestMove"));
@@ -117,6 +118,16 @@ public class RobotContainer {
                         .withRotationalRate(-joystick.getRightX() * MaxAngularRate * (joystick.leftTrigger().getAsBoolean() ? .2 : 1)) // Drive counterclockwise with
                                                                                     // negative X (left)
                 ));
+        
+        // drivetrain.setDefaultCommand(
+        //       // Drivetrain will execute this command periodically
+        //         drivetrain.applyRequest(() -> drive.withVelocityX(-(joystick.getLeftY() < 0 ? Math.pow(joystick.getLeftY(), 2) : -Math.pow(joystick.getLeftY(), 2)) * MaxSpeed * (joystick.leftTrigger().getAsBoolean() ? .2 : 1)) // Drive forward with
+        //                                                                                                // negative Y
+        //                                                                                                // (forward)
+        //                 .withVelocityY(-(joystick.getLeftX() < 0 ? Math.pow(joystick.getLeftX(), 2) : -Math.pow(joystick.getLeftX(), 2)) * MaxSpeed * (joystick.leftTrigger().getAsBoolean() ? .2 : 1)) // Drive left with negative X (left)
+        //                 .withRotationalRate(-joystick.getRightX() * MaxAngularRate * (joystick.leftTrigger().getAsBoolean() ? .2 : 1)) // Drive counterclockwise with
+        //                                                                                 // negative X (left)
+        //         ));
 
         joystick.y().whileTrue(drivetrain.applyRequest(() -> brake));
         //  joystick.b().whileTrue(drivetrain.applyRequest(
@@ -152,6 +163,7 @@ public class RobotContainer {
         joystick2.a().onTrue(new ClimbResetCommand(m_ClimbSubsystem));
         joystick2.leftBumper().whileTrue(new BasicAutoAlign(drivetrain, Optional.of(LeftOrRight.LEFT), joystick));
         joystick2.rightBumper().whileTrue(new BasicAutoAlign(drivetrain, Optional.of(LeftOrRight.RIGHT), joystick));
+        joystick2.leftTrigger().whileTrue(new AutoAlignCommand(drivetrain, m_VisionSubsystem, joystick));
         // joystick2.y().whileTrue(m_ClimbSubsystem.manualClimbCommand(true));
         // joystick2.b().whileTrue(m_ClimbSubsystem.manualClimbCommand(false));
 
@@ -185,7 +197,7 @@ public class RobotContainer {
         NamedCommands.registerCommand("L2 height", m_ElevatorSubsystem.setCoralHeightCommand(2).alongWith(m_IntakeSubsystem.setPivotCommand()));
         NamedCommands.registerCommand("L1 height", m_ElevatorSubsystem.setCoralHeightCommand(1).alongWith(m_IntakeSubsystem.setPivotCommand(IntakeConstants.kL1ScoringAngle)));
 
-        NamedCommands.registerCommand("Coral Outtake", new CoralOuttakeCommand(m_IntakeSubsystem, m_ElevatorSubsystem).withTimeout(2));
+        NamedCommands.registerCommand("Coral Outtake", new CoralOuttakeCommand(m_IntakeSubsystem, m_ElevatorSubsystem).withTimeout(.9));
         NamedCommands.registerCommand("Coral Intake", new AutoCoralIntakeCommand(m_ElevatorSubsystem, m_IntakeSubsystem).withTimeout(1.6));
         // NamedCommands.registerCommand("Intake Position", m_ElevatorSubsystem.setIntakeHeightCommand().alongWith(m_IntakeSubsystem.setPivotCommand(IntakeConstants.kCoralIntakeAngle)));
         NamedCommands.registerCommand("Zero Elevator", m_ElevatorSubsystem.setCoralHeightCommand(0));

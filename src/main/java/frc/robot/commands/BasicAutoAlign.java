@@ -53,7 +53,7 @@ public class BasicAutoAlign extends Command {
 
     public void initialize() {
         translationalPID = new ProfiledPIDController(6, 0, 0,
-                new TrapezoidProfile.Constraints(translationSpeedLim, rotationalAccelLim));
+                new TrapezoidProfile.Constraints(translationSpeedLim, translationAccelLim));
         rotationalPID = new ProfiledPIDController(6, 0, 0,
                 new TrapezoidProfile.Constraints(rotationalSpeedLim, rotationalAccelLim));
         curPose = m_DriveTrain.getPose();
@@ -123,7 +123,6 @@ public class BasicAutoAlign extends Command {
             rotationVelocity, 
             curPose.getRotation()
             );
-        System.out.println(driveVelocity.getX() + " : " + driveVelocity.getY() + " : " + rotationVelocity + " : " + curPose.getRotation());
         m_DriveTrain.getState().Speeds = speeds;
         SwerveRequest.ApplyRobotSpeeds m_pathApplyRobotSpeeds = new SwerveRequest.ApplyRobotSpeeds();
 

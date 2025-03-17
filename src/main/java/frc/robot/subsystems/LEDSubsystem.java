@@ -52,7 +52,8 @@ public class LEDSubsystem extends SubsystemBase{
         }else if(mode == LEDMode.kPartyTime){
             oldPartyMode();
         }else if(mode == LEDMode.kCoralMode){
-            setColor(Color.kCoral);
+           //setColor(Color.kCoral);
+           randomColor(Color.kRed,Color.kBlue);
         }else if(mode == LEDMode.kAlgaeMode){
             setColor(Color.kAquamarine);
         }
@@ -71,6 +72,12 @@ public class LEDSubsystem extends SubsystemBase{
         LEDPattern base = LEDPattern.solid(color);
         pattern = base.breathe(Seconds.of(2));
         pattern.applyTo(buffer);
+    }
+
+    public void randomColor(Color color, Color color2){
+        LEDPattern base = LEDPattern.gradient(LEDPattern.GradientType.kContinuous,color,color2);
+        base.scrollAtAbsoluteSpeed(InchesPerSecond.of(1), Meters.of(1/60));
+        base.applyTo(buffer);
     }
     public void PARTYMODE(){
         pattern = LEDPattern.rainbow(255, 128);

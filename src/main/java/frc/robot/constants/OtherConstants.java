@@ -29,7 +29,7 @@ public final class OtherConstants {
     public static final double kCoralIntakeAngle = -2.2;
     public static final double kCoralIntakeSpeed = -.2;
 
-    public static final double kLowCoralOuttakeSpeed = .055;
+    public static final double kLowCoralOuttakeSpeed = .035;
     public static final double kCoralOutTakeSpeed = .18;
     public static final double kPassiveIntakeSpeed = -0.18;
 
@@ -67,7 +67,7 @@ public final class OtherConstants {
     public static final double kClimbI = 0.00;
     public static final double kClimbD = 0.00;
     public static final double kClimbSpeed = 0;
-    public static final double kUpClimbAngle = 205.5;
+    public static final double kUpClimbAngle = 220;
     public static final double kDownClimbAngle = 68;
 
   }
