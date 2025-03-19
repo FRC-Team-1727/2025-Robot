@@ -1,5 +1,11 @@
 package frc.robot.subsystems;
 
+import java.util.ArrayList;
+
+import edu.wpi.first.networktables.NetworkTable;
+import edu.wpi.first.networktables.NetworkTableEntry;
+import edu.wpi.first.networktables.NetworkTableInstance;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.constants.OtherConstants.VisionConstants;
 import frc.robot.LimelightHelpers;
@@ -8,6 +14,10 @@ import frc.robot.LimelightHelpers.RawFiducial;
 
 public class VisionSubsystem extends SubsystemBase {
   private RawFiducial[] fiducials;
+  private NetworkTable limelightTable = NetworkTableInstance.getDefault().getTable("limelight-left");
+  private NetworkTableEntry botPoseYawEntry = limelightTable.getEntry("botpose_targetspace_yaw");
+  private double robotYaw;
+
 
   public VisionSubsystem() {
     config();
@@ -23,11 +33,14 @@ public class VisionSubsystem extends SubsystemBase {
 
     // LimelightHelpers.setCropWindow("", -0.5, 0.5, -0.5, 0.5);
     LimelightHelpers.SetFiducialIDFiltersOverride("", new int[] {0,1,5,8,9,10,11,12});
+    robotYaw = 0;
   }
 
   @Override
   public void periodic() {
     fiducials = LimelightHelpers.getRawFiducials("limelight-left");
+    robotYaw = botPoseYawEntry.getDouble(0);
+    SmartDashboard.putNumber("Robot YAw", robotYaw);
 
   }
   public RawFiducial getClosestFiducial() {

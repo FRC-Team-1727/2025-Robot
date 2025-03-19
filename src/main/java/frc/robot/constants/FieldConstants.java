@@ -2,7 +2,9 @@ package frc.robot.constants;
 
 import static edu.wpi.first.units.Units.Rotation;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import edu.wpi.first.math.MathUtil;
@@ -15,6 +17,7 @@ public class FieldConstants {
     public static final double fieldLength = 17.55;
     public static ArrayList<Pose2d> REEF_LOCATIONS = new ArrayList<>();
     public static ArrayList<Pose2d> REEF_CENTER_LOCATIONS = new ArrayList<>();
+    public static HashMap<Integer, Double> REEF_ANGLES = new HashMap<>();
 
     public static void configureReefPositions(Alliance alliance) {
         boolean isRed = (alliance == Alliance.Red);
@@ -68,6 +71,19 @@ public class FieldConstants {
         Pose2d REEF_6 = findPose(3.851, 5.062, -Math.PI / 3, isRed);
 
         REEF_CENTER_LOCATIONS.addAll(List.of(REEF_1, REEF_2, REEF_3, REEF_4, REEF_5, REEF_6));
+
+        REEF_ANGLES.put(17, Math.PI/3);
+        REEF_ANGLES.put(18, 0.0);
+        REEF_ANGLES.put(19, -Math.PI/3);
+        REEF_ANGLES.put(20, -2 * Math.PI/3);
+        REEF_ANGLES.put(21, Math.PI);
+        REEF_ANGLES.put(22, 2 * Math.PI/3);
+        REEF_ANGLES.put(6, 2 * Math.PI/3);
+        REEF_ANGLES.put(7, Math.PI);
+        REEF_ANGLES.put(8, -2 * Math.PI/3);
+        REEF_ANGLES.put(9, -Math.PI / 3);
+        REEF_ANGLES.put(10, 0.0);
+        REEF_ANGLES.put(11, Math.PI / 3);
     }
 
     public static Pose2d findPose(double x, double y, double rotation, boolean isRed) {
@@ -82,5 +98,8 @@ public class FieldConstants {
 
         return new Pose2d(x, y, new Rotation2d(rotation));
 
+    }
+    public static Double tagAngle(int tagID){
+        return REEF_ANGLES.get(tagID);
     }
 }

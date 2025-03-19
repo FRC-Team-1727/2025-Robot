@@ -27,7 +27,7 @@ public class LEDSubsystem extends SubsystemBase{
         mode = LEDMode.kDefault;
         pattern = LEDPattern.solid(Color.kRed);
         led = new AddressableLED(0);
-        buffer = new AddressableLEDBuffer(17);
+        buffer = new AddressableLEDBuffer(24);
         led.setLength(buffer.getLength());
         led.setData(buffer);
         led.start();
@@ -53,7 +53,8 @@ public class LEDSubsystem extends SubsystemBase{
             oldPartyMode();
         }else if(mode == LEDMode.kCoralMode){
            //setColor(Color.kCoral);
-           randomColor(Color.kRed,Color.kBlue);
+        //    randomColor(Color.kRed,Color.kBlue);
+    PARTYMODE();
         }else if(mode == LEDMode.kAlgaeMode){
             setColor(Color.kAquamarine);
         }
@@ -75,9 +76,9 @@ public class LEDSubsystem extends SubsystemBase{
     }
 
     public void randomColor(Color color, Color color2){
-        LEDPattern base = LEDPattern.gradient(LEDPattern.GradientType.kContinuous,color,color2);
-        base.scrollAtAbsoluteSpeed(InchesPerSecond.of(1), Meters.of(1/60));
-        base.applyTo(buffer);
+        pattern = LEDPattern.gradient(LEDPattern.GradientType.kContinuous,color,color2);
+        pattern.scrollAtAbsoluteSpeed(InchesPerSecond.of(1), Meters.of(1/60));
+        pattern.applyTo(buffer);
     }
     public void PARTYMODE(){
         pattern = LEDPattern.rainbow(255, 128);
