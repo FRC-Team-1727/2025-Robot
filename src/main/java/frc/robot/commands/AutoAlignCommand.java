@@ -57,15 +57,13 @@ public class AutoAlignCommand extends Command {
     private final double speedTolRot = Math.PI / 16;
     private Pose2d curPose;
     private Pose2d targetPose;
-    private Optional<LeftOrRight> leftOrRight;
 
     public CommandXboxController joystick;
 
-    public AutoAlignCommand(CommandSwerveDrivetrain drivetrain, VisionSubsystem limelight, CommandXboxController joystick, Optional<LeftOrRight> leftOrRight) {
+    public AutoAlignCommand(CommandSwerveDrivetrain drivetrain, VisionSubsystem limelight, CommandXboxController joystick) {
         this.m_drivetrain = drivetrain;
         this.m_Limelight = limelight;
         this.joystick = joystick;
-        this.leftOrRight = leftOrRight;
         addRequirements(m_Limelight);
     }
 
@@ -75,20 +73,8 @@ public class AutoAlignCommand extends Command {
                 new TrapezoidProfile.Constraints(rotationalSpeedLim, rotationalAccelLim));
         
         curPose = m_drivetrain.getPose();
-        if(leftOrRight.isEmpty()) {
-            if (!FieldConstants.REEF_LOCATIONS.isEmpty())
-                targetPose = curPose.nearest(FieldConstants.REEF_LOCATIONS);
-            else
-                new Pose2d();
-        }else{
-            Pose2d closestReef = FieldConstants.REEF_CENTER_LOCATIONS.isEmpty() 
-                ? new Pose2d() : curPose.nearest(FieldConstants.REEF_CENTER_LOCATIONS);
-            int index = FieldConstants.REEF_CENTER_LOCATIONS.indexOf(closestReef);
-            targetPose = FieldConstants.REEF_LOCATIONS.get(index * 2 + ((leftOrRight.get() == LeftOrRight.LEFT) ? 0 : 1));
-        }
         rotationalPID.enableContinuousInput(-Math.PI, Math.PI);
         rotationalPID.setTolerance(rotationTol, speedTolRot);
-        curPose = m_drivetrain.getPose();
         ChassisSpeeds fieldRelative = ChassisSpeeds.fromFieldRelativeSpeeds(m_drivetrain.getState().Speeds, m_drivetrain.getPose().getRotation());
         rotationalPID.reset(
                 curPose.getRotation().getRadians(),
@@ -108,7 +94,6 @@ public class AutoAlignCommand extends Command {
         }
         try {
             fiducial = m_Limelight.getFiducialWithId(22);  // Get the AprilTag
-            double ta;
             double adjustedTxnc;
             double angleToTargetRad;
             // Apply the 14-degree offset to the horizontal angle (txnc) if needed
@@ -120,9 +105,7 @@ public class AutoAlignCommand extends Command {
             //     angleToTargetRad = 0;
             // }
             adjustedTxnc = m_Limelight.getTX();
-            ta = fiducial.ta;
-                rotationalRate = rotationalPidController.calculate(adjustedTxnc, 0.0); 
-                angleToTargetRad = Math.toRadians(adjustedTxnc);
+            angleToTargetRad = Math.toRadians(adjustedTxnc);
             // Calculate the rotational rate to adjust robot orientation based on adjusted horizontal angle to the tag
             // Keep the sign as it is for correct direction
             
