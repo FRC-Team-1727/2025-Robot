@@ -17,7 +17,7 @@ public class FieldConstants {
     public static final double fieldLength = 17.55;
     public static ArrayList<Pose2d> REEF_LOCATIONS = new ArrayList<>();
     public static ArrayList<Pose2d> REEF_CENTER_LOCATIONS = new ArrayList<>();
-    public static HashMap<Integer, Double> REEF_ANGLES = new HashMap<>();
+    public static HashMap<Integer, Rotation2d> REEF_ANGLES = new HashMap<>();
 
     public static void configureReefPositions(Alliance alliance) {
         boolean isRed = (alliance == Alliance.Red);
@@ -72,18 +72,18 @@ public class FieldConstants {
 
         REEF_CENTER_LOCATIONS.addAll(List.of(REEF_1, REEF_2, REEF_3, REEF_4, REEF_5, REEF_6));
 
-        REEF_ANGLES.put(17, Math.PI/3);
-        REEF_ANGLES.put(18, 0.0);
-        REEF_ANGLES.put(19, -Math.PI/3);
-        REEF_ANGLES.put(20, -2 * Math.PI/3);
-        REEF_ANGLES.put(21, Math.PI);
-        REEF_ANGLES.put(22, 2 * Math.PI/3);
-        REEF_ANGLES.put(6, 2 * Math.PI/3);
-        REEF_ANGLES.put(7, Math.PI);
-        REEF_ANGLES.put(8, -2 * Math.PI/3);
-        REEF_ANGLES.put(9, -Math.PI / 3);
-        REEF_ANGLES.put(10, 0.0);
-        REEF_ANGLES.put(11, Math.PI / 3);
+        REEF_ANGLES.put(17, new Rotation2d(Math.PI/3));
+        REEF_ANGLES.put(18, new Rotation2d(0.0));
+        REEF_ANGLES.put(19, new Rotation2d(-Math.PI/3));
+        REEF_ANGLES.put(20, new Rotation2d(-2 * Math.PI/3));
+        REEF_ANGLES.put(21, new Rotation2d(Math.PI));
+        REEF_ANGLES.put(22, new Rotation2d(2 * Math.PI/3));
+        REEF_ANGLES.put(6, new Rotation2d(2 * Math.PI/3));
+        REEF_ANGLES.put(7, new Rotation2d(Math.PI));
+        REEF_ANGLES.put(8, new Rotation2d(-2 * Math.PI/3));
+        REEF_ANGLES.put(9, new Rotation2d(-Math.PI / 3));
+        REEF_ANGLES.put(10, new Rotation2d(0.0));
+        REEF_ANGLES.put(11, new Rotation2d(Math.PI / 3));
     }
 
     public static Pose2d findPose(double x, double y, double rotation, boolean isRed) {
@@ -99,7 +99,7 @@ public class FieldConstants {
         return new Pose2d(x, y, new Rotation2d(rotation));
 
     }
-    public static Double tagAngle(int tagID){
+    public static Rotation2d tagAngle(int tagID){
         return REEF_ANGLES.get(tagID);
     }
 }

@@ -2,6 +2,7 @@ package frc.robot.subsystems;
 
 import java.util.ArrayList;
 
+import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.networktables.NetworkTableInstance;
@@ -17,6 +18,8 @@ public class VisionSubsystem extends SubsystemBase {
   private NetworkTable limelightTable = NetworkTableInstance.getDefault().getTable("limelight-left");
   private NetworkTableEntry botPoseYawEntry = limelightTable.getEntry("botpose_targetspace_yaw");
   private double robotYaw;
+  private LimelightHelpers.PoseEstimate mt1Left = LimelightHelpers.getBotPoseEstimate_wpiBlue("limelight-left");
+
 
 
   public VisionSubsystem() {
@@ -40,6 +43,7 @@ public class VisionSubsystem extends SubsystemBase {
   public void periodic() {
     fiducials = LimelightHelpers.getRawFiducials("limelight-left");
     robotYaw = botPoseYawEntry.getDouble(0);
+    mt1Left = LimelightHelpers.getBotPoseEstimate_wpiBlue("limelight-left");
     SmartDashboard.putNumber("Robot YAw", robotYaw);
 
   }
@@ -108,5 +112,8 @@ public RawFiducial getFiducialWithId(int id, boolean verbose) {
   }
   public double getClosestTA(){
     return getClosestFiducial().ta;
+  }
+  public Pose2d getLimelightPose(){
+    return mt1Left.pose;
   }
 }

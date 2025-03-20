@@ -23,6 +23,7 @@ import frc.robot.LimelightHelpers;
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.controller.ProfiledPIDController;
 import edu.wpi.first.math.geometry.Pose2d;
+import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.math.trajectory.TrapezoidProfile;
 import edu.wpi.first.math.util.Units;
@@ -56,7 +57,6 @@ public class AutoAlignCommand extends Command {
     private final double rotationTol = Units.degreesToRadians(0.675);
     private final double speedTolRot = Math.PI / 16;
     private Pose2d curPose;
-    private Pose2d targetPose;
 
     public CommandXboxController joystick;
 
@@ -85,10 +85,10 @@ public class AutoAlignCommand extends Command {
     public void execute() {
         RawFiducial fiducial;
         curPose = m_drivetrain.getPose();
-        Double targetRotation = FieldConstants.tagAngle(22);
+        Rotation2d targetRotation = FieldConstants.tagAngle(22);
 
-        double rotationError = curPose.getRotation().minus(targetPose.getRotation()).getRadians();
-        double rotationVelocity = rotationalPID.getSetpoint().velocity + rotationalPID.calculate(curPose.getRotation().getRadians(), targetRotation);
+        double rotationError = curPose.getRotation().minus(targetRotation).getRadians();
+        double rotationVelocity = rotationalPID.getSetpoint().velocity + rotationalPID.calculate(curPose.getRotation().getRadians(), targetRotation.getRadians());
         if(Math.abs(rotationError) < rotationTol){
             rotationVelocity = 0;
         }
@@ -126,6 +126,7 @@ public class AutoAlignCommand extends Command {
             SmartDashboard.putNumber("rotationalPidController", rotationalRate);
             SmartDashboard.putNumber("xPidController", velocityX);
             SmartDashboard.putNumber("yPidController", velocityY);
+            SmartDashboard.putNumber("Angle To Target", angleToTargetRad);
 
             // Apply the swerve control to align robot towards the tag
             m_drivetrain.setControl(
