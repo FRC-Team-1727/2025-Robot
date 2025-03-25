@@ -14,7 +14,7 @@ import frc.robot.LimelightHelpers.RawFiducial;
 
 
 public class VisionSubsystem extends SubsystemBase {
-  private RawFiducial[] fiducials;
+  private static RawFiducial[] fiducials;
   private NetworkTable limelightTable = NetworkTableInstance.getDefault().getTable("limelight-left");
   private NetworkTableEntry botPoseYawEntry = limelightTable.getEntry("botpose_targetspace_yaw");
   private double robotYaw;
@@ -65,7 +65,7 @@ public class VisionSubsystem extends SubsystemBase {
     return closest;
   }
 
-  public RawFiducial getFiducialWithId(int id) {
+  public static RawFiducial getFiducialWithId(int id) {
   
     for (RawFiducial fiducial : fiducials) {
         if (fiducial.id == id) {

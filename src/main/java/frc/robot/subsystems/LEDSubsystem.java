@@ -34,6 +34,7 @@ public class LEDSubsystem extends SubsystemBase{
 
         animStart = 0;
         sim = AddressableLEDSim.createForChannel(0);
+        pattern = LEDPattern.rainbow(255, 128);
     }
     public void setMode(LEDMode mode){
         if(!(this.mode == mode)){
@@ -81,8 +82,8 @@ public class LEDSubsystem extends SubsystemBase{
         pattern.applyTo(buffer);
     }
     public void PARTYMODE(){
-        pattern = LEDPattern.rainbow(255, 128);
-        pattern.scrollAtAbsoluteSpeed(InchesPerSecond.of(1), Meters.of(1/60));
+        
+        pattern.scrollAtAbsoluteSpeed(MetersPerSecond.of(1), Meters.of(1 / 120.0));
         pattern.applyTo(buffer);
     }
     public void oldPartyMode(){

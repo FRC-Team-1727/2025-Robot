@@ -38,6 +38,7 @@ import frc.robot.commands.BasicAutoAlign;
 import frc.robot.commands.CoralIntakeCommand;
 import frc.robot.commands.CoralOuttakeCommand;
 import frc.robot.commands.SwitchClimbCommand;
+import frc.robot.commands.ThirdAutoAlign;
 import frc.robot.commands.auto.AutoCoralIntakeCommand;
 import frc.robot.commands.auto.AutoPassiveIntakeCommand;
 import frc.robot.commands.ChangeElevatorCommand;
@@ -163,7 +164,8 @@ public class RobotContainer {
         joystick2.a().onTrue(new ClimbResetCommand(m_ClimbSubsystem));
         joystick2.leftBumper().whileTrue(new BasicAutoAlign(drivetrain, Optional.of(LeftOrRight.LEFT), joystick));
         joystick2.rightBumper().whileTrue(new BasicAutoAlign(drivetrain, Optional.of(LeftOrRight.RIGHT), joystick));
-        joystick2.leftTrigger().whileTrue(new AutoAlignCommand(drivetrain, m_VisionSubsystem, joystick));
+        joystick2.leftTrigger().whileTrue(new ThirdAutoAlign(drivetrain, null, joystick));
+        joystick2.rightTrigger().whileTrue(new AutoAlignCommand(drivetrain, m_VisionSubsystem, joystick, Optional.of(LeftOrRight.RIGHT)));
         // joystick2.y().whileTrue(m_ClimbSubsystem.manualClimbCommand(true));
         // joystick2.b().whileTrue(m_ClimbSubsystem.manualClimbCommand(false));
 

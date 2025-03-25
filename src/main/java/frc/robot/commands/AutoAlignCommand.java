@@ -19,7 +19,7 @@ import frc.robot.subsystems.CommandSwerveDrivetrain;
 import frc.robot.subsystems.VisionSubsystem;
 import frc.robot.LimelightHelpers.RawFiducial;
 import frc.robot.LimelightHelpers;
-
+import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.controller.ProfiledPIDController;
 import edu.wpi.first.math.geometry.Pose2d;
@@ -57,19 +57,23 @@ public class AutoAlignCommand extends Command {
     private final double rotationTol = Units.degreesToRadians(0.675);
     private final double speedTolRot = Math.PI / 16;
     private Pose2d curPose;
+    private final double ffMinRadius = 0.2;
+    private final double ffMaxRadius = 0.6;
+    private Optional<LeftOrRight> leftOrRight;
 
     public CommandXboxController joystick;
 
-    public AutoAlignCommand(CommandSwerveDrivetrain drivetrain, VisionSubsystem limelight, CommandXboxController joystick) {
+    public AutoAlignCommand(CommandSwerveDrivetrain drivetrain, VisionSubsystem limelight, CommandXboxController joystick, Optional<LeftOrRight> leftOrRight) {
         this.m_drivetrain = drivetrain;
         this.m_Limelight = limelight;
         this.joystick = joystick;
+        this.leftOrRight = leftOrRight;
         addRequirements(m_Limelight);
     }
 
     @Override
     public void initialize() {
-        rotationalPID = new ProfiledPIDController(6, 0, 0,
+        rotationalPID = new ProfiledPIDController(10, 0, 0,
                 new TrapezoidProfile.Constraints(rotationalSpeedLim, rotationalAccelLim));
         
         curPose = m_drivetrain.getPose();
@@ -96,6 +100,14 @@ public class AutoAlignCommand extends Command {
             fiducial = m_Limelight.getFiducialWithId(22);  // Get the AprilTag
             double adjustedTxnc;
             double angleToTargetRad;
+            adjustedTxnc = fiducial.txnc;
+            angleToTargetRad = Math.toRadians(adjustedTxnc);
+            double cameraOffsetX = -0.17275227547;
+            double cameraOffsetY = 0.22954987;
+            double distToRobot = fiducial.distToRobot;
+            double distToRobotX = distToRobot * Math.cos(Math.toRadians(55 + adjustedTxnc)) - .35+ (leftOrRight.get() == LeftOrRight.LEFT ? 0.4 : -0.27);
+            double distToRobotY = distToRobot * Math.sin(Math.toRadians(55 + adjustedTxnc)) - .5 + (leftOrRight.get() == LeftOrRight.LEFT ? -0.05 : 0.27);
+            double ffScalar = MathUtil.clamp((distToRobot - ffMinRadius) / (ffMaxRadius - ffMinRadius), 0, 1);
             // Apply the 14-degree offset to the horizontal angle (txnc) if needed
              // 14-degree offset adjustment (if required)
             //  if(fiducial.distToRobot < .1) {
@@ -104,15 +116,20 @@ public class AutoAlignCommand extends Command {
             //     rotationalRate = 0;
             //     angleToTargetRad = 0;
             // }
-            adjustedTxnc = m_Limelight.getTX();
-            angleToTargetRad = Math.toRadians(adjustedTxnc);
+            
             // Calculate the rotational rate to adjust robot orientation based on adjusted horizontal angle to the tag
             // Keep the sign as it is for correct direction
             
             // Calculate the velocity in the X and Y directions to move towards the tag's center
-            final double velocityX = xPidController.calculate(-fiducial.distToRobot * Math.cos(angleToTargetRad), 0) * TunerConstants.kSpeedAt12Volts.in(MetersPerSecond) * .2;
-            final double velocityY = yPidController.calculate(-fiducial.distToRobot * Math.sin(angleToTargetRad), 0)* TunerConstants.kSpeedAt12Volts.in(MetersPerSecond) * 0.2;
+            double velocityX = xPidController.calculate(distToRobotX, 0) * TunerConstants.kSpeedAt12Volts.in(MetersPerSecond) * 0.75 * ffScalar;
+            double velocityY = yPidController.calculate(distToRobotY, 0)* TunerConstants.kSpeedAt12Volts.in(MetersPerSecond) * 0.75 * ffScalar;
             
+            if(Math.abs(distToRobotX) < 0.05){
+                velocityX = 0;
+            }
+            if(Math.abs(distToRobotY) < 0.05){
+                velocityY = 0;
+            }
             
 
             // If the robot is aligned both rotationally and distance-wise, end the command
@@ -121,8 +138,12 @@ public class AutoAlignCommand extends Command {
             }
 
             // Output the fiducial data for debugging
-            SmartDashboard.putNumber("txnc", fiducial.txnc);
-            SmartDashboard.putNumber("distToRobot", fiducial.distToRobot);
+            SmartDashboard.putNumber("txnc", adjustedTxnc);
+            SmartDashboard.putNumber("distToRobot", fiducial.distToRobot - (Math.pow(Math.pow(.4, 2) + Math.pow(.425, 2), .5)));
+            SmartDashboard.putNumber("distToRobotX", distToRobotX);
+            SmartDashboard.putNumber("cosX", Math.cos(Math.toRadians(55 + adjustedTxnc)));
+            SmartDashboard.putNumber("distToRobotY", distToRobotY);
+            SmartDashboard.putNumber("sinX", Math.sin(Math.toRadians(55 + adjustedTxnc)));
             SmartDashboard.putNumber("rotationalPidController", rotationalRate);
             SmartDashboard.putNumber("xPidController", velocityX);
             SmartDashboard.putNumber("yPidController", velocityY);
@@ -131,8 +152,8 @@ public class AutoAlignCommand extends Command {
             // Apply the swerve control to align robot towards the tag
             m_drivetrain.setControl(
                 alignRequest.withRotationalRate(rotationVelocity)  // Reverse the rotational direction if needed
-                            .withVelocityX(0)
-                            .withVelocityY(0));
+                            .withVelocityX(-velocityX)
+                            .withVelocityY(velocityY));
                             System.out.println("X:" + velocityX);
                             System.out.println("Y: " + velocityY);
         } catch (VisionSubsystem.NoSuchTargetException nste) {
