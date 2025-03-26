@@ -57,7 +57,11 @@ public class ThirdAutoAlign extends Command{
                 new TrapezoidProfile.Constraints(rotationalSpeedLim, rotationalAccelLim));
         double[] pose = LimelightHelpers.getBotPose_TargetSpace("limelight-left");
         curPose = new Pose2d(pose[0], pose[1], Rotation2d.fromDegrees(pose[4]));
-        targetPose = new Pose2d( -1, -1, new Rotation2d(0));
+        if(leftOrRight.get() == LeftOrRight.LEFT){
+            targetPose = new Pose2d( -.176901468, .33037743, new Rotation2d(0));
+        }else{
+            targetPose = new Pose2d(0,0,new Rotation2d(0)); //idk values rn
+        }
         rotationalPID.enableContinuousInput(-Math.PI, Math.PI);
 
         translationalPID.setTolerance(translationTol, speedTolerance);
@@ -79,43 +83,47 @@ public class ThirdAutoAlign extends Command{
     }
 
     public void execute() {
-        double[] pose = LimelightHelpers.getBotPose_TargetSpace("limelight-left");
-        curPose = new Pose2d(pose[0], pose[1], Rotation2d.fromDegrees(pose[4]));
-
-        double curDist = curPose.getTranslation().getDistance(targetPose.getTranslation());
-        double ffScalar = MathUtil.clamp((curDist - ffMinRadius) / (ffMaxRadius - ffMinRadius), 0, 1);
-
-        double driveVelocityScalar = 
-            translationalPID.getSetpoint().velocity * ffScalar
-            + translationalPID.calculate(curDist, 0);
-        if (curDist < translationalPID.getPositionTolerance()) {
-            driveVelocityScalar = 0;
+        //ill do ignore some tags tomorrow
+        if(LimelightHelpers.getTV("limelight-left")){
+            double[] pose = LimelightHelpers.getBotPose_TargetSpace("limelight-left");
+            curPose = new Pose2d(pose[0], pose[1], Rotation2d.fromDegrees(pose[4]));
+    
+            double curDist = curPose.getTranslation().getDistance(targetPose.getTranslation());
+            double ffScalar = MathUtil.clamp((curDist - ffMinRadius) / (ffMaxRadius - ffMinRadius), 0, 1);
+    
+            double driveVelocityScalar = 
+                translationalPID.getSetpoint().velocity * ffScalar
+                + translationalPID.calculate(curDist, 0);
+            if (curDist < translationalPID.getPositionTolerance()) {
+                driveVelocityScalar = 0;
+            }
+            double rotationError = curPose.getRotation().minus(targetPose.getRotation()).getRadians();
+            double rotationVelocity = 
+                rotationalPID.getSetpoint().velocity 
+                * ffScalar 
+                + rotationalPID.calculate(curPose.getRotation().getRadians(), targetPose.getRotation().getRadians());
+            if(Math.abs(rotationError) < rotationTol){
+                rotationVelocity = 0;
+            }
+            Pose2d driveVelocity = new Pose2d(
+                0, 
+                0, 
+                curPose.getTranslation()
+                .minus(targetPose.getTranslation()).getAngle())
+                .transformBy(new Transform2d(driveVelocityScalar, 0, new Rotation2d()));
+    
+            ChassisSpeeds speeds = ChassisSpeeds.fromFieldRelativeSpeeds(
+                driveVelocity.getX(), 
+                driveVelocity.getY(), 
+                rotationVelocity, 
+                curPose.getRotation()
+                );
+            m_DriveTrain.getState().Speeds = speeds;
+            SwerveRequest.ApplyRobotSpeeds m_pathApplyRobotSpeeds = new SwerveRequest.ApplyRobotSpeeds();
+    
+            m_DriveTrain.setControl(m_pathApplyRobotSpeeds.withSpeeds(speeds));
         }
-        double rotationError = curPose.getRotation().minus(targetPose.getRotation()).getRadians();
-        double rotationVelocity = 
-            rotationalPID.getSetpoint().velocity 
-            * ffScalar 
-            + rotationalPID.calculate(curPose.getRotation().getRadians(), targetPose.getRotation().getRadians());
-        if(Math.abs(rotationError) < rotationTol){
-            rotationVelocity = 0;
-        }
-        Pose2d driveVelocity = new Pose2d(
-            0, 
-            0, 
-            curPose.getTranslation()
-            .minus(targetPose.getTranslation()).getAngle())
-            .transformBy(new Transform2d(driveVelocityScalar, 0, new Rotation2d()));
-
-        ChassisSpeeds speeds = ChassisSpeeds.fromFieldRelativeSpeeds(
-            driveVelocity.getX(), 
-            driveVelocity.getY(), 
-            rotationVelocity, 
-            curPose.getRotation()
-            );
-        m_DriveTrain.getState().Speeds = speeds;
-        SwerveRequest.ApplyRobotSpeeds m_pathApplyRobotSpeeds = new SwerveRequest.ApplyRobotSpeeds();
-
-        m_DriveTrain.setControl(m_pathApplyRobotSpeeds.withSpeeds(speeds));
+        
     }
 
     public void end() {
