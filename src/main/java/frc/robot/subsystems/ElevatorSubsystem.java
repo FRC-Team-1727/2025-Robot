@@ -145,7 +145,7 @@ public class ElevatorSubsystem extends SubsystemBase {
 
     public void periodic(){
         SmartDashboard.putNumber("Elevator Height", elevator.getPosition().getValueAsDouble());
-        // System.out.println("Elevator height : " + elevator.getPosition().getValueAsDouble());
+        System.out.println("Elevator height : " + elevator.getPosition().getValueAsDouble());
         // System.out.println(RobotContainer.getMode());
         // System.out.println(curCoralLevel);
      

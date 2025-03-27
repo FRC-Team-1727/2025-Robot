@@ -56,7 +56,11 @@ public class CoralOuttakeCommand extends Command {
 
     m_IntakeSubsystem.setSpeed(0);
     m_IntakeSubsystem.intakeBrakeMode();
-    
+
+    if(m_ElevatorSubsystem.getCoralLevel() == 4){
+        m_IntakeSubsystem.setPivot(-23);
+
+    }
     m_ElevatorSubsystem.moveZeroPosition();
     if(ElevatorSubsystem.getElevatorHeight() > -40) {
       m_IntakeSubsystem.setPivot(0);

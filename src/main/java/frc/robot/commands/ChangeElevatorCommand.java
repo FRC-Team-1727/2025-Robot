@@ -75,8 +75,10 @@ public class ChangeElevatorCommand extends Command {
                     m_ElevatorSubsystem.setCoralL2();
                     break;
                 case 4:
-                    m_IntakeSubsystem.setPivot(IntakeConstants.kL3ScoringAngle);
-                    m_ElevatorSubsystem.setCoralL3();
+                    m_IntakeSubsystem.setPivot(-35);
+                    if(m_IntakeSubsystem.getPivot().getPosition().getValueAsDouble() > -34.3){
+                        m_ElevatorSubsystem.setCoralL3();
+                    }
                     break;
                 default:
                     m_ElevatorSubsystem.setDefaultHeight();
@@ -107,7 +109,9 @@ public class ChangeElevatorCommand extends Command {
 
     @Override
     public void end(boolean interrupted) {
-     //   m_IntakeSubsystem.setPivot(0);
+        if(RobotContainer.getMode() == Mode.CORALMODE && m_ElevatorSubsystem.getCoralLevel() == 4){
+            m_IntakeSubsystem.setPivot(IntakeConstants.kL3ScoringAngle);
+        }
     }
 
     @Override

@@ -31,10 +31,10 @@ public class ThirdAutoAlign extends Command{
     private ProfiledPIDController translationalPID;
     private ProfiledPIDController rotationalPID;
     private Optional<LeftOrRight> leftOrRight;
-    private final double translationSpeedLim = .5 * TunerConstants.kSpeedAt12Volts.in(MetersPerSecond);
-    private final double translationAccelLim = 2.3;
-    private final double rotationalSpeedLim = Math.PI;
-    private final double rotationalAccelLim = Math.PI * 4;
+    private final double translationSpeedLim = .2 * TunerConstants.kSpeedAt12Volts.in(MetersPerSecond);
+    private final double translationAccelLim = 2.3 / 2;
+    private final double rotationalSpeedLim = Math.PI / 2;
+    private final double rotationalAccelLim = Math.PI * 2;
     private final double speedTolerance = 0.075;
     private final double translationTol = Units.inchesToMeters(0.675);
     private final double rotationTol = Units.degreesToRadians(0.675);
@@ -51,14 +51,14 @@ public class ThirdAutoAlign extends Command{
     }
 
     public void initialize() {
-        translationalPID = new ProfiledPIDController(6, 0, 0,
+        translationalPID = new ProfiledPIDController(2, 0, 0,
                 new TrapezoidProfile.Constraints(translationSpeedLim, translationAccelLim));
         rotationalPID = new ProfiledPIDController(6, 0, 0,
                 new TrapezoidProfile.Constraints(rotationalSpeedLim, rotationalAccelLim));
         double[] pose = LimelightHelpers.getBotPose_TargetSpace("limelight-left");
-        curPose = new Pose2d(pose[0], pose[1], Rotation2d.fromDegrees(pose[4]));
+        curPose = new Pose2d(pose[2], pose[0], Rotation2d.fromDegrees(-pose[4]));
         if(leftOrRight.get() == LeftOrRight.LEFT){
-            targetPose = new Pose2d( -.176901468, .33037743, new Rotation2d(0));
+            targetPose = new Pose2d(-0.5954344218034341, -0.16560327650785525, new Rotation2d(0));
         }else{
             targetPose = new Pose2d(0,0,new Rotation2d(0)); //idk values rn
         }
@@ -68,7 +68,7 @@ public class ThirdAutoAlign extends Command{
         rotationalPID.setTolerance(rotationTol, speedTolRot);
 
         ChassisSpeeds fieldRelative = ChassisSpeeds.fromRobotRelativeSpeeds(m_DriveTrain.getState().Speeds,
-                m_DriveTrain.getPose().getRotation());
+                new Rotation2d(pose[4]));
         translationalPID.reset(
                 curPose.getTranslation().getDistance(targetPose.getTranslation()),
                 Math.min(0, -new Translation2d(fieldRelative.vxMetersPerSecond, fieldRelative.vyMetersPerSecond)
@@ -80,13 +80,15 @@ public class ThirdAutoAlign extends Command{
         rotationalPID.reset(
                 curPose.getRotation().getRadians(),
                 fieldRelative.omegaRadiansPerSecond);
+        System.out.println(curPose);
+        System.out.println(targetPose);
     }
 
     public void execute() {
         //ill do ignore some tags tomorrow
         if(LimelightHelpers.getTV("limelight-left")){
             double[] pose = LimelightHelpers.getBotPose_TargetSpace("limelight-left");
-            curPose = new Pose2d(pose[0], pose[1], Rotation2d.fromDegrees(pose[4]));
+            curPose = new Pose2d(pose[2], pose[0], Rotation2d.fromDegrees(-pose[4]));
     
             double curDist = curPose.getTranslation().getDistance(targetPose.getTranslation());
             double ffScalar = MathUtil.clamp((curDist - ffMinRadius) / (ffMaxRadius - ffMinRadius), 0, 1);
@@ -114,7 +116,7 @@ public class ThirdAutoAlign extends Command{
     
             ChassisSpeeds speeds = ChassisSpeeds.fromFieldRelativeSpeeds(
                 driveVelocity.getX(), 
-                driveVelocity.getY(), 
+                -driveVelocity.getY(), 
                 rotationVelocity, 
                 curPose.getRotation()
                 );
@@ -122,11 +124,20 @@ public class ThirdAutoAlign extends Command{
             SwerveRequest.ApplyRobotSpeeds m_pathApplyRobotSpeeds = new SwerveRequest.ApplyRobotSpeeds();
     
             m_DriveTrain.setControl(m_pathApplyRobotSpeeds.withSpeeds(speeds));
+            double[] curPoseData = {curPose.getX(), curPose.getY(), curPose.getRotation().getRadians()};
+            double[] targetPoseData = {targetPose.getX(), targetPose.getY(), targetPose.getRotation().getRadians()};
+            SmartDashboard.putNumber("Vx", driveVelocity.getX());
+            SmartDashboard.putNumber("Vy", driveVelocity.getY());
+            SmartDashboard.putNumber("Vr", rotationalPID.getSetpoint().velocity);
+            SmartDashboard.putNumberArray("CurPose", curPoseData);
+            SmartDashboard.putNumberArray("TargetPose", targetPoseData);
+        }else{
+            this.end(true);
         }
         
     }
 
-    public void end() {
+    public void end(boolean interrupted) {
        // m_DriveTrain.stop();
     }
 

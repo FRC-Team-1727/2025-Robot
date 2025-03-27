@@ -20,18 +20,18 @@ public final class OtherConstants {
     public static final double kIntakeI = 0;
     public static final double kIntakeD = 0;
 
-    public static final double kL1ScoringAngle = -10.8;
-    public static final double kScoringAngle = -12;
-    public static final double kL3ScoringAngle = -5.75;
-    public static final double kAlgaeGroundIntakeAngle = -35;
-    public static final double kAlgaeHighIntakeAngle = -25;
-    public static final double kAlgaeLowIntakeAngle = -33;
+    public static final double kL1ScoringAngle = -10.29;
+    public static final double kScoringAngle = -15.28;
+    public static final double kL3ScoringAngle = -14.857;
+    public static final double kAlgaeGroundIntakeAngle = -20;
+    public static final double kAlgaeHighIntakeAngle = -20;
+    public static final double kAlgaeLowIntakeAngle = -20;
     public static final double kCoralIntakeAngle = -2.2;
-    public static final double kCoralIntakeSpeed = -.2;
+    public static final double kCoralIntakeSpeed = -.375;
 
     public static final double kLowCoralOuttakeSpeed = .035;
     public static final double kCoralOutTakeSpeed = .18;
-    public static final double kPassiveIntakeSpeed = -0.18;
+    public static final double kPassiveIntakeSpeed = -0.15;
 
 
     public static final double kAlgaeIntakeSpeed = -.8;
@@ -50,15 +50,15 @@ public final class OtherConstants {
     public static final double kDefaultHeight = 0;
 
     //each of the coral levels on the reef
-    public static final double kCoral1Height = -10;
-    public static final double kCoralL2Height = -44;
-    public static final double kCoralL3Height = -79.7;
+    public static final double kCoral1Height = 0;
+    public static final double kCoralL2Height = -20.07;
+    public static final double kCoralL3Height = -44.8;
     // true value: -79.880859375
     //each of the algae levels on reef
-    public static final double kTopAlgae = -75;
-    public static final double kBottomAlgae = -75;
+    public static final double kTopAlgae = -44.5;
+    public static final double kBottomAlgae = -44.5;
 
-    public static final double kIntakeHeight = -53.1;
+    public static final double kIntakeHeight = -27.5;
   }
 
   public static class ClimbConstants{
