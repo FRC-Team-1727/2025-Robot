@@ -24,14 +24,14 @@ public final class OtherConstants {
     public static final double kScoringAngle = -15.28;
     public static final double kL3ScoringAngle = -14.857;
     public static final double kAlgaeGroundIntakeAngle = -20;
-    public static final double kAlgaeHighIntakeAngle = -20;
-    public static final double kAlgaeLowIntakeAngle = -20;
+    public static final double kAlgaeHighIntakeAngle = -30.1289;
+    public static final double kAlgaeLowIntakeAngle = -33.141;
     public static final double kCoralIntakeAngle = -2.2;
     public static final double kCoralIntakeSpeed = -.375;
 
-    public static final double kLowCoralOuttakeSpeed = .035;
+    public static final double kLowCoralOuttakeSpeed = .08;
     public static final double kCoralOutTakeSpeed = .18;
-    public static final double kPassiveIntakeSpeed = -0.15;
+    public static final double kPassiveIntakeSpeed = -0.08;
 
 
     public static final double kAlgaeIntakeSpeed = -.8;
@@ -52,11 +52,11 @@ public final class OtherConstants {
     //each of the coral levels on the reef
     public static final double kCoral1Height = 0;
     public static final double kCoralL2Height = -20.07;
-    public static final double kCoralL3Height = -44.8;
+    public static final double kCoralL3Height = -45.3;
     // true value: -79.880859375
     //each of the algae levels on reef
-    public static final double kTopAlgae = -44.5;
-    public static final double kBottomAlgae = -44.5;
+    public static final double kTopAlgae = -37.559;
+    public static final double kBottomAlgae = -37.7011;
 
     public static final double kIntakeHeight = -27.5;
   }

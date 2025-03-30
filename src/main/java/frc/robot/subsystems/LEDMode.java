@@ -8,5 +8,7 @@ public enum LEDMode {
     kDefault,
     kCoralMode,
     kAlgaeMode,
+    kAligned,
+    kAligning,
     kEmpty
 }

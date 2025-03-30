@@ -1,6 +1,8 @@
 package frc.robot.commands;
 
+import edu.wpi.first.wpilibj.GenericHID.RumbleType;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import frc.robot.Mode;
 import frc.robot.Robot;
 import frc.robot.RobotContainer;
@@ -12,10 +14,12 @@ import frc.robot.subsystems.IntakeSubsystem;
 public class ChangeElevatorCommand extends Command {
     private IntakeSubsystem m_IntakeSubsystem;
     private ElevatorSubsystem m_ElevatorSubsystem;
+    private CommandXboxController joystick;
 
-    public ChangeElevatorCommand(IntakeSubsystem intakeSubsystem, ElevatorSubsystem elevatorSubsystem) {
+    public ChangeElevatorCommand(IntakeSubsystem intakeSubsystem, ElevatorSubsystem elevatorSubsystem, CommandXboxController joystick) {
         m_IntakeSubsystem = intakeSubsystem;
         m_ElevatorSubsystem = elevatorSubsystem;
+        this.joystick = joystick;
         addRequirements(m_ElevatorSubsystem, m_IntakeSubsystem);
     }
 
@@ -63,7 +67,6 @@ public class ChangeElevatorCommand extends Command {
         if (RobotContainer.getMode() == Mode.CORALMODE) {
             switch (m_ElevatorSubsystem.getCoralLevel()) {
                 case 1:
-                 //   m_IntakeSubsystem.setPivot(0);
                     m_ElevatorSubsystem.moveZeroPosition();
                     break;
                 case 2:
@@ -87,15 +90,15 @@ public class ChangeElevatorCommand extends Command {
         } else if (RobotContainer.getMode() == Mode.ALGAEMODE) {
             switch (m_ElevatorSubsystem.getAlgaeLevel()) {
                 case 1:
-                m_ElevatorSubsystem.setHeight(0);;
+                    m_ElevatorSubsystem.setHeight(0);
                     break;
                 case 2:
-                m_IntakeSubsystem.setPivot(IntakeConstants.kAlgaeLowIntakeAngle);
-                 m_ElevatorSubsystem.setAlgaeBottom();                    
+                    m_IntakeSubsystem.setPivot(IntakeConstants.kAlgaeLowIntakeAngle);
+                    m_ElevatorSubsystem.setAlgaeBottom();                    
                     break;
                 case 3:
-                m_IntakeSubsystem.setPivot(IntakeConstants.kAlgaeHighIntakeAngle);
-                m_ElevatorSubsystem.setAlgaeTop();
+                    m_IntakeSubsystem.setPivot(IntakeConstants.kAlgaeHighIntakeAngle);
+                    m_ElevatorSubsystem.setAlgaeTop();
                     break;
                 default:
                     m_ElevatorSubsystem.setDefaultHeight();
@@ -112,6 +115,9 @@ public class ChangeElevatorCommand extends Command {
         if(RobotContainer.getMode() == Mode.CORALMODE && m_ElevatorSubsystem.getCoralLevel() == 4){
             m_IntakeSubsystem.setPivot(IntakeConstants.kL3ScoringAngle);
         }
+        System.out.println("called");
+        joystick.setRumble(RumbleType.kBothRumble, 0);
+
     }
 
     @Override

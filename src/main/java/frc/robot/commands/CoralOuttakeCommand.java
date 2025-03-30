@@ -17,18 +17,21 @@ public class CoralOuttakeCommand extends Command {
 
   private final IntakeSubsystem m_IntakeSubsystem;
   private final ElevatorSubsystem m_ElevatorSubsystem;
+  private final LEDSubsystem m_LedSubsystem;
 
-  public CoralOuttakeCommand(IntakeSubsystem intakeSubsystem, ElevatorSubsystem elevatorSubsystem) {
+  public CoralOuttakeCommand(IntakeSubsystem intakeSubsystem, ElevatorSubsystem elevatorSubsystem, LEDSubsystem ledSubsystem) {
     m_IntakeSubsystem = intakeSubsystem;
     m_ElevatorSubsystem = elevatorSubsystem;
+    m_LedSubsystem = ledSubsystem;
     // Use addRequirements() here to declare subsystem dependencies.
-    addRequirements(m_IntakeSubsystem, m_ElevatorSubsystem);
+    addRequirements(m_IntakeSubsystem, m_ElevatorSubsystem, m_LedSubsystem);
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
     m_IntakeSubsystem.intakeCoastMode();
+    m_LedSubsystem.setMode(LEDMode.kCoralMode);
   }
 
   // Called every time the scheduler runs while the command is scheduled.

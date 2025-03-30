@@ -26,7 +26,7 @@ public class LEDSubsystem extends SubsystemBase{
     public LEDSubsystem(){
         mode = LEDMode.kDefault;
         pattern = LEDPattern.solid(Color.kRed);
-        led = new AddressableLED(0);
+        led = new AddressableLED(1);
         buffer = new AddressableLEDBuffer(24);
         led.setLength(buffer.getLength());
         led.setData(buffer);
@@ -55,9 +55,14 @@ public class LEDSubsystem extends SubsystemBase{
         }else if(mode == LEDMode.kCoralMode){
            //setColor(Color.kCoral);
         //    randomColor(Color.kRed,Color.kBlue);
-    PARTYMODE();
+            PARTYMODE();
         }else if(mode == LEDMode.kAlgaeMode){
             setColor(Color.kAquamarine);
+        }else if(mode == LEDMode.kAligning){
+            aligning();
+        }
+        else if(mode == LEDMode.kAligned){
+            aligned();
         }
         led.setData(buffer);
     }
@@ -93,5 +98,11 @@ public class LEDSubsystem extends SubsystemBase{
         }
         animStart += 3;
         animStart %= 180;
+    }
+    public void aligning(){
+        breatheColor(Color.kRed);
+    }
+    public void aligned(){
+        setColor(Color.kGreen);
     }
 }

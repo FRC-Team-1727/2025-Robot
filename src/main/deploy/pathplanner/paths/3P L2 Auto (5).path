@@ -3,41 +3,25 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 7.225,
-        "y": 0.803
+        "x": 1.347248641304348,
+        "y": 0.8059103260869562
       },
       "prevControl": null,
       "nextControl": {
-        "x": 6.36675,
-        "y": 1.24625
+        "x": 1.8647747720854015,
+        "y": 2.3870892151412226
       },
       "isLocked": false,
-      "linkedName": null
+      "linkedName": "3P L2 (2)"
     },
     {
       "anchor": {
-        "x": 5.796375,
-        "y": 1.88
+        "x": 2.6348845108695658,
+        "y": 3.828277853260868
       },
       "prevControl": {
-        "x": 6.171749999999999,
-        "y": 1.3632499999999994
-      },
-      "nextControl": {
-        "x": 5.591263327368902,
-        "y": 2.1623615233622915
-      },
-      "isLocked": false,
-      "linkedName": null
-    },
-    {
-      "anchor": {
-        "x": 5.257846467391305,
-        "y": 2.9698539402173907
-      },
-      "prevControl": {
-        "x": 5.864612770391306,
-        "y": 1.9399540522173906
+        "x": 2.360536063188579,
+        "y": 3.4556405114759157
       },
       "nextControl": null,
       "isLocked": false,
@@ -58,13 +42,13 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 119.667
+    "rotation": 0.8303154862581031
   },
   "reversed": false,
-  "folder": "Blue Alliance",
+  "folder": "3P L2 Auto",
   "idealStartingState": {
     "velocity": 0,
-    "rotation": 179.62305952040293
+    "rotation": -122.59258147259924
   },
   "useDefaultConstraints": true
 }

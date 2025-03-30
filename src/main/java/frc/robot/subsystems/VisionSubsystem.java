@@ -47,7 +47,7 @@ public class VisionSubsystem extends SubsystemBase {
     SmartDashboard.putNumber("Robot YAw", robotYaw);
 
   }
-  public RawFiducial getClosestFiducial() {
+  public static RawFiducial getClosestFiducial() {
     if (fiducials == null || fiducials.length == 0) {
         throw new NoSuchTargetException("No fiducials found.");
     }

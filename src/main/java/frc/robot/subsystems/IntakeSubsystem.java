@@ -86,7 +86,7 @@ public class IntakeSubsystem extends SubsystemBase {
     public void periodic()
     {
         SmartDashboard.putNumber("Pivot Angle", pivot.getPosition().getValueAsDouble());
-         System.out.println("Pivot angle : " + pivot.getPosition().getValueAsDouble());
+        //  System.out.println("Pivot angle : " + pivot.getPosition().getValueAsDouble());
     }
     public void intakeBrakeMode(){
         intake.setNeutralMode(NeutralModeValue.Brake);

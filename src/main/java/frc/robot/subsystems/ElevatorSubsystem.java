@@ -16,6 +16,8 @@ import com.revrobotics.spark.config.SparkFlexConfig;
 
 import edu.wpi.first.units.measure.Angle;
 import edu.wpi.first.wpilibj.Encoder;
+import edu.wpi.first.wpilibj.GenericHID.RumbleType;
+import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.smartdashboard.Mechanism2d;
 import edu.wpi.first.wpilibj.smartdashboard.MechanismLigament2d;
 import edu.wpi.first.wpilibj.smartdashboard.MechanismRoot2d;
@@ -24,6 +26,7 @@ import edu.wpi.first.wpilibj.util.Color;
 import edu.wpi.first.wpilibj.util.Color8Bit;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import frc.robot.Mode;
 import frc.robot.RobotContainer;
 import frc.robot.constants.OtherConstants.ElevatorConstants;
@@ -32,6 +35,7 @@ public class ElevatorSubsystem extends SubsystemBase {
     public static TalonFX elevator = new TalonFX(ElevatorConstants.kElevatorID);
     public static int curCoralLevel;
     public static int curAlgaeLevel;
+    public static CommandXboxController joystick;
 
     public ElevatorSubsystem() {
         curCoralLevel = 0;
@@ -100,14 +104,20 @@ public class ElevatorSubsystem extends SubsystemBase {
     }
     public void setCoralL1() {
         setHeight(ElevatorConstants.kCoral1Height);
+        joystick.setRumble(RumbleType.kBothRumble, 0.2);
+
     }
 
     public void setCoralL2() {
         setHeight(ElevatorConstants.kCoralL2Height);
+        joystick.setRumble(RumbleType.kBothRumble, 0.2);
+
     }
 
     public void setCoralL3() {
         setHeight(ElevatorConstants.kCoralL3Height);
+        joystick.setRumble(RumbleType.kBothRumble, 0.2);
+
     }
     
    
@@ -115,10 +125,14 @@ public class ElevatorSubsystem extends SubsystemBase {
     /// levels on the reef
     public void setAlgaeBottom(){
         setHeight(ElevatorConstants.kBottomAlgae);
+        joystick.setRumble(RumbleType.kBothRumble, 0.2);
+
         
     }
     public void setAlgaeTop(){
         setHeight(ElevatorConstants.kTopAlgae);
+        joystick.setRumble(RumbleType.kBothRumble, 0.2);
+
     }
 
     public void setDefaultHeight(){
@@ -145,7 +159,7 @@ public class ElevatorSubsystem extends SubsystemBase {
 
     public void periodic(){
         SmartDashboard.putNumber("Elevator Height", elevator.getPosition().getValueAsDouble());
-        System.out.println("Elevator height : " + elevator.getPosition().getValueAsDouble());
+        // System.out.println("Elevator height : " + elevator.getPosition().getValueAsDouble());
         // System.out.println(RobotContainer.getMode());
         // System.out.println(curCoralLevel);
      
@@ -178,5 +192,8 @@ public class ElevatorSubsystem extends SubsystemBase {
     }
     public Command setDescoreHeightCommand(){
         return runOnce(() -> setHeight(ElevatorConstants.kTopAlgae));
+    }
+    public void initializeJoystick(CommandXboxController joystick){
+        ElevatorSubsystem.joystick = joystick;
     }
 }
