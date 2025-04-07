@@ -3,21 +3,27 @@
   "robotLength": 0.8,
   "holonomicMode": true,
   "pathFolders": [
+    "1PL2 + 2PL3 Left",
+    "1PL2 + 2PL3 Right",
+    "4P L2 Left",
+    "4P L2 Right",
     "Blue Alliance",
-    "3P L2 Auto"
+    "1P L2 Descore Center"
   ],
-  "autoFolders": [],
+  "autoFolders": [
+    "Good Autos"
+  ],
   "defaultMaxVel": 3.0,
   "defaultMaxAccel": 3.0,
   "defaultMaxAngVel": 540.0,
   "defaultMaxAngAccel": 720.0,
   "defaultNominalVoltage": 12.0,
-  "robotMass": 36.786,
+  "robotMass": 39.0,
   "robotMOI": 6.883,
   "robotTrackwidth": 0.546,
-  "driveWheelRadius": 0.0508,
+  "driveWheelRadius": 0.0484,
   "driveGearing": 5.9,
-  "maxDriveSpeed": 5.212,
+  "maxDriveSpeed": 5.395,
   "driveMotorType": "krakenX60",
   "driveCurrentLimit": 60.0,
   "wheelCOF": 1.2,

@@ -23,9 +23,9 @@ public final class OtherConstants {
     public static final double kL1ScoringAngle = -10.29;
     public static final double kScoringAngle = -15.28;
     public static final double kL3ScoringAngle = -14.857;
-    public static final double kAlgaeGroundIntakeAngle = -20;
-    public static final double kAlgaeHighIntakeAngle = -30.1289;
-    public static final double kAlgaeLowIntakeAngle = -33.141;
+    public static final double kAlgaeGroundIntakeAngle = -36.5;
+    public static final double kAlgaeHighIntakeAngle = -27.1289;
+    public static final double kAlgaeLowIntakeAngle = -38;
     public static final double kCoralIntakeAngle = -2.2;
     public static final double kCoralIntakeSpeed = -.375;
 
@@ -55,10 +55,10 @@ public final class OtherConstants {
     public static final double kCoralL3Height = -45.3;
     // true value: -79.880859375
     //each of the algae levels on reef
-    public static final double kTopAlgae = -37.559;
-    public static final double kBottomAlgae = -37.7011;
+    public static final double kTopAlgae = -41;
+    public static final double kBottomAlgae = -39;
 
-    public static final double kIntakeHeight = -27.5;
+    public static final double kIntakeHeight = -25;
   }
 
   public static class ClimbConstants{
@@ -67,8 +67,8 @@ public final class OtherConstants {
     public static final double kClimbI = 0.00;
     public static final double kClimbD = 0.00;
     public static final double kClimbSpeed = 0;
-    public static final double kUpClimbAngle = 220;
-    public static final double kDownClimbAngle = 68;
+    public static final double kUpClimbAngle = 240;
+    public static final double kDownClimbAngle = 59.5;
 
   }
   public static class VisionConstants {
@@ -76,3 +76,4 @@ public final class OtherConstants {
 
   }
 }
+

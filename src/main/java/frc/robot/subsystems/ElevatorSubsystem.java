@@ -190,10 +190,16 @@ public class ElevatorSubsystem extends SubsystemBase {
     {
         return runOnce(() -> setHeight(ElevatorConstants.kIntakeHeight));
     }
-    public Command setDescoreHeightCommand(){
+    public Command setDescoreHighHeightCommand(){
         return runOnce(() -> setHeight(ElevatorConstants.kTopAlgae));
+    }
+    public Command setDescoreLowHeightCommand(){
+        return runOnce(() -> setHeight(ElevatorConstants.kBottomAlgae));
     }
     public void initializeJoystick(CommandXboxController joystick){
         ElevatorSubsystem.joystick = joystick;
+    }
+    public TalonFX getElevator(){
+        return elevator;
     }
 }

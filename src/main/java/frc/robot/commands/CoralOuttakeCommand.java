@@ -31,7 +31,7 @@ public class CoralOuttakeCommand extends Command {
   @Override
   public void initialize() {
     m_IntakeSubsystem.intakeCoastMode();
-    m_LedSubsystem.setMode(LEDMode.kCoralMode);
+    m_LedSubsystem.setMode(LEDMode.kDefault);
   }
 
   // Called every time the scheduler runs while the command is scheduled.

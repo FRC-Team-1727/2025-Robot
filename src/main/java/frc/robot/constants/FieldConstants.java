@@ -18,6 +18,9 @@ public class FieldConstants {
     public static ArrayList<Pose2d> REEF_LOCATIONS = new ArrayList<>();
     public static ArrayList<Pose2d> REEF_CENTER_LOCATIONS = new ArrayList<>();
     public static HashMap<Integer, Rotation2d> REEF_ANGLES = new HashMap<>();
+    public static HashMap<Integer, Pose2d> REEF_ID_CENTER_LOCATIONS = new HashMap<>();
+    public static HashMap<Integer, Pose2d> REEF_ID_LEFT_LOCATIONS = new HashMap<>();
+    public static HashMap<Integer, Pose2d> REEF_ID_RIGHT_LOCATIONS = new HashMap<>();
 
     public static void configureReefPositions(Alliance alliance) {
         boolean isRed = (alliance == Alliance.Red);
@@ -84,6 +87,85 @@ public class FieldConstants {
         REEF_ANGLES.put(9, new Rotation2d(-Math.PI / 3));
         REEF_ANGLES.put(10, new Rotation2d(0.0));
         REEF_ANGLES.put(11, new Rotation2d(Math.PI / 3));
+
+
+        Pose2d REEF_22_LEFT = new Pose2d(-0.413316298, -0.179135092, new Rotation2d(0));
+        Pose2d REEF_21_LEFT = new Pose2d(-0.413316298, -0.175266472, new Rotation2d(0));
+        Pose2d REEF_20_LEFT = new Pose2d(-0.413316298, -0.180639851, new Rotation2d(0));
+        Pose2d REEF_19_LEFT = new Pose2d(-0.413316298, -0.157337687, new Rotation2d(0));
+        Pose2d REEF_18_LEFT = new Pose2d(-0.413316298, -0.174102765, new Rotation2d(0));
+        Pose2d REEF_17_LEFT = new Pose2d(-0.413316298, -0.171540969, new Rotation2d(0));
+        Pose2d REEF_11_LEFT = new Pose2d(-0.413316298, -0.178314549, new Rotation2d(0));
+        Pose2d REEF_10_LEFT = new Pose2d(-0.413316298, -0.1760371243, new Rotation2d(0));
+        Pose2d REEF_9_LEFT = new Pose2d(-0.413316298, -0.1770691636, new Rotation2d(0));
+        Pose2d REEF_8_LEFT = new Pose2d(-0.413316298, -0.1717771571, new Rotation2d(0));
+        Pose2d REEF_7_LEFT = new Pose2d(-0.413316298, -0.1618994958, new Rotation2d(0));
+        Pose2d REEF_6_LEFT = new Pose2d(-0.413316298, -0.176257004, new Rotation2d(0));
+
+        REEF_ID_LEFT_LOCATIONS.put(22, REEF_22_LEFT);
+        REEF_ID_LEFT_LOCATIONS.put(21, REEF_21_LEFT);
+        REEF_ID_LEFT_LOCATIONS.put(20, REEF_20_LEFT);
+        REEF_ID_LEFT_LOCATIONS.put(19, REEF_19_LEFT);
+        REEF_ID_LEFT_LOCATIONS.put(18, REEF_18_LEFT);
+        REEF_ID_LEFT_LOCATIONS.put(17, REEF_17_LEFT);
+        REEF_ID_LEFT_LOCATIONS.put(11, REEF_11_LEFT);
+        REEF_ID_LEFT_LOCATIONS.put(10, REEF_10_LEFT);
+        REEF_ID_LEFT_LOCATIONS.put(9, REEF_9_LEFT);
+        REEF_ID_LEFT_LOCATIONS.put(8, REEF_8_LEFT);
+        REEF_ID_LEFT_LOCATIONS.put(7, REEF_7_LEFT);
+        REEF_ID_LEFT_LOCATIONS.put(6, REEF_6_LEFT);
+
+        Pose2d REEF_22_RIGHT = new Pose2d(-0.413316298, 0.168650129, new Rotation2d(0));
+        Pose2d REEF_21_RIGHT = new Pose2d(-0.413316298, 0.193140985, new Rotation2d(0));
+        Pose2d REEF_20_RIGHT = new Pose2d(-0.413316298, 0.16904439854, new Rotation2d(0));
+        Pose2d REEF_19_RIGHT = new Pose2d(-0.413316298, 0.16796970683, new Rotation2d(0));
+        Pose2d REEF_18_RIGHT = new Pose2d(-0.413316298, 0.1672487537, new Rotation2d(0));
+        Pose2d REEF_17_RIGHT = new Pose2d(-0.413316298, 0.1590674526, new Rotation2d(0));
+        Pose2d REEF_11_RIGHT = new Pose2d(-0.413316298, 0.15882070464, new Rotation2d(0));
+        Pose2d REEF_10_RIGHT = new Pose2d(-0.413316298, 0.1633958809, new Rotation2d(0));
+        Pose2d REEF_9_RIGHT = new Pose2d(-0.413316298, 0.1655379628, new Rotation2d(0));
+        Pose2d REEF_8_RIGHT = new Pose2d(-0.413316298, 0.160331056, new Rotation2d(0));
+        Pose2d REEF_7_RIGHT = new Pose2d(-0.413316298, 0.16418094437, new Rotation2d(0));
+        Pose2d REEF_6_RIGHT = new Pose2d(-0.413316298, 0.1527978298, new Rotation2d(0));
+        
+        REEF_ID_RIGHT_LOCATIONS.put(22, REEF_22_RIGHT);
+        REEF_ID_RIGHT_LOCATIONS.put(21, REEF_21_RIGHT);
+        REEF_ID_RIGHT_LOCATIONS.put(20, REEF_20_RIGHT);
+        REEF_ID_RIGHT_LOCATIONS.put(19, REEF_19_RIGHT);
+        REEF_ID_RIGHT_LOCATIONS.put(18, REEF_18_RIGHT);
+        REEF_ID_RIGHT_LOCATIONS.put(17, REEF_17_RIGHT);
+        REEF_ID_RIGHT_LOCATIONS.put(11, REEF_11_RIGHT);
+        REEF_ID_RIGHT_LOCATIONS.put(10, REEF_10_RIGHT);
+        REEF_ID_RIGHT_LOCATIONS.put(9, REEF_9_RIGHT);
+        REEF_ID_RIGHT_LOCATIONS.put(8, REEF_8_RIGHT);
+        REEF_ID_RIGHT_LOCATIONS.put(7, REEF_7_RIGHT);
+        REEF_ID_RIGHT_LOCATIONS.put(6, REEF_6_RIGHT);
+
+        Pose2d REEF_22_CENTER = new Pose2d(-0.383316298, 0, new Rotation2d(0));
+        Pose2d REEF_21_CENTER = new Pose2d(-0.383316298, 0, new Rotation2d(0));
+        Pose2d REEF_20_CENTER = new Pose2d(-0.383316298, 0, new Rotation2d(0));
+        Pose2d REEF_19_CENTER = new Pose2d(-0.383316298, 0, new Rotation2d(0));
+        Pose2d REEF_18_CENTER = new Pose2d(-0.383316298, 0, new Rotation2d(0));
+        Pose2d REEF_17_CENTER = new Pose2d(-0.383316298, 0, new Rotation2d(0));
+        Pose2d REEF_11_CENTER = new Pose2d(-0.383316298, 0, new Rotation2d(0));
+        Pose2d REEF_10_CENTER = new Pose2d(-0.383316298, 0, new Rotation2d(0));
+        Pose2d REEF_9_CENTER = new Pose2d(-0.383316298, 0, new Rotation2d(0));
+        Pose2d REEF_8_CENTER = new Pose2d(-0.383316298, 0, new Rotation2d(0));
+        Pose2d REEF_7_CENTER = new Pose2d(-0.383316298, 0, new Rotation2d(0));
+        Pose2d REEF_6_CENTER = new Pose2d(-0.383316298, 0, new Rotation2d(0));
+
+        REEF_ID_CENTER_LOCATIONS.put(22, REEF_22_CENTER);
+        REEF_ID_CENTER_LOCATIONS.put(21, REEF_21_CENTER);
+        REEF_ID_CENTER_LOCATIONS.put(20, REEF_20_CENTER);
+        REEF_ID_CENTER_LOCATIONS.put(19, REEF_19_CENTER);
+        REEF_ID_CENTER_LOCATIONS.put(18, REEF_18_CENTER);
+        REEF_ID_CENTER_LOCATIONS.put(17, REEF_17_CENTER);
+        REEF_ID_CENTER_LOCATIONS.put(11, REEF_11_CENTER);
+        REEF_ID_CENTER_LOCATIONS.put(10, REEF_10_CENTER);
+        REEF_ID_CENTER_LOCATIONS.put(9, REEF_9_CENTER);
+        REEF_ID_CENTER_LOCATIONS.put(8, REEF_8_CENTER);
+        REEF_ID_CENTER_LOCATIONS.put(7, REEF_7_CENTER);
+        REEF_ID_CENTER_LOCATIONS.put(6, REEF_6_CENTER);
     }
 
     public static Pose2d findPose(double x, double y, double rotation, boolean isRed) {

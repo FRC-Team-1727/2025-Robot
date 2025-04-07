@@ -77,8 +77,11 @@ public class IntakeSubsystem extends SubsystemBase {
         return this.runOnce(()-> setSpeed(-IntakeConstants.kCoralOutTakeSpeed));
     }
 
-    public Command algeaOutakeCommand(){
-        return this.runOnce(()-> setSpeed(-IntakeConstants.kAlgaeOutTakeSpeed));
+    public Command algaeHighOutakeCommand(){
+        return this.run(()-> setSpeed(IntakeConstants.kAlgaeOutTakeSpeed));
+    }
+    public Command algaeLowOutakeCommand(){
+        return this.run(()-> setSpeed(IntakeConstants.kAlgaeDescoreSpeed));
     }
     public Command passiveIntakeCommand(){
         return this.runOnce(() -> setSpeed(IntakeConstants.kPassiveIntakeSpeed));
@@ -86,7 +89,7 @@ public class IntakeSubsystem extends SubsystemBase {
     public void periodic()
     {
         SmartDashboard.putNumber("Pivot Angle", pivot.getPosition().getValueAsDouble());
-        //  System.out.println("Pivot angle : " + pivot.getPosition().getValueAsDouble());
+        //   System.out.println("Pivot angle : " + pivot.getPosition().getValueAsDouble());
     }
     public void intakeBrakeMode(){
         intake.setNeutralMode(NeutralModeValue.Brake);

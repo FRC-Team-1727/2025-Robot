@@ -22,6 +22,16 @@ public class Robot extends TimedRobot {
   private final RobotContainer m_robotContainer;
 
   public Robot() {
+    if (DriverStation.getAlliance().get() == Alliance.Red) {
+      LimelightHelpers.setPipelineIndex("limelight-left", 0);
+      LimelightHelpers.setPipelineIndex("limelight-right", 0);
+    } else if (DriverStation.getAlliance().get() == Alliance.Blue) {
+      LimelightHelpers.setPipelineIndex("limelight-left", 1);
+      LimelightHelpers.setPipelineIndex("limelight-right", 1);
+    } else {
+      LimelightHelpers.setPipelineIndex("limelight-left", 1);
+      LimelightHelpers.setPipelineIndex("limelight-right", 1);
+    }
     m_robotContainer = new RobotContainer();
     FieldConstants.configureReefPositions(DriverStation.getAlliance().orElse(DriverStation.Alliance.Blue));
   }

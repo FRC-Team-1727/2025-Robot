@@ -1,0 +1,49 @@
+{
+  "version": "2025.0",
+  "command": {
+    "type": "sequential",
+    "data": {
+      "commands": [
+        {
+          "type": "wait",
+          "data": {
+            "waitTime": 5.0
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "Passive Intake"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "1P L2 Center to Right"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "L2 height"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "Auto Align Right"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "Coral Outtake"
+          }
+        }
+      ]
+    }
+  },
+  "resetOdom": true,
+  "folder": "Good Autos",
+  "choreoAuto": false
+}
