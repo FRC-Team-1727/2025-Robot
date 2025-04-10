@@ -24,6 +24,9 @@ public class AlgaeOuttakeCommand extends Command {
   @Override
   public void initialize() {
     m_IntakeSubsystem.intakeCoastMode();
+    if(m_ElevatorSubsystem.getAlgaeLevel() == 1){
+      m_IntakeSubsystem.setPivot(-28);
+    }
   }
 
   @Override
@@ -48,6 +51,10 @@ public class AlgaeOuttakeCommand extends Command {
   @Override
   public void end(boolean interrupted) {
     m_IntakeSubsystem.setSpeed(IntakeConstants.kPassiveIntakeSpeed);
+    if(m_ElevatorSubsystem.getAlgaeLevel() == 2 || m_ElevatorSubsystem.getAlgaeLevel() == 3){
+      m_ElevatorSubsystem.moveZeroPosition();
+      m_ElevatorSubsystem.resetLevels();
+    }
     m_IntakeSubsystem.intakeBrakeMode();
   }
 

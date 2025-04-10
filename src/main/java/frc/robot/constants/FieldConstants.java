@@ -1,13 +1,9 @@
 package frc.robot.constants;
 
-import static edu.wpi.first.units.Units.Rotation;
-
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.wpilibj.DriverStation.Alliance;
@@ -141,18 +137,18 @@ public class FieldConstants {
         REEF_ID_RIGHT_LOCATIONS.put(7, REEF_7_RIGHT);
         REEF_ID_RIGHT_LOCATIONS.put(6, REEF_6_RIGHT);
 
-        Pose2d REEF_22_CENTER = new Pose2d(-0.383316298, 0, new Rotation2d(0));
-        Pose2d REEF_21_CENTER = new Pose2d(-0.383316298, 0, new Rotation2d(0));
-        Pose2d REEF_20_CENTER = new Pose2d(-0.383316298, 0, new Rotation2d(0));
-        Pose2d REEF_19_CENTER = new Pose2d(-0.383316298, 0, new Rotation2d(0));
-        Pose2d REEF_18_CENTER = new Pose2d(-0.383316298, 0, new Rotation2d(0));
-        Pose2d REEF_17_CENTER = new Pose2d(-0.383316298, 0, new Rotation2d(0));
-        Pose2d REEF_11_CENTER = new Pose2d(-0.383316298, 0, new Rotation2d(0));
-        Pose2d REEF_10_CENTER = new Pose2d(-0.383316298, 0, new Rotation2d(0));
-        Pose2d REEF_9_CENTER = new Pose2d(-0.383316298, 0, new Rotation2d(0));
-        Pose2d REEF_8_CENTER = new Pose2d(-0.383316298, 0, new Rotation2d(0));
-        Pose2d REEF_7_CENTER = new Pose2d(-0.383316298, 0, new Rotation2d(0));
-        Pose2d REEF_6_CENTER = new Pose2d(-0.383316298, 0, new Rotation2d(0));
+        Pose2d REEF_22_CENTER = new Pose2d(-0.343316298, 0, new Rotation2d(0));
+        Pose2d REEF_21_CENTER = new Pose2d(-0.343316298, 0, new Rotation2d(0));
+        Pose2d REEF_20_CENTER = new Pose2d(-0.343316298, 0, new Rotation2d(0));
+        Pose2d REEF_19_CENTER = new Pose2d(-0.343316298, 0, new Rotation2d(0));
+        Pose2d REEF_18_CENTER = new Pose2d(-0.343316298, 0, new Rotation2d(0));
+        Pose2d REEF_17_CENTER = new Pose2d(-0.343316298, 0, new Rotation2d(0));
+        Pose2d REEF_11_CENTER = new Pose2d(-0.343316298, 0, new Rotation2d(0));
+        Pose2d REEF_10_CENTER = new Pose2d(-0.343316298, 0, new Rotation2d(0));
+        Pose2d REEF_9_CENTER = new Pose2d(-0.343316298, 0, new Rotation2d(0));
+        Pose2d REEF_8_CENTER = new Pose2d(-0.343316298, 0, new Rotation2d(0));
+        Pose2d REEF_7_CENTER = new Pose2d(-0.343316298, 0, new Rotation2d(0));
+        Pose2d REEF_6_CENTER = new Pose2d(-0.343316298, 0, new Rotation2d(0));
 
         REEF_ID_CENTER_LOCATIONS.put(22, REEF_22_CENTER);
         REEF_ID_CENTER_LOCATIONS.put(21, REEF_21_CENTER);

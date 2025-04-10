@@ -23,9 +23,9 @@ public final class OtherConstants {
     public static final double kL1ScoringAngle = -10.29;
     public static final double kScoringAngle = -15.28;
     public static final double kL3ScoringAngle = -14.857;
-    public static final double kAlgaeGroundIntakeAngle = -36.5;
+    public static final double kAlgaeGroundIntakeAngle = -35;
     public static final double kAlgaeHighIntakeAngle = -27.1289;
-    public static final double kAlgaeLowIntakeAngle = -38;
+    public static final double kAlgaeLowIntakeAngle = -32.29;
     public static final double kCoralIntakeAngle = -2.2;
     public static final double kCoralIntakeSpeed = -.375;
 
@@ -35,9 +35,9 @@ public final class OtherConstants {
 
 
     public static final double kAlgaeIntakeSpeed = -.8;
-    public static final double kAlgaeDescoreSpeed = -.45;
+    public static final double kAlgaeDescoreSpeed = -.6;
     public static final double kAlgaeOutTakeSpeed = .85;
-    public static final double kAlgaeLowOutTakeSpeed = 0.45;
+    public static final double kAlgaeLowOutTakeSpeed = 0.23;
   }
 
   public static class ElevatorConstants{
@@ -56,7 +56,7 @@ public final class OtherConstants {
     // true value: -79.880859375
     //each of the algae levels on reef
     public static final double kTopAlgae = -41;
-    public static final double kBottomAlgae = -39;
+    public static final double kBottomAlgae = -42;
 
     public static final double kIntakeHeight = -25;
   }
@@ -73,7 +73,6 @@ public final class OtherConstants {
   }
   public static class VisionConstants {
     public static final String LIMELIGHT_NAME = "";
-
   }
 }
 

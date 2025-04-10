@@ -146,6 +146,7 @@ public class ThirdAutoAlign extends Command {
         }
         double curDist = curPose.getTranslation().getDistance(targetPose.getTranslation());
         double ffScalar = MathUtil.clamp((curDist - ffMinRadius) / (ffMaxRadius - ffMinRadius), 0.1, 1);
+       
 
         double driveVelocityScalar = translationalPID.getSetpoint().velocity * ffScalar
                 + translationalPID.calculate(curDist, 0);

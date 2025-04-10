@@ -17,15 +17,17 @@ public class AutoCoralIntakeCommand extends Command{
     public void initialize(){
         m_ElevatorSubsystem.setHeight(ElevatorConstants.kIntakeHeight);
         m_IntakeSubsystem.setPivot(IntakeConstants.kCoralIntakeAngle);
+        m_IntakeSubsystem.clearThreshold();
     }
     public void execute(){
-        m_IntakeSubsystem.setSpeed(IntakeConstants.kCoralIntakeSpeed);
+        m_IntakeSubsystem.autoIntakeSpeed();
     }
-    public void end(){
+    public void end(boolean interrupted){
         m_IntakeSubsystem.setSpeed(IntakeConstants.kPassiveIntakeSpeed);
+        System.out.println("ended");
     }
     public boolean isFinished(){
-        return false;
+        return m_IntakeSubsystem.getIntakeVelocity() > -30 && m_IntakeSubsystem.getThreshold();
     }
     
 }

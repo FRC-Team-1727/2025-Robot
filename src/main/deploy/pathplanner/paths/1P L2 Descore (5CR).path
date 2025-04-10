@@ -3,29 +3,45 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 5.013434103260869,
-        "y": 2.7671705163043465
+        "x": 3.8748301630434785,
+        "y": 2.9281249999999988
       },
       "prevControl": null,
       "nextControl": {
-        "x": 5.508220108695651,
-        "y": 1.8074048913043455
+        "x": 3.680625,
+        "y": 2.5039999999999996
       },
       "isLocked": false,
       "linkedName": null
     },
     {
       "anchor": {
-        "x": 1.467375,
-        "y": 0.7392499999999995
+        "x": 4.509375,
+        "y": 1.5679999999999996
       },
       "prevControl": {
-        "x": 3.2974870923913047,
-        "y": 1.3890292119565213
+        "x": 4.129919836956522,
+        "y": 1.742890625
+      },
+      "nextControl": {
+        "x": 5.108434194790572,
+        "y": 1.291894027034452
+      },
+      "isLocked": false,
+      "linkedName": null
+    },
+    {
+      "anchor": {
+        "x": 5.991375000000001,
+        "y": 0.44674999999999954
+      },
+      "prevControl": {
+        "x": 5.895994565217393,
+        "y": 1.2097934782608672
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "3P L2 (2)"
+      "linkedName": "1P L2 Descore (3CR)"
     }
   ],
   "rotationTargets": [],
@@ -42,13 +58,13 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": -126.41637851988594
+    "rotation": -90.0
   },
   "reversed": false,
-  "folder": "4P L2 Right",
+  "folder": "1P L2 Descore Center (R)",
   "idealStartingState": {
     "velocity": 0,
-    "rotation": 118.84266013541216
+    "rotation": 60.52411099675432
   },
   "useDefaultConstraints": true
 }

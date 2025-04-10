@@ -5,6 +5,8 @@ import static edu.wpi.first.units.Units.Meters;
 import static edu.wpi.first.units.Units.MetersPerSecond;
 import static edu.wpi.first.units.Units.Seconds;
 
+import edu.wpi.first.math.geometry.Pose2d;
+import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.wpilibj.AddressableLED;
 import edu.wpi.first.wpilibj.AddressableLEDBuffer;
 import edu.wpi.first.wpilibj.AddressableLEDBufferView;
@@ -12,9 +14,12 @@ import edu.wpi.first.wpilibj.LEDPattern;
 import edu.wpi.first.wpilibj.simulation.AddressableLEDSim;
 import edu.wpi.first.wpilibj.util.Color;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.LimelightHelpers;
 import frc.robot.Mode;
 import frc.robot.Robot;
 import frc.robot.RobotContainer;
+import frc.robot.commands.BasicAutoAlign;
+import frc.robot.commands.ThirdAutoAlign;
 
 public class LEDSubsystem extends SubsystemBase {
     private final AddressableLED led;
@@ -23,6 +28,8 @@ public class LEDSubsystem extends SubsystemBase {
     private LEDPattern pattern;
     private LEDMode mode;
     private int animStart;
+    private ThirdAutoAlign autoAlign;
+
 
     public LEDSubsystem() {
         mode = LEDMode.kDefault;
@@ -32,7 +39,7 @@ public class LEDSubsystem extends SubsystemBase {
         led.setLength(buffer.getLength());
         led.setData(buffer);
         led.start();
-
+        
         animStart = 0;
         sim = AddressableLEDSim.createForChannel(0);
         pattern = LEDPattern.rainbow(255, 128);
@@ -73,6 +80,12 @@ public class LEDSubsystem extends SubsystemBase {
     public void breatheColor(Color color) {
         LEDPattern base = LEDPattern.solid(color);
         pattern = base.breathe(Seconds.of(2));
+        pattern.applyTo(buffer);
+    }
+
+    public void blinkColor(Color color,double time) {
+        LEDPattern base = LEDPattern.solid(color);
+        pattern = base.blink(Seconds.of(time));
         pattern.applyTo(buffer);
     }
 

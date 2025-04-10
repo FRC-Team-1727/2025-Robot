@@ -31,7 +31,7 @@ public class CoralIntakeCommand extends Command {
 
   @Override
   public void execute() {
-    m_IntakeSubsystem.setSpeed(IntakeConstants.kCoralIntakeSpeed);
+    m_IntakeSubsystem.intakeSpeed();
   }
 
   @Override

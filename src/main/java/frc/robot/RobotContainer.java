@@ -40,6 +40,7 @@ import frc.robot.commands.CoralIntakeCommand;
 import frc.robot.commands.CoralOuttakeCommand;
 import frc.robot.commands.SwitchClimbCommand;
 import frc.robot.commands.ThirdAutoAlign;
+import frc.robot.commands.auto.AutoAlgaeOuttakeCommand;
 import frc.robot.commands.auto.AutoCoralIntakeCommand;
 import frc.robot.commands.auto.AutoL3HeightCommand;
 import frc.robot.commands.auto.AutoPassiveIntakeCommand;
@@ -67,10 +68,10 @@ public class RobotContainer {
         private final SendableChooser<Command> autoChooser;
 
         private double MaxSpeed = TunerConstants.kSpeedAt12Volts.in(MetersPerSecond); // kSpeedAt12Volts desired top
-                                                                                        // speed
-        private double MaxAngularRate = RotationsPerSecond.of(0.75).in(RadiansPerSecond); // 3/4 of a rotation per
-                                                                                          // second
-                                                                                          // max angular velocity
+                                                                                      // speed
+        private double MaxAngularRate = RotationsPerSecond.of(1).in(RadiansPerSecond); // 3/4 of a rotation per
+                                                                                       // second
+                                                                                       // max angular velocity
 
         /* Setting up bindings for necessary control of the swerve drive platform */
         private final SwerveRequest.FieldCentric drive = new SwerveRequest.FieldCentric()
@@ -106,6 +107,9 @@ public class RobotContainer {
                 autoChooser.addOption("3 Piece L2", new PathPlannerAuto("3P L2"));
                 autoChooser.addOption("4 Piece L2 Right", new PathPlannerAuto("4P L2 Right"));
                 autoChooser.addOption("4 Piece L2 Left", new PathPlannerAuto("4P L2 Left"));
+
+                autoChooser.addOption("Test Descore", new PathPlannerAuto("Test Descore"));
+                autoChooser.addOption("1PL2 + 2PL3 Right Test", new PathPlannerAuto("1PL2 + 2PL3 Right Test"));
 
                 // autoChooser.addOption("autoalign test", new PathPlannerAuto("3P L2"));
                 autoChooser.addOption("1PL2 + 2PL3 Right", new PathPlannerAuto("1PL2 + 2PL3 Right"));
@@ -244,26 +248,23 @@ public class RobotContainer {
                                                 .alongWith(m_IntakeSubsystem.setPivotCommand()));
                 NamedCommands.registerCommand("L1 height", m_ElevatorSubsystem.setCoralHeightCommand(1)
                                 .alongWith(m_IntakeSubsystem.setPivotCommand(IntakeConstants.kL1ScoringAngle)));
-
                 NamedCommands.registerCommand("Coral Outtake",
                                 new CoralOuttakeCommand(m_IntakeSubsystem, m_ElevatorSubsystem, m_LedSubsystem)
                                                 .withTimeout(.4));
                 NamedCommands.registerCommand("Coral Intake",
-                                new AutoCoralIntakeCommand(m_ElevatorSubsystem, m_IntakeSubsystem).withTimeout(.8));
-                // NamedCommands.registerCommand("Intake Position",
-                // m_ElevatorSubsystem.setIntakeHeightCommand().alongWith(m_IntakeSubsystem.setPivotCommand(IntakeConstants.kCoralIntakeAngle)));
+                                new AutoCoralIntakeCommand(m_ElevatorSubsystem, m_IntakeSubsystem));
                 NamedCommands.registerCommand("Zero Elevator", m_ElevatorSubsystem.setCoralHeightCommand(0));
                 NamedCommands.registerCommand("Passive Intake",
-                                new AutoPassiveIntakeCommand(m_IntakeSubsystem).withTimeout(0.01));
+                                new AutoPassiveIntakeCommand(m_IntakeSubsystem).withTimeout(0.001));
                 NamedCommands.registerCommand("Auto Align Left",
                                 new ThirdAutoAlign(drivetrain, Optional.of(LeftOrRight.LEFT), joystick, m_LedSubsystem)
-                                                .withTimeout(1.5));
+                                                .withTimeout(1.25));
                 NamedCommands.registerCommand("Auto Align Right",
                                 new ThirdAutoAlign(drivetrain, Optional.of(LeftOrRight.RIGHT), joystick, m_LedSubsystem)
-                                                .withTimeout(1.5));
+                                                .withTimeout(1.25));
                 NamedCommands.registerCommand("Auto Align Center",
                                 new ThirdAutoAlign(drivetrain, Optional.empty(), joystick, m_LedSubsystem)
-                                                .withTimeout(1.5));
+                                                .withTimeout(.75));
                 NamedCommands.registerCommand("Descore Algae High Height",
                                 m_ElevatorSubsystem.setDescoreHighHeightCommand().alongWith(m_IntakeSubsystem
                                                 .setPivotCommand(IntakeConstants.kAlgaeHighIntakeAngle)));
@@ -271,9 +272,11 @@ public class RobotContainer {
                                 m_ElevatorSubsystem.setDescoreLowHeightCommand().alongWith(m_IntakeSubsystem
                                                 .setPivotCommand(IntakeConstants.kAlgaeLowIntakeAngle)));
                 NamedCommands.registerCommand("Descore High Algae",
-                                m_IntakeSubsystem.algaeHighOutakeCommand().withTimeout(.01));
+                                m_IntakeSubsystem.algaeHighOutakeCommand().withTimeout(.001));
                 NamedCommands.registerCommand("Descore Low Algae",
-                                m_IntakeSubsystem.algaeLowOutakeCommand().withTimeout(.01));
+                                m_IntakeSubsystem.algaeLowOutakeCommand().withTimeout(.001));
+                NamedCommands.registerCommand("Algae Outtake",
+                                new AutoAlgaeOuttakeCommand(m_IntakeSubsystem).withTimeout(1.5));
                 // NamedCommands.registerCommand("Intake",
                 // m_IntakeSubsystem.coralIntakeCommand().withTimeout(1));
                 // NamedCommands.registerCommand("Outtake",

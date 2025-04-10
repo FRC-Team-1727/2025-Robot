@@ -7,7 +7,7 @@
         {
           "type": "wait",
           "data": {
-            "waitTime": 5.0
+            "waitTime": 3.0
           }
         },
         {
@@ -19,7 +19,7 @@
         {
           "type": "path",
           "data": {
-            "pathName": "1P L2 Descore (1C)"
+            "pathName": "1P L2 Descore (1CL)"
           }
         },
         {
@@ -47,7 +47,7 @@
               {
                 "type": "path",
                 "data": {
-                  "pathName": "1P L2 Descore (2C)"
+                  "pathName": "1P L2 Descore (2CL)"
                 }
               },
               {
@@ -91,7 +91,7 @@
               {
                 "type": "path",
                 "data": {
-                  "pathName": "1P L2 Descore (3C)"
+                  "pathName": "1P L2 Descore (3CL)"
                 }
               },
               {
@@ -137,7 +137,25 @@
         {
           "type": "path",
           "data": {
-            "pathName": "1P L2 Descore (4C)"
+            "pathName": "1P L2 Descore (4CL)"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "Zero Elevator"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "1P L2 Descore (5CL)"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "Algae Outtake"
           }
         }
       ]

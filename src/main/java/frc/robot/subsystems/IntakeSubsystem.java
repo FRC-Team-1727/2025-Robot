@@ -25,6 +25,7 @@ import frc.robot.constants.OtherConstants.IntakeConstants;
 public class IntakeSubsystem extends SubsystemBase {
     private TalonFX intake = new TalonFX(IntakeConstants.kIntakeID);
     private TalonFX pivot = new TalonFX(IntakeConstants.kPivotID);
+    private boolean thresholdReached = false;
 
     public IntakeSubsystem() {
         Slot0Configs configs = new Slot0Configs();
@@ -48,12 +49,23 @@ public class IntakeSubsystem extends SubsystemBase {
         pivot.getConfigurator().apply(configs);
         pivot.setPosition(0);
 
+        pivot.setNeutralMode(NeutralModeValue.Coast);
+
         intake.getConfigurator().apply(configLimit);
         pivot.getConfigurator().apply(configLimit);
     }
 
     public void setSpeed(double speed) {
         intake.setControl(new DutyCycleOut(speed)); 
+    }
+    public void intakeSpeed(){
+        setSpeed(IntakeConstants.kCoralIntakeSpeed);
+    }
+    public void autoIntakeSpeed(){
+        setSpeed(IntakeConstants.kCoralIntakeSpeed);
+        if(getIntakeVelocity() < -35){
+            thresholdReached = true;
+        }
     }
 
     public void setPivot(double angle) {
@@ -90,6 +102,7 @@ public class IntakeSubsystem extends SubsystemBase {
     {
         SmartDashboard.putNumber("Pivot Angle", pivot.getPosition().getValueAsDouble());
         //   System.out.println("Pivot angle : " + pivot.getPosition().getValueAsDouble());
+        // System.out.println(intake.getVelocity().getValueAsDouble());
     }
     public void intakeBrakeMode(){
         intake.setNeutralMode(NeutralModeValue.Brake);
@@ -98,10 +111,25 @@ public class IntakeSubsystem extends SubsystemBase {
     public void intakeCoastMode(){
         intake.setNeutralMode(NeutralModeValue.Coast);
     }
+    public void pivotCoastMode(){
+        pivot.setNeutralMode(NeutralModeValue.Coast);
+    }
+    public void pivotBrakeMode(){
+        pivot.setNeutralMode(NeutralModeValue.Brake);
+    }
     public TalonFX getPivot(){
         return pivot;
     }
     public double getPivotVelocity(){
         return pivot.getVelocity().getValueAsDouble();
+    }
+    public double getIntakeVelocity(){
+        return intake.getVelocity().getValueAsDouble();
+    }
+    public boolean getThreshold(){
+        return thresholdReached;
+    }
+    public void clearThreshold(){
+        thresholdReached = false;
     }
 }
