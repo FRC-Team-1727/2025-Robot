@@ -23,11 +23,11 @@ public class AutoCoralIntakeCommand extends Command{
         m_IntakeSubsystem.autoIntakeSpeed();
     }
     public void end(boolean interrupted){
-        m_IntakeSubsystem.setSpeed(IntakeConstants.kPassiveIntakeSpeed);
+        m_IntakeSubsystem.setSpeed(IntakeConstants.kPassiveCoralIntakeSpeed);
         System.out.println("ended");
     }
     public boolean isFinished(){
-        return m_IntakeSubsystem.getIntakeVelocity() > -30 && m_IntakeSubsystem.getThreshold();
+        return m_IntakeSubsystem.getIntakeVelocity() > -42 && m_IntakeSubsystem.getThreshold();
     }
     
 }

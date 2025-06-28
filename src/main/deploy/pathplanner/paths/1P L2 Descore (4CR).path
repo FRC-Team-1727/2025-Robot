@@ -3,16 +3,16 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 5.981624999999999,
-        "y": 0.43699999999999933
+        "x": 5.91358695652174,
+        "y": 0.55
       },
       "prevControl": null,
       "nextControl": {
-        "x": 5.790864130434782,
-        "y": 0.6456447010869555
+        "x": 5.722826086956522,
+        "y": 0.7586447010869561
       },
       "isLocked": false,
-      "linkedName": null
+      "linkedName": "Processor"
     },
     {
       "anchor": {
@@ -48,7 +48,7 @@
   "folder": "1P L2 Descore Center (R)",
   "idealStartingState": {
     "velocity": 0,
-    "rotation": -90.44072807276096
+    "rotation": -90.43736386752076
   },
   "useDefaultConstraints": true
 }

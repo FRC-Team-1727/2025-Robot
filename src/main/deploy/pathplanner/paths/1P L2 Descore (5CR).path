@@ -32,16 +32,16 @@
     },
     {
       "anchor": {
-        "x": 5.991375000000001,
-        "y": 0.44674999999999954
+        "x": 5.91358695652174,
+        "y": 0.55
       },
       "prevControl": {
-        "x": 5.895994565217393,
-        "y": 1.2097934782608672
+        "x": 5.818206521739132,
+        "y": 1.3130434782608678
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "1P L2 Descore (3CR)"
+      "linkedName": "Processor"
     }
   ],
   "rotationTargets": [],
@@ -58,7 +58,7 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": -90.0
+    "rotation": -90.43736386752076
   },
   "reversed": false,
   "folder": "1P L2 Descore Center (R)",

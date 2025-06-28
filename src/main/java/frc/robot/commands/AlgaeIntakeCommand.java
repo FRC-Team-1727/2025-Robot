@@ -37,7 +37,7 @@ public class AlgaeIntakeCommand extends Command {
 
   @Override
   public void end(boolean interrupted) {
-    m_IntakeSubsystem.setSpeed(IntakeConstants.kPassiveIntakeSpeed);
+    m_IntakeSubsystem.setSpeed(IntakeConstants.kPassiveAlgaeIntakeSpeed);
     m_IntakeSubsystem.intakeBrakeMode();
   }
 

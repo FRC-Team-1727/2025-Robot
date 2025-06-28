@@ -50,7 +50,7 @@ public class AlgaeOuttakeCommand extends Command {
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    m_IntakeSubsystem.setSpeed(IntakeConstants.kPassiveIntakeSpeed);
+    m_IntakeSubsystem.setSpeed(IntakeConstants.kPassiveAlgaeIntakeSpeed);
     if(m_ElevatorSubsystem.getAlgaeLevel() == 2 || m_ElevatorSubsystem.getAlgaeLevel() == 3){
       m_ElevatorSubsystem.moveZeroPosition();
       m_ElevatorSubsystem.resetLevels();

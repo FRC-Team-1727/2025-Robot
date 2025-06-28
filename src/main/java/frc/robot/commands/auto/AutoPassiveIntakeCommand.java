@@ -11,13 +11,13 @@ public class AutoPassiveIntakeCommand extends Command{
         addRequirements(m_IntakeSubsystem);
     }
     public void initialize(){
-        m_IntakeSubsystem.setSpeed(IntakeConstants.kPassiveIntakeSpeed);
+        m_IntakeSubsystem.setSpeed(IntakeConstants.kPassiveCoralIntakeSpeed);
     }
     public void execute(){
-        m_IntakeSubsystem.setSpeed(IntakeConstants.kPassiveIntakeSpeed);
+        m_IntakeSubsystem.setSpeed(IntakeConstants.kPassiveCoralIntakeSpeed);
     }
     public void end(){
-        m_IntakeSubsystem.setSpeed(IntakeConstants.kPassiveIntakeSpeed);
+        m_IntakeSubsystem.setSpeed(IntakeConstants.kPassiveCoralIntakeSpeed);
     }
     public boolean isFinished(){
         return false;

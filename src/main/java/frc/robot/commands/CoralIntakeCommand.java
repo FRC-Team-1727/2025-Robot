@@ -27,16 +27,18 @@ public class CoralIntakeCommand extends Command {
     m_IntakeSubsystem.intakeCoastMode();
     m_IntakeSubsystem.setPivot(IntakeConstants.kCoralIntakeAngle);
     m_ElevatorSubsystem.setHeight(ElevatorConstants.kIntakeHeight);
+    // m_IntakeSubsystem.clearThreshold(); // for testing purposes
   }
 
   @Override
   public void execute() {
     m_IntakeSubsystem.intakeSpeed();
+    // m_IntakeSubsystem.autoIntakeSpeed(); //for testing purposes
   }
 
   @Override
   public void end(boolean interrupted) {
-    m_IntakeSubsystem.setSpeed(IntakeConstants.kPassiveIntakeSpeed);
+    m_IntakeSubsystem.setSpeed(IntakeConstants.kPassiveCoralIntakeSpeed);
     m_IntakeSubsystem.intakeBrakeMode();
     m_IntakeSubsystem.setPivot(IntakeConstants.kScoringAngle);
     m_ElevatorSubsystem.moveZeroPosition();
@@ -46,6 +48,8 @@ public class CoralIntakeCommand extends Command {
   @Override
   public boolean isFinished() {
     return false;
+    // return m_IntakeSubsystem.getIntakeVelocity() > -42 && m_IntakeSubsystem.getThreshold(); //for testing purposes
+
   }
 
 }

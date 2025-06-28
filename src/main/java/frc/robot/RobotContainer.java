@@ -67,9 +67,9 @@ public class RobotContainer {
         private final LEDSubsystem m_LedSubsystem = new LEDSubsystem();
         private final SendableChooser<Command> autoChooser;
 
-        private double MaxSpeed = TunerConstants.kSpeedAt12Volts.in(MetersPerSecond); // kSpeedAt12Volts desired top
+        private double MaxSpeed = TunerConstants.kSpeedAt12Volts.in(MetersPerSecond)*.5; // kSpeedAt12Volts desired top
                                                                                       // speed
-        private double MaxAngularRate = RotationsPerSecond.of(1).in(RadiansPerSecond); // 3/4 of a rotation per
+        private double MaxAngularRate = RotationsPerSecond.of(1).in(RadiansPerSecond)*.5; // 3/4 of a rotation per
                                                                                        // second
                                                                                        // max angular velocity
 
@@ -110,12 +110,14 @@ public class RobotContainer {
 
                 autoChooser.addOption("Test Descore", new PathPlannerAuto("Test Descore"));
                 autoChooser.addOption("1PL2 + 2PL3 Right Test", new PathPlannerAuto("1PL2 + 2PL3 Right Test"));
+                autoChooser.addOption("1PL2 + 2PL3 Left Test", new PathPlannerAuto("1PL2 + 2PL3 Left Test"));
 
                 // autoChooser.addOption("autoalign test", new PathPlannerAuto("3P L2"));
                 autoChooser.addOption("1PL2 + 2PL3 Right", new PathPlannerAuto("1PL2 + 2PL3 Right"));
                 autoChooser.addOption("1PL2 + 2PL3 Left", new PathPlannerAuto("1PL2 + 2PL3 Left"));
                 autoChooser.addOption("Center L2 descore algae", new PathPlannerAuto("1P L2 Descore Center"));
                 autoChooser.addOption("Center L2 to the right", new PathPlannerAuto("1P L2 Center to Right"));
+                autoChooser.addOption("Center L3 to the right", new PathPlannerAuto("1P L3 Center to Right"));
 
                 // autoChooser.addOption("L3 test", new PathPlannerAuto("L3 test"));
                 // autoChooser.addOption("TestMove", new PathPlannerAuto("TestMove"));
@@ -251,6 +253,7 @@ public class RobotContainer {
                 NamedCommands.registerCommand("Coral Outtake",
                                 new CoralOuttakeCommand(m_IntakeSubsystem, m_ElevatorSubsystem, m_LedSubsystem)
                                                 .withTimeout(.4));
+                NamedCommands.registerCommand("Only Outtake", m_IntakeSubsystem.coralOutakeCommand().withTimeout(.4));
                 NamedCommands.registerCommand("Coral Intake",
                                 new AutoCoralIntakeCommand(m_ElevatorSubsystem, m_IntakeSubsystem));
                 NamedCommands.registerCommand("Zero Elevator", m_ElevatorSubsystem.setCoralHeightCommand(0));
@@ -258,13 +261,13 @@ public class RobotContainer {
                                 new AutoPassiveIntakeCommand(m_IntakeSubsystem).withTimeout(0.001));
                 NamedCommands.registerCommand("Auto Align Left",
                                 new ThirdAutoAlign(drivetrain, Optional.of(LeftOrRight.LEFT), joystick, m_LedSubsystem)
-                                                .withTimeout(1.25));
+                                                .withTimeout(1.3));
                 NamedCommands.registerCommand("Auto Align Right",
                                 new ThirdAutoAlign(drivetrain, Optional.of(LeftOrRight.RIGHT), joystick, m_LedSubsystem)
-                                                .withTimeout(1.25));
+                                                .withTimeout(1.3));
                 NamedCommands.registerCommand("Auto Align Center",
                                 new ThirdAutoAlign(drivetrain, Optional.empty(), joystick, m_LedSubsystem)
-                                                .withTimeout(.75));
+                                                .withTimeout(.85));
                 NamedCommands.registerCommand("Descore Algae High Height",
                                 m_ElevatorSubsystem.setDescoreHighHeightCommand().alongWith(m_IntakeSubsystem
                                                 .setPivotCommand(IntakeConstants.kAlgaeHighIntakeAngle)));

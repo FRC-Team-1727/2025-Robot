@@ -4,7 +4,8 @@ import static edu.wpi.first.units.Units.*;
 
 import com.ctre.phoenix6.CANBus;
 import com.ctre.phoenix6.configs.*;
-import com.ctre.phoenix6.hardware.*;
+import com.ctre.phoenix6.hardware.
+*;
 import com.ctre.phoenix6.signals.*;
 import com.ctre.phoenix6.swerve.*;
 import com.ctre.phoenix6.swerve.SwerveModuleConstants.*;
@@ -159,8 +160,8 @@ public class TunerConstants {
     private static final Distance kBackLeftYPos = Inches.of(11.375);
 
     // Back Right
-    private static final int kBackRightDriveMotorId = 2;
-    private static final int kBackRightSteerMotorId = 1;
+    private static final int kBackRightDriveMotorId = 1;
+    private static final int kBackRightSteerMotorId = 2;
     private static final int kBackRightEncoderId = 1;
     private static final Angle kBackRightEncoderOffset = Rotations.of(0.316650390625);
     private static final boolean kBackRightSteerMotorInverted = true;

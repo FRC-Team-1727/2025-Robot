@@ -85,18 +85,18 @@ public class FieldConstants {
         REEF_ANGLES.put(11, new Rotation2d(Math.PI / 3));
 
 
-        Pose2d REEF_22_LEFT = new Pose2d(-0.413316298, -0.179135092, new Rotation2d(0));
-        Pose2d REEF_21_LEFT = new Pose2d(-0.413316298, -0.175266472, new Rotation2d(0));
-        Pose2d REEF_20_LEFT = new Pose2d(-0.413316298, -0.180639851, new Rotation2d(0));
-        Pose2d REEF_19_LEFT = new Pose2d(-0.413316298, -0.157337687, new Rotation2d(0));
-        Pose2d REEF_18_LEFT = new Pose2d(-0.413316298, -0.174102765, new Rotation2d(0));
-        Pose2d REEF_17_LEFT = new Pose2d(-0.413316298, -0.171540969, new Rotation2d(0));
-        Pose2d REEF_11_LEFT = new Pose2d(-0.413316298, -0.178314549, new Rotation2d(0));
-        Pose2d REEF_10_LEFT = new Pose2d(-0.413316298, -0.1760371243, new Rotation2d(0));
-        Pose2d REEF_9_LEFT = new Pose2d(-0.413316298, -0.1770691636, new Rotation2d(0));
-        Pose2d REEF_8_LEFT = new Pose2d(-0.413316298, -0.1717771571, new Rotation2d(0));
-        Pose2d REEF_7_LEFT = new Pose2d(-0.413316298, -0.1618994958, new Rotation2d(0));
-        Pose2d REEF_6_LEFT = new Pose2d(-0.413316298, -0.176257004, new Rotation2d(0));
+        Pose2d REEF_22_LEFT = new Pose2d(-0.453806810, -0.185988737, new Rotation2d(0));
+        Pose2d REEF_21_LEFT = new Pose2d(-0.414475637, -0.155664759, new Rotation2d(0));
+        Pose2d REEF_20_LEFT = new Pose2d(-0.414211147, -0.157637442, new Rotation2d(0));
+        Pose2d REEF_19_LEFT = new Pose2d(-0.415829251, -0.164104276, new Rotation2d(0));
+        Pose2d REEF_18_LEFT = new Pose2d(-0.413190868, -0.183519771, new Rotation2d(0));
+        Pose2d REEF_17_LEFT = new Pose2d(-0.414095375, -0.171540969, new Rotation2d(0));
+        Pose2d REEF_11_LEFT = new Pose2d(-0.415022686, -0.177844488, new Rotation2d(0));
+        Pose2d REEF_10_LEFT = new Pose2d(-0.415828777, -0.1610273677, new Rotation2d(0));
+        Pose2d REEF_9_LEFT = new Pose2d(-0.4137795535, -0.1685568259, new Rotation2d(0));
+        Pose2d REEF_8_LEFT = new Pose2d(-0.4144963204, -0.1795942466, new Rotation2d(0));
+        Pose2d REEF_7_LEFT = new Pose2d(-0.412848306, -0.1631717659, new Rotation2d(0));
+        Pose2d REEF_6_LEFT = new Pose2d(-0.413975518, -0.1774865167, new Rotation2d(0));
 
         REEF_ID_LEFT_LOCATIONS.put(22, REEF_22_LEFT);
         REEF_ID_LEFT_LOCATIONS.put(21, REEF_21_LEFT);
@@ -111,18 +111,18 @@ public class FieldConstants {
         REEF_ID_LEFT_LOCATIONS.put(7, REEF_7_LEFT);
         REEF_ID_LEFT_LOCATIONS.put(6, REEF_6_LEFT);
 
-        Pose2d REEF_22_RIGHT = new Pose2d(-0.413316298, 0.168650129, new Rotation2d(0));
-        Pose2d REEF_21_RIGHT = new Pose2d(-0.413316298, 0.193140985, new Rotation2d(0));
-        Pose2d REEF_20_RIGHT = new Pose2d(-0.413316298, 0.16904439854, new Rotation2d(0));
-        Pose2d REEF_19_RIGHT = new Pose2d(-0.413316298, 0.16796970683, new Rotation2d(0));
-        Pose2d REEF_18_RIGHT = new Pose2d(-0.413316298, 0.1672487537, new Rotation2d(0));
-        Pose2d REEF_17_RIGHT = new Pose2d(-0.413316298, 0.1590674526, new Rotation2d(0));
-        Pose2d REEF_11_RIGHT = new Pose2d(-0.413316298, 0.15882070464, new Rotation2d(0));
-        Pose2d REEF_10_RIGHT = new Pose2d(-0.413316298, 0.1633958809, new Rotation2d(0));
-        Pose2d REEF_9_RIGHT = new Pose2d(-0.413316298, 0.1655379628, new Rotation2d(0));
-        Pose2d REEF_8_RIGHT = new Pose2d(-0.413316298, 0.160331056, new Rotation2d(0));
-        Pose2d REEF_7_RIGHT = new Pose2d(-0.413316298, 0.16418094437, new Rotation2d(0));
-        Pose2d REEF_6_RIGHT = new Pose2d(-0.413316298, 0.1527978298, new Rotation2d(0));
+        Pose2d REEF_22_RIGHT = new Pose2d(-0.424301707, 0.179621061, new Rotation2d(0));
+        Pose2d REEF_21_RIGHT = new Pose2d(-0.389637075, 0.175958616, new Rotation2d(0));
+        Pose2d REEF_20_RIGHT = new Pose2d(-0.390062313, 0.167234918, new Rotation2d(0));
+        Pose2d REEF_19_RIGHT = new Pose2d(-0.391715733, 0.1667086624, new Rotation2d(0));
+        Pose2d REEF_18_RIGHT = new Pose2d(-0.389061295, 0.1613482324, new Rotation2d(0));
+        Pose2d REEF_17_RIGHT = new Pose2d(-0.389322961, 0.1692195865, new Rotation2d(0));
+        Pose2d REEF_11_RIGHT = new Pose2d(-0.391037851, 0.1682654144, new Rotation2d(0));
+        Pose2d REEF_10_RIGHT = new Pose2d(-0.390484055, 0.1774308478, new Rotation2d(0));
+        Pose2d REEF_9_RIGHT = new Pose2d(-0.390419736, 0.166420666, new Rotation2d(0));
+        Pose2d REEF_8_RIGHT = new Pose2d(-0.389664948, 0.17719904407, new Rotation2d(0));
+        Pose2d REEF_7_RIGHT = new Pose2d(-0.389618757, 0.1747919262, new Rotation2d(0));
+        Pose2d REEF_6_RIGHT = new Pose2d(-0.390316848, 0.1740693366, new Rotation2d(0));
         
         REEF_ID_RIGHT_LOCATIONS.put(22, REEF_22_RIGHT);
         REEF_ID_RIGHT_LOCATIONS.put(21, REEF_21_RIGHT);
@@ -137,18 +137,18 @@ public class FieldConstants {
         REEF_ID_RIGHT_LOCATIONS.put(7, REEF_7_RIGHT);
         REEF_ID_RIGHT_LOCATIONS.put(6, REEF_6_RIGHT);
 
-        Pose2d REEF_22_CENTER = new Pose2d(-0.343316298, 0, new Rotation2d(0));
-        Pose2d REEF_21_CENTER = new Pose2d(-0.343316298, 0, new Rotation2d(0));
-        Pose2d REEF_20_CENTER = new Pose2d(-0.343316298, 0, new Rotation2d(0));
-        Pose2d REEF_19_CENTER = new Pose2d(-0.343316298, 0, new Rotation2d(0));
-        Pose2d REEF_18_CENTER = new Pose2d(-0.343316298, 0, new Rotation2d(0));
-        Pose2d REEF_17_CENTER = new Pose2d(-0.343316298, 0, new Rotation2d(0));
-        Pose2d REEF_11_CENTER = new Pose2d(-0.343316298, 0, new Rotation2d(0));
-        Pose2d REEF_10_CENTER = new Pose2d(-0.343316298, 0, new Rotation2d(0));
-        Pose2d REEF_9_CENTER = new Pose2d(-0.343316298, 0, new Rotation2d(0));
-        Pose2d REEF_8_CENTER = new Pose2d(-0.343316298, 0, new Rotation2d(0));
-        Pose2d REEF_7_CENTER = new Pose2d(-0.343316298, 0, new Rotation2d(0));
-        Pose2d REEF_6_CENTER = new Pose2d(-0.343316298, 0, new Rotation2d(0));
+        Pose2d REEF_22_CENTER = new Pose2d(-0.367106994, 0, new Rotation2d(0));
+        Pose2d REEF_21_CENTER = new Pose2d(-0.367106994, 0, new Rotation2d(0));
+        Pose2d REEF_20_CENTER = new Pose2d(-0.367106994, 0, new Rotation2d(0));
+        Pose2d REEF_19_CENTER = new Pose2d(-0.367106994, 0, new Rotation2d(0));
+        Pose2d REEF_18_CENTER = new Pose2d(-0.367106994, 0, new Rotation2d(0));
+        Pose2d REEF_17_CENTER = new Pose2d(-0.367106994, 0, new Rotation2d(0));
+        Pose2d REEF_11_CENTER = new Pose2d(-0.367106994, 0, new Rotation2d(0));
+        Pose2d REEF_10_CENTER = new Pose2d(-0.367106994, 0, new Rotation2d(0));
+        Pose2d REEF_9_CENTER = new Pose2d(-0.367106994, 0, new Rotation2d(0));
+        Pose2d REEF_8_CENTER = new Pose2d(-0.367106994, 0, new Rotation2d(0));
+        Pose2d REEF_7_CENTER = new Pose2d(-0.367106994, 0, new Rotation2d(0));
+        Pose2d REEF_6_CENTER = new Pose2d(-0.367106994, 0, new Rotation2d(0));
 
         REEF_ID_CENTER_LOCATIONS.put(22, REEF_22_CENTER);
         REEF_ID_CENTER_LOCATIONS.put(21, REEF_21_CENTER);

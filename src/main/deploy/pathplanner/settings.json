@@ -4,13 +4,14 @@
   "holonomicMode": true,
   "pathFolders": [
     "1P L2 Descore Center (L)",
+    "1P L2 Descore Center (R)",
+    "1P L3 Descore Center (R)",
     "1PL2 + 2PL3 Left",
     "1PL2 + 2PL3 Right",
     "2P Algae",
     "4P L2 Left",
     "4P L2 Right",
-    "Blue Alliance",
-    "1P L2 Descore Center (R)"
+    "Blue Alliance"
   ],
   "autoFolders": [
     "Good Autos"

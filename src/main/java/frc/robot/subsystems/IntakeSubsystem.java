@@ -63,7 +63,7 @@ public class IntakeSubsystem extends SubsystemBase {
     }
     public void autoIntakeSpeed(){
         setSpeed(IntakeConstants.kCoralIntakeSpeed);
-        if(getIntakeVelocity() < -35){
+        if(getIntakeVelocity() < -45){
             thresholdReached = true;
         }
     }
@@ -83,7 +83,7 @@ public class IntakeSubsystem extends SubsystemBase {
     }
 
     public Command coralOutakeCommand(){
-        return this.runOnce(()-> setSpeed(IntakeConstants.kCoralOutTakeSpeed));
+        return this.run(()-> setSpeed(IntakeConstants.kCoralOutTakeSpeed));
     }
     public Command coralIntakeCommand(){
         return this.runOnce(()-> setSpeed(-IntakeConstants.kCoralOutTakeSpeed));
@@ -96,7 +96,7 @@ public class IntakeSubsystem extends SubsystemBase {
         return this.run(()-> setSpeed(IntakeConstants.kAlgaeDescoreSpeed));
     }
     public Command passiveIntakeCommand(){
-        return this.runOnce(() -> setSpeed(IntakeConstants.kPassiveIntakeSpeed));
+        return this.runOnce(() -> setSpeed(IntakeConstants.kPassiveCoralIntakeSpeed));
     }
     public void periodic()
     {

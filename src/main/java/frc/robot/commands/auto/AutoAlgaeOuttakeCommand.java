@@ -17,7 +17,7 @@ public class AutoAlgaeOuttakeCommand extends Command{
         m_IntakeSubsystem.setSpeed(IntakeConstants.kAlgaeLowOutTakeSpeed);
     }
     public void end(){
-        m_IntakeSubsystem.setSpeed(IntakeConstants.kPassiveIntakeSpeed);
+        m_IntakeSubsystem.setSpeed(IntakeConstants.kPassiveAlgaeIntakeSpeed);
     }
     public boolean isFinished(boolean interrupted){
         return false;

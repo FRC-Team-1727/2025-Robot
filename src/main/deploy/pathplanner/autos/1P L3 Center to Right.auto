@@ -5,12 +5,6 @@
     "data": {
       "commands": [
         {
-          "type": "wait",
-          "data": {
-            "waitTime": 3.0
-          }
-        },
-        {
           "type": "named",
           "data": {
             "name": "Passive Intake"
@@ -19,13 +13,13 @@
         {
           "type": "path",
           "data": {
-            "pathName": "1P L2 Descore (1CR)"
+            "pathName": "1P L3 Descore (1CR)"
           }
         },
         {
           "type": "named",
           "data": {
-            "name": "L2 height"
+            "name": "L3 height"
           }
         },
         {
@@ -37,13 +31,13 @@
         {
           "type": "named",
           "data": {
-            "name": "Coral Outtake"
+            "name": "Only Outtake"
           }
         },
         {
           "type": "path",
           "data": {
-            "pathName": "1P L2 Descore (2CR)"
+            "pathName": "1P L3 Descore (2CR)"
           }
         },
         {
@@ -53,19 +47,32 @@
           }
         },
         {
-          "type": "parallel",
+          "type": "sequential",
           "data": {
             "commands": [
               {
-                "type": "named",
+                "type": "parallel",
                 "data": {
-                  "name": "Descore Algae Low Height"
+                  "commands": [
+                    {
+                      "type": "named",
+                      "data": {
+                        "name": "Descore Algae Low Height"
+                      }
+                    },
+                    {
+                      "type": "named",
+                      "data": {
+                        "name": "Auto Align Center"
+                      }
+                    }
+                  ]
                 }
               },
               {
-                "type": "named",
+                "type": "wait",
                 "data": {
-                  "name": "Auto Align Center"
+                  "waitTime": 1.0
                 }
               }
             ]
@@ -88,7 +95,7 @@
                     {
                       "type": "wait",
                       "data": {
-                        "waitTime": 0.2
+                        "waitTime": 0.7
                       }
                     },
                     {

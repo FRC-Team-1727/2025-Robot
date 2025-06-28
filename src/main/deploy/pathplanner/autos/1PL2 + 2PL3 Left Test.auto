@@ -17,7 +17,7 @@
               {
                 "type": "path",
                 "data": {
-                  "pathName": "1PL2 + 2PL3 (1R)"
+                  "pathName": "1PL2 + 2PL3 (1L)"
                 }
               },
               {
@@ -27,7 +27,7 @@
                     {
                       "type": "wait",
                       "data": {
-                        "waitTime": 0.7
+                        "waitTime": 1.0
                       }
                     },
                     {
@@ -45,7 +45,7 @@
         {
           "type": "named",
           "data": {
-            "name": "Auto Align Right"
+            "name": "Auto Align Left"
           }
         },
         {
@@ -86,7 +86,7 @@
               {
                 "type": "path",
                 "data": {
-                  "pathName": "1PL2 + 2PL3 (3R)"
+                  "pathName": "1PL2 + 2PL3 (3L)"
                 }
               },
               {
@@ -96,7 +96,7 @@
                     {
                       "type": "wait",
                       "data": {
-                        "waitTime": 0.5
+                        "waitTime": 0.29
                       }
                     },
                     {
@@ -120,7 +120,7 @@
                     {
                       "type": "wait",
                       "data": {
-                        "waitTime": 1.2
+                        "waitTime": 1.4
                       }
                     },
                     {
@@ -148,7 +148,7 @@
               {
                 "type": "path",
                 "data": {
-                  "pathName": "1PL2 + 2PL3 (4R)"
+                  "pathName": "1PL2 + 2PL3 (4L)"
                 }
               },
               {
@@ -158,7 +158,7 @@
                     {
                       "type": "wait",
                       "data": {
-                        "waitTime": 0.3
+                        "waitTime": 0.28
                       }
                     },
                     {
@@ -170,101 +170,7 @@
                     {
                       "type": "wait",
                       "data": {
-                        "waitTime": 2.0
-                      }
-                    },
-                    {
-                      "type": "named",
-                      "data": {
-                        "name": "L3 height"
-                      }
-                    }
-                  ]
-                }
-              }
-            ]
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "Auto Align Right"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "Coral Outtake"
-          }
-        },
-        {
-          "type": "parallel",
-          "data": {
-            "commands": [
-              {
-                "type": "path",
-                "data": {
-                  "pathName": "1PL2 + 2PL3 (5R)"
-                }
-              },
-              {
-                "type": "sequential",
-                "data": {
-                  "commands": [
-                    {
-                      "type": "wait",
-                      "data": {
-                        "waitTime": 1.8
-                      }
-                    },
-                    {
-                      "type": "named",
-                      "data": {
-                        "name": "Coral Intake"
-                      }
-                    },
-                    {
-                      "type": "named",
-                      "data": {
-                        "name": "Passive Intake"
-                      }
-                    }
-                  ]
-                }
-              }
-            ]
-          }
-        },
-        {
-          "type": "parallel",
-          "data": {
-            "commands": [
-              {
-                "type": "path",
-                "data": {
-                  "pathName": "1PL2 + 2PL3 (6R)"
-                }
-              },
-              {
-                "type": "sequential",
-                "data": {
-                  "commands": [
-                    {
-                      "type": "wait",
-                      "data": {
-                        "waitTime": 0.2
-                      }
-                    },
-                    {
-                      "type": "named",
-                      "data": {
-                        "name": "Zero Elevator"
-                      }
-                    },
-                    {
-                      "type": "wait",
-                      "data": {
-                        "waitTime": 2.0
+                        "waitTime": 2.1
                       }
                     },
                     {
@@ -283,6 +189,112 @@
           "type": "named",
           "data": {
             "name": "Auto Align Left"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "Coral Outtake"
+          }
+        },
+        {
+          "type": "parallel",
+          "data": {
+            "commands": [
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "1PL2 + 2PL3 (5L)"
+                }
+              },
+              {
+                "type": "sequential",
+                "data": {
+                  "commands": [
+                    {
+                      "type": "wait",
+                      "data": {
+                        "waitTime": 0.34
+                      }
+                    },
+                    {
+                      "type": "named",
+                      "data": {
+                        "name": "Zero Elevator"
+                      }
+                    },
+                    {
+                      "type": "wait",
+                      "data": {
+                        "waitTime": 1.6
+                      }
+                    },
+                    {
+                      "type": "named",
+                      "data": {
+                        "name": "Coral Intake"
+                      }
+                    },
+                    {
+                      "type": "named",
+                      "data": {
+                        "name": "Passive Intake"
+                      }
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        },
+        {
+          "type": "parallel",
+          "data": {
+            "commands": [
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "1PL2 + 2PL3 (6L)"
+                }
+              },
+              {
+                "type": "sequential",
+                "data": {
+                  "commands": [
+                    {
+                      "type": "wait",
+                      "data": {
+                        "waitTime": 0.26
+                      }
+                    },
+                    {
+                      "type": "named",
+                      "data": {
+                        "name": "Zero Elevator"
+                      }
+                    },
+                    {
+                      "type": "wait",
+                      "data": {
+                        "waitTime": 2.1
+                      }
+                    },
+                    {
+                      "type": "named",
+                      "data": {
+                        "name": "L3 height"
+                      }
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "Auto Align Right"
           }
         },
         {
